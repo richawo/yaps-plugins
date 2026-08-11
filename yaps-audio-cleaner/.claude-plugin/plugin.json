@@ -1,0 +1,20 @@
+{
+  "name": "yaps-audio-cleaner",
+  "displayName": "Yaps Audio Cleaner",
+  "version": "0.1.10",
+  "description": "Remove background noise, hiss, and static from speech recordings locally with Yaps.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "audio-cleaner",
+    "denoise",
+    "speech",
+    "local-audio"
+  ]
+}

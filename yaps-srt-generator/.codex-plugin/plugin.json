@@ -1,0 +1,57 @@
+{
+  "name": "yaps-srt-generator",
+  "version": "0.1.9",
+  "description": "Generate subtitles and SRT captions from video or audio with Yaps.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai/codex?utm_source=codex&utm_medium=plugin&utm_campaign=official_plugins",
+  "repository": "https://github.com/richawo/yaps-codex-plugin",
+  "license": "MIT",
+  "keywords": [
+    "subtitle-generator",
+    "generate-subtitles",
+    "add-subtitles-to-video",
+    "video-to-subtitles",
+    "video-to-srt",
+    "generate-srt",
+    "subtitles",
+    "captions",
+    "caption-generator",
+    "closed-captions",
+    "video-subtitles",
+    "audio-subtitles",
+    "whisper"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Yaps Subtitle Generator",
+    "shortDescription": "Generate subtitles for videos",
+    "longDescription": "Generate subtitles, closed captions, or a timestamped SRT file from an existing video or audio file with Yaps desktop. The plugin checks app, sign-in, model, and FFmpeg readiness, preserves existing outputs, and reports the exact caption file Yaps generated. Requires a local-capable ChatGPT Desktop Work or Codex session; ChatGPT web and cloud sessions cannot reach the installed Yaps engine. Users can also run the feature directly in Yaps.",
+    "developerName": "Yaps AI",
+    "category": "Productivity",
+    "capabilities": [
+      "Generate video subtitles",
+      "Video to SRT",
+      "SRT subtitles",
+      "Timestamped captions",
+      "Closed captions",
+      "Local transcription",
+      "File export"
+    ],
+    "websiteURL": "https://www.yaps.ai/codex?utm_source=codex&utm_medium=plugin&utm_campaign=official_plugins",
+    "privacyPolicyURL": "https://www.yaps.ai/privacy",
+    "termsOfServiceURL": "https://www.yaps.ai/terms",
+    "defaultPrompt": [
+      "Generate subtitles for this video.",
+      "Convert this video to SRT captions.",
+      "Create closed captions for this audio file."
+    ],
+    "brandColor": "#D4775B",
+    "composerIcon": "./assets/yaps-icon.png",
+    "logo": "./assets/yaps-icon.png",
+    "logoDark": "./assets/yaps-icon.png"
+  }
+}
