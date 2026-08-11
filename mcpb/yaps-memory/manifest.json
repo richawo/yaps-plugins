@@ -1,0 +1,185 @@
+{
+  "manifest_version": "0.3",
+  "name": "yaps-memory",
+  "display_name": "Yaps Memory",
+  "version": "0.1.0",
+  "description": "Persistent private memory for Claude, stored as local Markdown you own.",
+  "long_description": "Yaps Memory turns the private, local Markdown vault managed by the Yaps desktop app into durable memory for Claude. Claude can remember facts, retrieve prior context, search your notes lexically and semantically, keep daily notes, manage tags and backlinks, and recover earlier versions of a note \u2014 all on your computer. This extension uploads nothing: it launches the vault connector that ships inside the installed Yaps app and talks to it locally over stdio. It starts read-only; note writes stay off until you enable them in Yaps \u2192 Settings \u2192 Agent Access. Requires the Yaps desktop app (version 2.3.124 or newer) from https://www.yaps.ai/download with a signed-in account \u2014 an active free trial or Yaps Pro both count.",
+  "author": {
+    "name": "Richard Awoyemi (Yaps AI)",
+    "email": "support@yaps.ai",
+    "url": "https://github.com/richawo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/richawo/yaps-plugins"
+  },
+  "homepage": "https://www.yaps.ai",
+  "support": "mailto:support@yaps.ai",
+  "license": "MIT",
+  "icon": "icon.png",
+  "privacy_policies": [
+    "https://www.yaps.ai/privacy"
+  ],
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "darwin",
+      "win32"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  },
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.mjs"
+      ],
+      "env": {
+        "YAPS_MCP_CLIENT_ID": "claude-code",
+        "YAPS_MCP_AUTO_AUTHORIZE_READ": "1",
+        "YAPS_CLI_BINARY": "${user_config.yaps_cli_path}",
+        "YAPS_PLUGIN_ID": "yaps-memory-desktop",
+        "YAPS_PLUGIN_VERSION": "0.1.0",
+        "YAPS_PLUGIN_HOST": "claude_desktop",
+        "YAPS_PLUGIN_TRANSPORT": "mcp"
+      }
+    }
+  },
+  "user_config": {
+    "yaps_cli_path": {
+      "type": "file",
+      "title": "Yaps CLI path (advanced)",
+      "description": "Optional override for the yaps_cli binary bundled inside the Yaps desktop app. Leave empty to let the extension find the installed app automatically.",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "yaps_status",
+      "description": "Check the local Yaps connector status and resolved settings path."
+    },
+    {
+      "name": "vault_status",
+      "description": "Get the resolved vault root plus the current note count."
+    },
+    {
+      "name": "vault_notes_list",
+      "description": "List vault notes with optional folder, tag, kind, source, pinned, or title filters."
+    },
+    {
+      "name": "vault_note_get",
+      "description": "Read one vault note by relative path."
+    },
+    {
+      "name": "vault_note_create",
+      "description": "Create a vault note with optional folder, tags, aliases, source, and metadata."
+    },
+    {
+      "name": "vault_note_update",
+      "description": "Update a vault note's markdown, metadata, tags, aliases, source, or pinned state."
+    },
+    {
+      "name": "vault_note_delete",
+      "description": "Delete a vault note by path; requires confirm=true."
+    },
+    {
+      "name": "vault_note_move",
+      "description": "Move a vault note from one relative path to another."
+    },
+    {
+      "name": "vault_note_rename",
+      "description": "Rename or move a vault note and optionally rewrite inbound wikilinks."
+    },
+    {
+      "name": "vault_search",
+      "description": "Search vault notes by query with optional folder, tag, kind, source, pinned, or title filters."
+    },
+    {
+      "name": "vault_search_semantic",
+      "description": "Hybrid lexical plus semantic search that finds notes related to the query even when the wording differs."
+    },
+    {
+      "name": "vault_open_daily_note",
+      "description": "Open or create today's daily note in the vault."
+    },
+    {
+      "name": "vault_create_from_template",
+      "description": "Create a vault note from a template in Templates/."
+    },
+    {
+      "name": "vault_note_history_list",
+      "description": "List filesystem snapshot history for a specific vault note path."
+    },
+    {
+      "name": "vault_note_history_restore",
+      "description": "Restore a vault note from a snapshot, replacing its current contents."
+    },
+    {
+      "name": "vault_note_toggle_pin",
+      "description": "Toggle a vault note's pinned state, or set it explicitly."
+    },
+    {
+      "name": "vault_folders_list",
+      "description": "List folders discovered from the vault filesystem and note paths."
+    },
+    {
+      "name": "vault_tags_list",
+      "description": "List tags across the vault with note counts."
+    },
+    {
+      "name": "vault_note_tags_add",
+      "description": "Add tags to a specific vault note."
+    },
+    {
+      "name": "vault_note_tags_remove",
+      "description": "Remove tags from a specific vault note."
+    },
+    {
+      "name": "vault_note_tags_replace",
+      "description": "Replace the full tag list on a specific vault note."
+    },
+    {
+      "name": "vault_tag_rename",
+      "description": "Rename a tag across every vault note."
+    },
+    {
+      "name": "vault_tag_delete",
+      "description": "Delete a tag from every vault note."
+    },
+    {
+      "name": "vault_mentions_list",
+      "description": "List notes that mention a specific term via text or explicit wikilinks."
+    },
+    {
+      "name": "vault_mention_terms_list",
+      "description": "List distinct explicit wikilink targets mentioned across the vault."
+    },
+    {
+      "name": "vault_backlinks",
+      "description": "Get backlinks and unlinked mentions for a vault note."
+    },
+    {
+      "name": "history_list",
+      "description": "List recent dictation, reading, and action history from the local Yaps store."
+    },
+    {
+      "name": "usage_get_local",
+      "description": "Get local Yaps usage statistics."
+    }
+  ],
+  "tools_generated": false,
+  "keywords": [
+    "memory",
+    "notes",
+    "markdown",
+    "local",
+    "private",
+    "vault",
+    "yaps"
+  ]
+}

@@ -1,0 +1,223 @@
+{
+  "manifest_version": "0.3",
+  "name": "yaps",
+  "display_name": "Yaps",
+  "version": "0.1.0",
+  "description": "Local transcription, meeting notes, captions, subtitles, voice, translation, and media tools powered by the Yaps desktop app.",
+  "long_description": "Bring the installed Yaps desktop app's on-device media engines into Claude Desktop. Every job runs locally on your computer through Yaps - nothing in this extension uploads your recordings, videos, images, or text anywhere.\n\n- **Transcription and subtitles**: transcribe audio or video to plain text, or generate timestamped .srt subtitle files.\n- **Meeting transcription**: speaker-labelled meeting transcripts you can correct, reassign, rename, merge, summarize, chapter, question, and export.\n- **Auto Captions**: build an editable caption project from a video, fix and restyle captions in chat, then burn them into a new MP4.\n- **Audio Cleaner**: remove background noise, hiss, and static from speech recordings.\n- **Voice**: synthesize text into WAV speech files with local Kokoro, Chatterbox, or multilingual Supertonic voices.\n- **Translation**: translate text, Markdown, plain-text, and SRT files entirely on-device.\n- **Media utilities**: extract a video's audio track, or cut an image's subject onto a transparent background.\n- **Dictation**: check system-wide voice typing readiness and recover recent dictations.\n\nRequires the free-to-download Yaps desktop app (https://www.yaps.ai/download, version 2.3.124 or newer) signed in with an active trial or Yaps Pro.",
+  "author": {
+    "name": "Richard Awoyemi (Yaps AI)",
+    "email": "support@yaps.ai",
+    "url": "https://github.com/richawo"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/richawo/yaps-plugins"
+  },
+  "homepage": "https://www.yaps.ai",
+  "support": "mailto:support@yaps.ai",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.mjs"
+      ],
+      "env": {
+        "YAPS_CLI_BINARY": "${user_config.yaps_cli_path}",
+        "YAPS_PLUGIN_ID": "yaps-desktop",
+        "YAPS_PLUGIN_VERSION": "0.1.0",
+        "YAPS_PLUGIN_HOST": "claude_desktop",
+        "YAPS_PLUGIN_TRANSPORT": "mcp"
+      }
+    }
+  },
+  "user_config": {
+    "yaps_cli_path": {
+      "type": "file",
+      "title": "Yaps CLI path (advanced)",
+      "description": "Custom path to yaps_cli for non-standard installs. Leave empty to auto-detect the installed Yaps app.",
+      "required": false
+    }
+  },
+  "tools": [
+    {
+      "name": "yaps_status",
+      "description": "Check Yaps install, version, account, and feature readiness."
+    },
+    {
+      "name": "yaps_enable_feature",
+      "description": "Install or enable one Yaps feature after the user asks."
+    },
+    {
+      "name": "transcribe_media",
+      "description": "Transcribe an audio or video file to plain text locally."
+    },
+    {
+      "name": "srt_generate",
+      "description": "Generate a timestamped .srt subtitle file from media locally."
+    },
+    {
+      "name": "captions_styles",
+      "description": "List the Yaps Auto Captions style templates."
+    },
+    {
+      "name": "captions_create",
+      "description": "Transcribe a video into an editable caption project."
+    },
+    {
+      "name": "captions_show",
+      "description": "Show a caption project's segments, timings, and text."
+    },
+    {
+      "name": "captions_correct",
+      "description": "Correct one caption segment's text."
+    },
+    {
+      "name": "captions_replace",
+      "description": "Find and replace text across every caption."
+    },
+    {
+      "name": "captions_split",
+      "description": "Split a caption segment at a timestamp."
+    },
+    {
+      "name": "captions_merge",
+      "description": "Merge a caption into its previous or next neighbour."
+    },
+    {
+      "name": "captions_set_style",
+      "description": "Change a caption project's style template."
+    },
+    {
+      "name": "captions_reset",
+      "description": "Rebuild all captions from the original transcript, discarding edits."
+    },
+    {
+      "name": "captions_render",
+      "description": "Burn the captions into a new MP4 locally."
+    },
+    {
+      "name": "captions_verify",
+      "description": "Probe a video and report whether captions can process it."
+    },
+    {
+      "name": "audio_clean",
+      "description": "Remove background noise from a speech recording locally."
+    },
+    {
+      "name": "image_remove_background",
+      "description": "Cut an image's subject onto a transparent PNG locally."
+    },
+    {
+      "name": "text_to_speech",
+      "description": "Synthesize text into a local WAV speech file."
+    },
+    {
+      "name": "tts_voices",
+      "description": "List installed Yaps reading voices and engines."
+    },
+    {
+      "name": "translate_text",
+      "description": "Translate text on-device with the Yaps translation engine."
+    },
+    {
+      "name": "translate_file",
+      "description": "Translate a Markdown, text, or SRT file on-device into a new file."
+    },
+    {
+      "name": "translate_languages",
+      "description": "List installed translation engines and supported languages."
+    },
+    {
+      "name": "video_extract_audio",
+      "description": "Extract a video's audio track to MP3, WAV, or M4A."
+    },
+    {
+      "name": "meeting_transcribe",
+      "description": "Transcribe a recording into a speaker-labelled meeting project."
+    },
+    {
+      "name": "meeting_show",
+      "description": "Show a meeting's segments, timestamps, speakers, and text."
+    },
+    {
+      "name": "meeting_speakers",
+      "description": "List a meeting's speakers with talk time and first lines."
+    },
+    {
+      "name": "meeting_summarize",
+      "description": "Build a structured on-device meeting recap."
+    },
+    {
+      "name": "meeting_chapters",
+      "description": "Show the timestamped chapters of a summarized meeting."
+    },
+    {
+      "name": "meeting_ask",
+      "description": "Ask a question of one meeting or all meetings, answered locally."
+    },
+    {
+      "name": "meeting_correct_segment",
+      "description": "Correct one meeting segment's text."
+    },
+    {
+      "name": "meeting_assign_segment",
+      "description": "Reassign a meeting segment to a different speaker."
+    },
+    {
+      "name": "meeting_rename_speaker",
+      "description": "Rename a speaker everywhere in a meeting."
+    },
+    {
+      "name": "meeting_add_speaker",
+      "description": "Add a speaker that diarization missed."
+    },
+    {
+      "name": "meeting_merge_speakers",
+      "description": "Fold speakers into one, rewriting affected segments."
+    },
+    {
+      "name": "meeting_export",
+      "description": "Export the corrected meeting transcript as Markdown."
+    },
+    {
+      "name": "dictation_status",
+      "description": "Check whether Yaps voice dictation is ready on this computer."
+    },
+    {
+      "name": "dictation_history_recover",
+      "description": "List recent Yaps dictations so one can be recovered."
+    }
+  ],
+  "tools_generated": false,
+  "keywords": [
+    "transcription",
+    "meeting",
+    "captions",
+    "subtitles",
+    "translation",
+    "text-to-speech",
+    "dictation",
+    "audio",
+    "video",
+    "local-first",
+    "privacy"
+  ],
+  "license": "MIT",
+  "privacy_policies": [
+    "https://www.yaps.ai/privacy"
+  ],
+  "compatibility": {
+    "claude_desktop": ">=0.10.0",
+    "platforms": [
+      "darwin",
+      "win32"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}

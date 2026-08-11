@@ -20,3 +20,13 @@ cpSync(
   source,
   join(pluginsRoot, "..", "extensions", "yaps-mcp", "bundle", "server", "yaps-cli-discovery.js"),
 );
+
+cpSync(
+  source,
+  join(pluginsRoot, "mcpb", "yaps-memory", "server", "yaps-cli-discovery.mjs"),
+);
+
+cpSync(
+  source,
+  join(pluginsRoot, "mcpb", "yaps", "server", "yaps-cli-discovery.mjs"),
+);
