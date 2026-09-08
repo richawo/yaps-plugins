@@ -116,6 +116,7 @@ test("thin launcher only sets host env and loads the in-plugin helper snapshot",
 test("copied helper is a snapshot of mcpb/yaps and stays inside the plugin root", () => {
   const snapshotFiles = [
     "index.mjs",
+    "tool-profiles.mjs",
     "yaps-runtime.mjs",
     "yaps-cli-discovery.mjs",
     "tools/captions.mjs",

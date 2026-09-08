@@ -7,6 +7,7 @@ import {
   ListToolsRequestSchema,
 } from "@modelcontextprotocol/sdk/types.js";
 import { YapsToolError, failure } from "./yaps-runtime.mjs";
+import { buildToolRegistry } from "./tool-profiles.mjs";
 import * as status from "./tools/status.mjs";
 import * as dictation from "./tools/dictation.mjs";
 import * as transcription from "./tools/transcription.mjs";
@@ -31,17 +32,10 @@ if (typeof cliOverride === "string" && (!cliOverride.trim() || cliOverride.inclu
 
 const MODULES = [status, dictation, transcription, captions, media, speech, translation, meeting, cut];
 
-const TOOLS = [];
-const HANDLERS = new Map();
-for (const module of MODULES) {
-  for (const definition of module.tools) {
-    TOOLS.push(definition);
-    HANDLERS.set(definition.name, module.handlers[definition.name]);
-  }
-}
+const { tools: TOOLS, handlers: HANDLERS } = buildToolRegistry(MODULES, process.env.YAPS_TOOL_PROFILE || "");
 
 const server = new Server(
-  { name: "yaps", title: "Yaps", version: VERSION },
+  { name: process.env.YAPS_PLUGIN_ID || "yaps", title: "Yaps", version: VERSION },
   {
     capabilities: { tools: {} },
     instructions:

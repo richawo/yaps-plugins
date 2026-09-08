@@ -1,11 +1,13 @@
 {
   "name": "@yaps-ai/cursor-plugin-runtime",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Local runtime for the single Yaps Cursor and Grok plugin",
   "license": "MIT",
   "type": "module",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "bin": {
     "yaps-plugin-media": "cursor/yaps/scripts/launch.mjs",
     "yaps-plugin-memory": "cursor/yaps/scripts/launch-memory.mjs"
@@ -19,5 +21,7 @@
     "cursor/yaps/README.md",
     "LICENSE"
   ],
-  "dependencies": { "@modelcontextprotocol/sdk": "1.30.0" }
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.30.0"
+  }
 }
