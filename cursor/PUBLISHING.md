@@ -4,7 +4,7 @@ Each repository contains one named skill and one MCP server. Users can install t
 
 ## Publishing status
 
-Checked 8 September 2026. All twelve public repositories are published. The directory accepted five submissions before returning "Too many plugin submissions in the last hour. Please try again later." Four have visible install links. Dictation was flagged for manual security review because its npx launch downloads executable code from a pinned GitHub archive. The reviewer found the inspected runtime legitimate, with appropriate skill boundaries and no install hooks or network exfiltration. Verification was requested for all five accepted submissions.
+Checked 8 September 2026. All twelve public repositories are published. The directory accepted five submissions before returning "Too many plugin submissions in the last hour. Please try again later." Four have visible install links. Dictation was flagged for manual security review because its npx launch downloads executable code from a pinned GitHub archive. The reviewer found the inspected runtime legitimate, with appropriate skill boundaries and no install hooks or network exfiltration. Verification was requested for all five accepted submissions. Those five listing payloads still use the original archive; the npm payload update was blocked by the same hourly quota at 22:35 UTC. A repository update does not automatically update the directory install payload.
 
 | Plugin repository | Cursor Directory |
 | --- | --- |
@@ -31,13 +31,13 @@ The directory MCP button transfers server configuration only. Users must also ad
 
 ## Runtime publication
 
-The current repositories pin runtime commit `189945737dce216c3d8112e86aa4da37786275df` using a codeload archive. Node.js 20+ and npm/npx are required. First startup needs GitHub and npm connectivity; no source checkout or Git installation is required.
+The public npm package [yaps-cursor-runtime@0.3.0](https://www.npmjs.com/package/yaps-cursor-runtime/v/0.3.0) is published. Anonymous registry metadata and the downloaded artifact matched the prepared SHA-512 integrity recorded in the submission state. All twelve repositories now use plugin version `0.1.1` and pin this exact npm version. The published package source is commit `abaffd3b1d8911fa8faafa85a176f5781c688d33`. Node.js 20+ and npm/npx are required; first startup needs npm connectivity. No source checkout or Git installation is required.
 
-The public npm artifact `yaps-cursor-runtime@0.3.0` is prepared to address the directory's distribution concern. It has not been published: publisher authorization is still required. Keep current install payloads on the working archive until the registry package has been published and anonymously installed successfully. Then use an exact version, regenerate all repositories, and update accepted listings to request a fresh review of the changed payload. Do not resubmit unchanged content to retry a security decision.
+The npm release addresses the distribution concern raised on Dictation. It does not establish directory approval. Update accepted listings to use their current `directory-component.json` and request review of the changed install payload when the hourly quota permits. Prioritize Dictation, then the seven missing listings, then the other four archive payloads. Do not resubmit unchanged content to retry a security decision.
 
 ## Validation boundaries
 
-The shared source suites passed 61 tests, covering runner diagnostics, finder behavior, tool profiles, configuration, and generated repositories. All twelve generated skills passed the skill validator. Direct macOS MCP initialization from the published archive passed for all twelve packages with no CLI path override. Eleven media readiness calls succeeded; Memory returned the expected Agent Access denial while Cursor read access remained disabled.
+The shared source suites passed 61 tests, covering runner diagnostics, finder behavior, tool profiles, configuration, and generated repositories. All twelve generated skills passed the skill validator. The npm reference and configuration changes passed 23 Cursor tests. A fresh cache with empty npm user/global configuration anonymously installed the published npm package, and direct macOS MCP initialization passed for all twelve packages with no CLI path override. Tool counts and workflow scopes matched the expected profiles. Eleven media readiness calls succeeded; Memory returned the expected Agent Access denial while Cursor read access remained disabled. This verifies package startup and permission preservation, not successful vault access.
 
 On installed Yaps 2.3.2421, direct MCP operations produced a WAV audio extraction, synthesized speech, a cleaned WAV, a transparent PNG from the public Yaps icon, a caption project, a rendered and verified captioned MP4, and a speaker-labelled transcript with a Markdown export from synthetic media. Dictation readiness and Auto Cut presets also succeeded. Earlier direct Auto Cut tests completed a separate MP4 export and verification. These checks do not constitute broad output-quality evaluation.
 
@@ -53,4 +53,4 @@ Update the shared helper source and its matching Cursor snapshot together. Valid
 node scripts/generate-cursor-standalone.mjs /path/to/the/twelve/checkouts
 ```
 
-Review and commit each generated repository. Do not maintain twelve independent helper forks. Preserve the distinct plugin IDs, scope profiles, Cursor Memory client identity, and disabled auto-authorization. After the hourly quota resets, resume only entries with no accepted listing URL, and record each actual result.
+Review and commit each generated repository. Do not maintain twelve independent helper forks. Preserve the distinct plugin IDs, scope profiles, Cursor Memory client identity, and disabled auto-authorization. The directory shares a five-per-hour scan quota across new submissions and changes to install payloads. After it resets, update existing listings in place or submit entries with no accepted listing URL, and record each actual result. Stop on a quota response and wait for the next window; never create duplicate listings or bypass review.

@@ -1,11 +1,16 @@
 {
-  "checkedAt": "2026-09-08T21:57:00Z",
-  "runtimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
+  "checkedAt": "2026-09-08T22:40:00Z",
+  "runtimeCommit": "abaffd3b1d8911fa8faafa85a176f5781c688d33",
   "npmPackage": {
     "name": "yaps-cursor-runtime",
     "version": "0.3.0",
-    "status": "prepared_not_published",
-    "blocker": "publisher_authorization_required"
+    "status": "published",
+    "url": "https://www.npmjs.com/package/yaps-cursor-runtime/v/0.3.0",
+    "integrity": "sha512-32vr3ScUKmT+U4Z7xM/8qYw4fut2svt9NzCA3Q03rF9NVIjR9nuQLcv5C9+JJubvTa5scMavVoTP1IVFps5YSA==",
+    "anonymousRegistryIntegrityVerified": true,
+    "anonymousMacOsMcpInitialization": "12_of_12_passed",
+    "mediaReadiness": "11_of_11_ready",
+    "memoryReadAccess": "denied_as_expected_by_existing_agent_access_policy"
   },
   "plugins": [
     {
@@ -15,7 +20,13 @@
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-dictation",
       "listingStatus": "manual_review_required",
-      "verificationRequested": true
+      "verificationRequested": true,
+      "repositoryCommit": "f0e3ce88169b294a6fbd5d96984ffed8fe8bcbc8",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
+      "npmListingUpdateStatus": "pending_hourly_quota"
     },
     {
       "id": "yaps-transcription",
@@ -24,7 +35,13 @@
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-transcription",
       "listingStatus": "install_link_available",
-      "verificationRequested": true
+      "verificationRequested": true,
+      "repositoryCommit": "34bb245c033b8954a9f6247c78e1906932d3f557",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
+      "npmListingUpdateStatus": "pending_hourly_quota"
     },
     {
       "id": "yaps-meeting-transcription",
@@ -33,7 +50,13 @@
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-meeting-notes",
       "listingStatus": "install_link_available",
-      "verificationRequested": true
+      "verificationRequested": true,
+      "repositoryCommit": "24eb4ab933f04e032f70f3027574398eb3a615fd",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
+      "npmListingUpdateStatus": "pending_hourly_quota"
     },
     {
       "id": "yaps-text-to-speech",
@@ -42,7 +65,13 @@
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-text-to-speech",
       "listingStatus": "install_link_available",
-      "verificationRequested": true
+      "verificationRequested": true,
+      "repositoryCommit": "9ce748315d3d73c11a605e08addc64b325af9c43",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
+      "npmListingUpdateStatus": "pending_hourly_quota"
     },
     {
       "id": "yaps-background-removal",
@@ -51,7 +80,13 @@
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-background-removal",
       "listingStatus": "install_link_available",
-      "verificationRequested": true
+      "verificationRequested": true,
+      "repositoryCommit": "0c25407caa547d3f05c56a5bd0a8322fca0201a4",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
+      "npmListingUpdateStatus": "pending_hourly_quota"
     },
     {
       "id": "yaps-audio-cleaner",
@@ -60,7 +95,13 @@
       "repositoryStatus": "published",
       "listingUrl": null,
       "listingStatus": "submission_rate_limited",
-      "verificationRequested": false
+      "verificationRequested": false,
+      "repositoryCommit": "57a8ee94933557f727d829ac434170d988c846b5",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "not_submitted"
     },
     {
       "id": "yaps-auto-captions",
@@ -69,7 +110,13 @@
       "repositoryStatus": "published",
       "listingUrl": null,
       "listingStatus": "submission_rate_limited",
-      "verificationRequested": false
+      "verificationRequested": false,
+      "repositoryCommit": "34e8e5cdb8bad061c80c309e45738eccf464f5f9",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "not_submitted"
     },
     {
       "id": "yaps-srt-generator",
@@ -78,7 +125,13 @@
       "repositoryStatus": "published",
       "listingUrl": null,
       "listingStatus": "submission_rate_limited",
-      "verificationRequested": false
+      "verificationRequested": false,
+      "repositoryCommit": "fa6abf1a84bbe5b0cfdac5eb3d3908427644e70e",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "not_submitted"
     },
     {
       "id": "yaps-translation",
@@ -87,7 +140,13 @@
       "repositoryStatus": "published",
       "listingUrl": null,
       "listingStatus": "submission_rate_limited",
-      "verificationRequested": false
+      "verificationRequested": false,
+      "repositoryCommit": "113eac0215e5844ae00b737f9045d0354294fcee",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "not_submitted"
     },
     {
       "id": "yaps-video-to-audio",
@@ -96,7 +155,13 @@
       "repositoryStatus": "published",
       "listingUrl": null,
       "listingStatus": "submission_rate_limited",
-      "verificationRequested": false
+      "verificationRequested": false,
+      "repositoryCommit": "f6074f216011798c655c645df32923d7fef496d9",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "not_submitted"
     },
     {
       "id": "yaps-video-clipping",
@@ -105,7 +170,13 @@
       "repositoryStatus": "published",
       "listingUrl": null,
       "listingStatus": "submission_rate_limited",
-      "verificationRequested": false
+      "verificationRequested": false,
+      "repositoryCommit": "35aac9140074608ebde68e090a30e3f7fe256490",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "not_submitted"
     },
     {
       "id": "yaps-memory",
@@ -114,7 +185,20 @@
       "repositoryStatus": "published",
       "listingUrl": null,
       "listingStatus": "submission_rate_limited",
-      "verificationRequested": false
+      "verificationRequested": false,
+      "repositoryCommit": "6552198e7c8bc878639bb88bf44bd60025dcc2f8",
+      "repositoryVersion": "0.1.1",
+      "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimePackage": null,
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "not_submitted"
     }
-  ]
+  ],
+  "runtimePackage": "yaps-cursor-runtime@0.3.0",
+  "repositoryVersion": "0.1.1",
+  "directoryQuota": {
+    "scope": "create_and_install_payload_updates",
+    "requestsPerHour": 5,
+    "lastBlockedAt": "2026-09-08T22:35:00Z"
+  }
 }
