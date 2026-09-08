@@ -9,6 +9,7 @@ import test from "node:test";
 import {
   applyResolvedSettings,
   authStatusSafetyForVersion,
+  classifyCliResolutionFailure,
   cliCandidates,
   commandRequiresActiveAccount,
   connectorCandidates,
@@ -108,6 +109,31 @@ test("Windows uses the verified per-machine install and never Local AppData", ()
     "C:\\Program Files (x86)\\Yaps\\yaps_cli.exe",
   ]);
   assert.equal(paths.some((path) => /AppData/i.test(path)), false);
+});
+
+test("Windows leftover-only skip-stale stays a distinct stale signal, not a find-CLI miss", async () => {
+  const stale = "C:\\Program Files\\Yaps\\yaps_cli.exe";
+  const session = await resolveYapsSession({
+    platform: "win32",
+    env: {
+      USERPROFILE: "C:\\Users\\tester",
+      PATH: "",
+      ProgramFiles: "C:\\Program Files",
+    },
+    runningExecutables: [],
+    canAccess: (candidate) => candidate === stale,
+    probe: validProbe,
+    readAppVersion: async () => "2.1.4",
+  });
+  assert.equal(session.path, null);
+  assert.equal(session.source, null);
+  assert.equal(session.authStatusSafety, "unsafe");
+  assert.ok(session.rejected.some((entry) => entry.source === "installed_app" && entry.reason === "stale_cli"));
+  const failure = classifyCliResolutionFailure(session);
+  assert.equal(failure.code, "account_status_unsafe");
+  assert.equal(failure.exitCode, 78);
+  assert.notEqual(failure.code, "local_yaps_unreachable");
+  assert.notEqual(diagnoseConnection({ cli: session }).code, "cli_missing");
 });
 
 test("Windows prefers a running portable sidecar before Program Files when YAPS_CLI_BINARY is unset", async () => {
@@ -706,10 +732,30 @@ test("diagnosis distinguishes CLI discovery from the private-vault connector", (
   assert.equal(missing.code, "cli_missing");
   assert.match(missing.message, /included with Yaps/i);
   assert.match(missing.message, /no separate CLI or PATH setup/i);
+  const missingFailure = classifyCliResolutionFailure({ path: null, rejected: [] });
+  assert.equal(missingFailure.code, "local_yaps_unreachable");
+  assert.equal(missingFailure.exitCode, 127);
 
   const invalid = diagnoseConnection({ cli: { path: null, rejected: [{ source: "override", reason: "invalid_status" }] } });
   assert.equal(invalid.code, "cli_invalid");
   assert.match(invalid.message, /YAPS_CLI_BINARY/);
+  const invalidFailure = classifyCliResolutionFailure({ path: null, rejected: [{ source: "override", reason: "invalid_status" }] });
+  assert.equal(invalidFailure.code, "local_yaps_unreachable");
+  assert.equal(invalidFailure.exitCode, 127);
+
+  const leftoverOnly = diagnoseConnection({
+    cli: { path: null, rejected: [{ source: "installed_app", reason: "stale_cli" }] },
+  });
+  assert.equal(leftoverOnly.code, "account_status_unsafe");
+  assert.notEqual(leftoverOnly.code, "cli_missing");
+  assert.notEqual(leftoverOnly.code, "cli_invalid");
+  const leftoverFailure = classifyCliResolutionFailure({
+    path: null,
+    rejected: [{ source: "installed_app", reason: "stale_cli" }],
+  });
+  assert.equal(leftoverFailure.code, "account_status_unsafe");
+  assert.equal(leftoverFailure.exitCode, 78);
+  assert.notEqual(leftoverFailure.code, "local_yaps_unreachable");
 
   const connector = diagnoseConnection({ cli: { path: "/Applications/Yaps.app/Contents/MacOS/yaps_cli" }, connector: { path: null }, needsConnector: true });
   assert.equal(connector.code, "vault_connector_unavailable");
@@ -727,6 +773,7 @@ test("all shipped plugin copies are generated from the shared runtime", () => {
       "standalone MCP bundle discovery drifted",
     );
   }
+  const referenceRunner = readFileSync(join(pluginsRoot, "yaps-memory", "scripts", "yaps-plugin-runner.mjs"), "utf8");
   for (const relative of [
     "mcpb/yaps/server/yaps-cli-discovery.mjs",
     "mcpb/yaps-memory/server/yaps-cli-discovery.mjs",
@@ -740,5 +787,6 @@ test("all shipped plugin copies are generated from the shared runtime", () => {
   for (const entry of readdirSync(pluginsRoot, { withFileTypes: true })) {
     if (!entry.isDirectory() || !entry.name.startsWith("yaps-")) continue;
     assert.equal(readFileSync(join(pluginsRoot, entry.name, "scripts", "yaps-cli-discovery.mjs"), "utf8"), shared, `${entry.name} discovery drifted`);
+    assert.equal(readFileSync(join(pluginsRoot, entry.name, "scripts", "yaps-plugin-runner.mjs"), "utf8"), referenceRunner, `${entry.name} runner drifted`);
   }
 });
