@@ -725,6 +725,31 @@ test("account diagnosis distinguishes signed-out, paid/trial expiry, and cache r
   });
   assert.doesNotMatch(notAttempted.message, /opened|could not safely open/i);
   assert.equal(diagnoseAccount({ appVersion: "2.3.123", authStatusSafety: "unsafe", auth: null }).code, "account_status_unsafe");
+  assert.equal(diagnoseAccount({
+    path: "/Users/tester/.local/bin/yaps.exe",
+    authStatusSafety: "unsafe",
+    auth: null,
+    rejected: [{ source: "installed_app", reason: "stale_cli" }],
+  }).code, "account_status_unsafe");
+});
+
+test("a bound unknown CLI stays unverified even when rejected includes a leftover stale helper", () => {
+  const boundUnknown = diagnoseAccount({
+    path: "C:\\Users\\tester\\.local\\bin\\yaps.exe",
+    authStatusSafety: "unknown",
+    auth: null,
+    rejected: [{ source: "installed_app", reason: "stale_cli" }],
+  });
+  assert.equal(boundUnknown.code, "account_status_unverified");
+  assert.notEqual(boundUnknown.code, "account_status_unsafe");
+
+  const noPathStale = diagnoseAccount({
+    path: null,
+    auth: null,
+    rejected: [{ source: "installed_app", reason: "stale_cli" }],
+  });
+  assert.equal(noPathStale.code, "account_status_unsafe");
+  assert.notEqual(noPathStale.code, "account_status_unverified");
 });
 
 test("diagnosis distinguishes CLI discovery from the private-vault connector", () => {
