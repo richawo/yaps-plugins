@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { dirname, isAbsolute, join, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 
@@ -77,22 +77,58 @@ test("MCP config points at the thin launcher and leaves YAPS_CLI_BINARY unset", 
   });
 });
 
-test("thin launcher only sets host env and loads the existing server", () => {
+test("thin launcher only sets host env and loads the in-plugin helper snapshot", () => {
   const launcher = readFileSync(join(pluginRoot, "scripts/launch.mjs"), "utf8");
   assert.match(launcher, /YAPS_PLUGIN_HOST/);
   assert.match(launcher, /cursor/);
-  assert.match(launcher, /"mcpb"/);
-  assert.match(launcher, /"yaps"/);
-  assert.match(launcher, /"server"/);
+  assert.match(launcher, /"helper"/);
   assert.match(launcher, /"index\.mjs"/);
   assert.match(launcher, /Leave YAPS_CLI_BINARY unset/);
   assert.doesNotMatch(launcher, /@modelcontextprotocol\/sdk/);
   assert.doesNotMatch(launcher, /ListToolsRequestSchema/);
   assert.doesNotMatch(launcher, /CallToolRequestSchema/);
   assert.doesNotMatch(launcher, /new Server\b/);
-  const resolvedServer = join(pluginRoot, "scripts", "..", "..", "..", "mcpb", "yaps", "server", "index.mjs");
+  assert.doesNotMatch(launcher, /"mcpb"/);
+  assert.doesNotMatch(launcher, /["']\.\.["']\s*,\s*["']\.\.["']/);
+
+  const resolvedServer = resolve(pluginRoot, "scripts", "..", "helper", "index.mjs");
   assert.equal(existsSync(resolvedServer), true);
-  assert.equal(resolve(resolvedServer), join(repoRoot, "mcpb/yaps/server/index.mjs"));
+  assert.equal(resolvedServer, join(pluginRoot, "helper/index.mjs"));
+  assert.equal(relative(pluginRoot, resolvedServer).startsWith(".."), false);
+  assert.equal(existsSync(join(pluginRoot, "scripts/launch.mjs")), true);
+});
+
+test("copied helper is a snapshot of mcpb/yaps and stays inside the plugin root", () => {
+  const snapshotFiles = [
+    "index.mjs",
+    "yaps-runtime.mjs",
+    "yaps-cli-discovery.mjs",
+    "tools/captions.mjs",
+    "tools/dictation.mjs",
+    "tools/media.mjs",
+    "tools/meeting.mjs",
+    "tools/speech.mjs",
+    "tools/status.mjs",
+    "tools/transcription.mjs",
+    "tools/translation.mjs",
+  ];
+
+  for (const file of snapshotFiles) {
+    const copied = join(pluginRoot, "helper", file);
+    const source = join(repoRoot, "mcpb/yaps/server", file);
+    assert.equal(existsSync(copied), true, `missing snapshot ${file}`);
+    assert.equal(readFileSync(copied, "utf8"), readFileSync(source, "utf8"), `rewritten snapshot ${file}`);
+    assert.equal(relative(pluginRoot, copied).startsWith(".."), false);
+  }
+
+  const pluginPackage = readJson("package.json");
+  const sourcePackage = JSON.parse(readFileSync(join(repoRoot, "mcpb/yaps/package.json"), "utf8"));
+  assert.equal(pluginPackage.type, "module");
+  assert.equal(
+    pluginPackage.dependencies["@modelcontextprotocol/sdk"],
+    sourcePackage.dependencies["@modelcontextprotocol/sdk"],
+  );
+  assert.deepEqual(Object.keys(pluginPackage.dependencies), ["@modelcontextprotocol/sdk"]);
 });
 
 test("repo marketplace catalog points at cursor/yaps and is not a public listing", () => {

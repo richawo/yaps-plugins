@@ -8,11 +8,13 @@ This plugin is **not submitted** to [cursor.com/marketplace/publish](https://cur
 
 First-connect on Windows (`local_yaps_unreachable`, ticket 2629) is still the marketplace submit gate. This wrapper does not change finder logic and does not claim that find-the-app is fixed.
 
+The helper under this plugin root (`helper/`) is a publish snapshot of `mcpb/yaps`; listing is still not submitted; first-connect (ticket 2629) remains the submit gate.
+
 ## Requirements
 
 - The [Yaps desktop app](https://www.yaps.ai/download) installed on this computer (macOS, Windows, or the official Linux package). Yaps 2.3.124 or newer is required for credential-free account checks.
 - A local Cursor session on the same machine. Cloud or remote agents cannot reach the installed app.
-- Node.js 18+ to launch the existing helper. From a git checkout, run `npm install` in `mcpb/yaps` so `@modelcontextprotocol/sdk` is available to that server.
+- Node.js 18+ to launch the existing helper. From a git checkout, run `npm install` in `cursor/yaps` so `@modelcontextprotocol/sdk` is available to the in-plugin snapshot.
 
 Leave `YAPS_CLI_BINARY` unset so the existing discovery finds the installed app (same as Codex CASE2).
 
@@ -28,7 +30,7 @@ If the tools report `local_yaps_unreachable`, the session cannot see the Yaps en
 
 ## What it reuses
 
-`scripts/launch.mjs` only sets `YAPS_PLUGIN_HOST=cursor` plus plugin id/version/transport, then imports `mcpb/yaps/server/index.mjs`. Tools stay the ones that helper already exposes: dictation, transcription, speech/read-aloud, notes/meeting, and status.
+`scripts/launch.mjs` only sets `YAPS_PLUGIN_HOST=cursor` plus plugin id/version/transport, then imports `helper/index.mjs`. Tools stay the ones that helper already exposes: dictation, transcription, speech/read-aloud, notes/meeting, and status.
 
 Skills (`dictation`, `notes`, `transcribe`, `read-aloud`) tell the agent to use those tools. They do not invent commands.
 
