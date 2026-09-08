@@ -5,7 +5,7 @@
     "name": "yaps-cursor-runtime",
     "version": "0.3.0",
     "status": "prepared_not_published",
-    "blocker": "npm_login_required"
+    "blocker": "publisher_authorization_required"
   },
   "plugins": [
     {
