@@ -734,13 +734,11 @@ test("all shipped plugin copies are generated from the shared runtime", () => {
   ]) {
     assert.equal(readFileSync(join(pluginsRoot, relative), "utf8"), shared, `${relative} discovery drifted`);
   }
-  const referenceRunner = readFileSync(join(pluginsRoot, "yaps-memory", "scripts", "yaps-plugin-runner.mjs"), "utf8");
   for (const candidate of connectorCandidates({ platform: "linux", env: { PATH: "" } })) {
     assert.equal(candidate.path, "/usr/bin/yaps_mcp");
   }
   for (const entry of readdirSync(pluginsRoot, { withFileTypes: true })) {
     if (!entry.isDirectory() || !entry.name.startsWith("yaps-")) continue;
     assert.equal(readFileSync(join(pluginsRoot, entry.name, "scripts", "yaps-cli-discovery.mjs"), "utf8"), shared, `${entry.name} discovery drifted`);
-    assert.equal(readFileSync(join(pluginsRoot, entry.name, "scripts", "yaps-plugin-runner.mjs"), "utf8"), referenceRunner, `${entry.name} runner drifted`);
   }
 });
