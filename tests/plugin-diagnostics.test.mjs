@@ -9,6 +9,9 @@ import test from "node:test";
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const runner = join(repositoryRoot, "yaps-dictation", "scripts", "yaps-plugin-runner.mjs");
 const ownerKey = "a".repeat(64);
+const skipMacAppExecutableFixture = process.platform !== "darwin"
+  ? "uses a macOS app bundle with a POSIX shebang executable fixture"
+  : false;
 
 function run(root, action, script, { host = "codex_plugin", runnerPath = runner } = {}) {
   return spawnSync(
@@ -216,7 +219,9 @@ test("runner fails closed when Yaps has not supplied an owner marker", () => {
   }
 });
 
-test("runner applies automatic settings recovery without exposing auth data", () => {
+test("runner applies automatic settings recovery without exposing auth data", {
+  skip: skipMacAppExecutableFixture,
+}, () => {
   const root = mkdtempSync(join(tmpdir(), "yaps-plugin-session-"));
   const application = join(root, "Yaps.app");
   const cli = join(application, "Contents", "MacOS", "yaps_cli");
@@ -272,7 +277,9 @@ if (args[0] === "status") {
   }
 });
 
-test("runner flexes trial, Yaps Pro, and inactive desktop account states safely", () => {
+test("runner flexes trial, Yaps Pro, and inactive desktop account states safely", {
+  skip: skipMacAppExecutableFixture,
+}, () => {
   const root = mkdtempSync(join(tmpdir(), "yaps-plugin-account-gate-"));
   const application = join(root, "Yaps.app");
   const cli = join(application, "Contents", "MacOS", "yaps_cli");
