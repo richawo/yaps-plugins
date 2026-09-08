@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const pluginRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(pluginRoot, "..", "..");
 const kebabName = /^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/;
-const expectedSkills = ["audio-cleaner", "auto-captions", "background-removal", "dictation", "notes", "read-aloud", "srt-generator", "transcribe", "translation", "video-to-audio"];
+const expectedSkills = ["audio-cleaner", "auto-captions", "background-removal", "dictation", "notes", "read-aloud", "srt-generator", "transcribe", "translation", "video-clipping", "video-to-audio"];
 
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(pluginRoot, relativePath), "utf8"));
@@ -104,6 +104,7 @@ test("copied helper is a snapshot of mcpb/yaps and stays inside the plugin root"
     "yaps-runtime.mjs",
     "yaps-cli-discovery.mjs",
     "tools/captions.mjs",
+    "tools/cut.mjs",
     "tools/dictation.mjs",
     "tools/media.mjs",
     "tools/meeting.mjs",

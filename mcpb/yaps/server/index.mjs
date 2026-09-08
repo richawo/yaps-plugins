@@ -15,6 +15,7 @@ import * as media from "./tools/media.mjs";
 import * as speech from "./tools/speech.mjs";
 import * as translation from "./tools/translation.mjs";
 import * as meeting from "./tools/meeting.mjs";
+import * as cut from "./tools/cut.mjs";
 
 const VERSION = process.env.YAPS_PLUGIN_VERSION || "0.1.0";
 
@@ -28,7 +29,7 @@ if (typeof cliOverride === "string" && (!cliOverride.trim() || cliOverride.inclu
   delete process.env.YAPS_CLI_BINARY;
 }
 
-const MODULES = [status, dictation, transcription, captions, media, speech, translation, meeting];
+const MODULES = [status, dictation, transcription, captions, media, speech, translation, meeting, cut];
 
 const TOOLS = [];
 const HANDLERS = new Map();
