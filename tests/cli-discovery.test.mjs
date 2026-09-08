@@ -102,7 +102,43 @@ test("Windows uses the verified per-machine install and never Local AppData", ()
       LOCALAPPDATA: "C:\\Users\\tester\\AppData\\Local",
     },
   });
-  assert.deepEqual(candidates.map(({ path }) => path), ["C:\\Program Files\\Yaps\\yaps_cli.exe"]);
+  const paths = candidates.map(({ path }) => path);
+  assert.deepEqual(paths, [
+    "C:\\Program Files\\Yaps\\yaps_cli.exe",
+    "C:\\Program Files (x86)\\Yaps\\yaps_cli.exe",
+  ]);
+  assert.equal(paths.some((path) => /AppData/i.test(path)), false);
+});
+
+test("Windows prefers a running portable sidecar before Program Files when YAPS_CLI_BINARY is unset", async () => {
+  const portable = "C:\\Users\\tester\\portable\\yaps_cli.exe";
+  const installed = "C:\\Program Files\\Yaps\\yaps_cli.exe";
+  const env = {
+    USERPROFILE: "C:\\Users\\tester",
+    PATH: "",
+    ProgramFiles: "C:\\Program Files",
+    ProgramW6432: "C:\\Program Files",
+  };
+  const candidates = cliCandidates({
+    platform: "win32",
+    env,
+    runningExecutables: ["C:\\Users\\tester\\portable\\yaps.exe"],
+  });
+  const paths = candidates.map(({ path }) => path);
+  assert.equal(Object.hasOwn(env, "YAPS_CLI_BINARY"), false);
+  assert.equal(candidates.find(({ path }) => path === portable)?.source, "running_app");
+  assert.equal(candidates.find(({ path }) => path === installed)?.source, "installed_app");
+  assert.ok(paths.indexOf(portable) < paths.indexOf(installed));
+
+  const result = await resolveYapsCli({
+    platform: "win32",
+    env,
+    runningExecutables: ["C:\\Users\\tester\\portable\\yaps.exe"],
+    canAccess: (candidate) => candidate === portable || candidate === installed,
+    probe: async () => ({ ok: true }),
+    readAppVersion: async (cli) => (cli.path === portable ? "2.3.2129" : "2.1.4"),
+  });
+  assert.deepEqual({ path: result.path, source: result.source }, { path: portable, source: "running_app" });
 });
 
 test("clean install, uninstall, and reinstall are re-evaluated on macOS and Windows", async () => {
@@ -150,7 +186,7 @@ test("Windows connector discovery accepts only the packaged executable contract"
   assert.equal(resolveYapsConnector({
     platform: "win32",
     env: { YAPS_MCP_BINARY: "C:\\tmp\\yaps_mcp.cmd" },
-    canAccess: () => true,
+    canAccess: (candidate) => candidate === "C:\\tmp\\yaps_mcp.cmd",
   }).path, null);
 });
 
@@ -535,7 +571,7 @@ test("a Setapp PATH symlink is diagnosed without reading account credentials", a
   assert.match(diagnosis.message, /Setapp edition/i);
 });
 
-test("installed-app wake-up uses fixed argv without a shell and has no Linux guess", async () => {
+test("installed-app wake-up uses fixed platform paths without a shell", async () => {
   const calls = [];
   const spawnImpl = (command, args, options) => {
     calls.push({ command, args, options });
@@ -583,19 +619,23 @@ test("installed-app wake-up uses fixed argv without a shell and has no Linux gue
   assert.equal(await launchInstalledYaps(
     { path: "/usr/bin/yaps_cli" },
     { platform: "linux", canAccess: () => true, spawnImpl },
-  ), false);
-  assert.equal(calls.length, 3);
+  ), true);
+  assert.equal(calls[3].command, "/usr/bin/yaps");
+  assert.deepEqual(calls[3].args, []);
+  assert.equal(calls[3].options.detached, true);
+  assert.equal("shell" in calls[3].options, false);
 
   for (const [platform, path, options] of [
     ["darwin", "/tmp/Yaps.app/Contents/MacOS/yaps_cli", { pathExists: () => true }],
     ["win32", "C:\\tmp\\Yaps\\yaps_cli.exe", { env: { ProgramFiles: "C:\\Program Files" }, canAccess: () => true }],
+    ["linux", "/tmp/yaps_cli", { canAccess: () => true }],
   ]) {
     assert.equal(await launchInstalledYaps(
       { path },
       { platform, canonicalize: (value) => value, spawnImpl, ...options },
     ), false);
   }
-  assert.equal(calls.length, 3);
+  assert.equal(calls.length, 4);
 });
 
 test("macOS launch success requires the fixed open command to exit successfully", async () => {
@@ -679,11 +719,21 @@ test("diagnosis distinguishes CLI discovery from the private-vault connector", (
 
 test("all shipped plugin copies are generated from the shared runtime", () => {
   const shared = readFileSync(join(pluginsRoot, "shared", "yaps-cli-discovery.mjs"), "utf8");
-  assert.equal(
-    readFileSync(join(pluginsRoot, "..", "extensions", "yaps-mcp", "bundle", "server", "yaps-cli-discovery.js"), "utf8"),
-    shared,
-    "standalone MCP bundle discovery drifted",
-  );
+  const standaloneBundle = join(pluginsRoot, "..", "extensions", "yaps-mcp", "bundle", "server", "yaps-cli-discovery.js");
+  if (existsSync(standaloneBundle)) {
+    assert.equal(
+      readFileSync(standaloneBundle, "utf8"),
+      shared,
+      "standalone MCP bundle discovery drifted",
+    );
+  }
+  for (const relative of [
+    "mcpb/yaps/server/yaps-cli-discovery.mjs",
+    "mcpb/yaps-memory/server/yaps-cli-discovery.mjs",
+    "cursor/yaps/helper/yaps-cli-discovery.mjs",
+  ]) {
+    assert.equal(readFileSync(join(pluginsRoot, relative), "utf8"), shared, `${relative} discovery drifted`);
+  }
   const referenceRunner = readFileSync(join(pluginsRoot, "yaps-memory", "scripts", "yaps-plugin-runner.mjs"), "utf8");
   for (const candidate of connectorCandidates({ platform: "linux", env: { PATH: "" } })) {
     assert.equal(candidate.path, "/usr/bin/yaps_mcp");

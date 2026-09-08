@@ -6,7 +6,7 @@ Local Cursor / Grok Bot plugin wrapper around the existing Yaps MCP helper in th
 
 This plugin is **not submitted** to [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish) or [cursor.directory](https://cursor.directory). The repo catalog entry under `.cursor-plugin/marketplace.json` is for local checkout only.
 
-First-connect on Windows (`local_yaps_unreachable`, ticket 2629) is still the marketplace submit gate. This wrapper does not change finder logic and does not claim that find-the-app is fixed.
+First-connect on Windows (`local_yaps_unreachable`, ticket 2629) is still the marketplace submit gate. This wrapper does not change finder logic and does not claim that find-the-app is fixed. CASE2 still needs Jr to load this package.
 
 The helper under this plugin root (`helper/`) is a publish snapshot of `mcpb/yaps`; listing is still not submitted; first-connect (ticket 2629) remains the submit gate.
 
