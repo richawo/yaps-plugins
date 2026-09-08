@@ -1,11 +1,13 @@
 {
   "mcpServers": {
     "yaps": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "./scripts/launch.mjs"
+        "--yes",
+        "--package",
+        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/7eb507e766da9cd72f1e3e2c1c4299612bded5cf",
+        "yaps-plugin-media"
       ],
-      "cwd": ".",
       "env": {
         "YAPS_PLUGIN_ID": "yaps",
         "YAPS_PLUGIN_VERSION": "0.2.0",
@@ -14,11 +16,13 @@
       }
     },
     "yaps-memory": {
-      "command": "node",
+      "command": "npx",
       "args": [
-        "./scripts/launch-memory.mjs"
+        "--yes",
+        "--package",
+        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/7eb507e766da9cd72f1e3e2c1c4299612bded5cf",
+        "yaps-plugin-memory"
       ],
-      "cwd": ".",
       "env": {
         "YAPS_PLUGIN_ID": "yaps",
         "YAPS_PLUGIN_VERSION": "0.2.0",

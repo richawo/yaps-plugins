@@ -6,6 +6,8 @@ Everything runs on your computer. Your audio, video, notes, and documents are pr
 
 ## Install
 
+For Cursor and Grok, use the single [Yaps plugin](https://cursor.directory/plugins/yaps), with twelve skills including Auto Cut, background removal, transcription, and Memory. See [setup and validation](cursor/yaps/README.md). Its MCP configuration installs the local helper from an immutable repository archive through Node.js 20+ and npx. It does not require a local repository checkout. Directory review and live host testing are recorded separately in that README.
+
 Add the marketplace once:
 
 ```sh

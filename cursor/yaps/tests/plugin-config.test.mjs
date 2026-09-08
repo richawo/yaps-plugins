@@ -58,20 +58,28 @@ test("Cursor plugin.json is structurally valid", () => {
   assert.equal(existsSync(join(pluginRoot, "assets/yaps-icon.png")), true);
 });
 
-test("MCP config points at the thin launcher and leaves YAPS_CLI_BINARY unset", () => {
+test("directory MCP configs install a pinned runtime without relying on a local checkout", () => {
   const config = readJson("mcp.json");
   assert.deepEqual(Object.keys(config.mcpServers).sort(), ["yaps", "yaps-memory"]);
+  const runtime = JSON.parse(readFileSync(join(repoRoot, "package.json"), "utf8"));
+  for (const [name, entry] of Object.entries(config.mcpServers)) {
+    assert.equal(entry.command, "npx");
+    assert.deepEqual(entry.args.slice(0, 2), ["--yes", "--package"]);
+    assert.match(entry.args[2], /^https:\/\/codeload\.github\.com\/richawo\/yaps-plugins\/tar\.gz\/[a-f0-9]{40}$/);
+    assert.equal(entry.args[3], name === "yaps" ? "yaps-plugin-media" : "yaps-plugin-memory");
+    assert.equal(entry.args.length, 4);
+    assert.equal(existsSync(join(repoRoot, runtime.bin[entry.args[3]])), true);
+    assert.equal(Object.hasOwn(entry, "cwd"), false);
+    assert.equal(Object.hasOwn(entry.env, "YAPS_CLI_BINARY"), false);
+  }
+  assert.equal(config.mcpServers.yaps.args[2], config.mcpServers["yaps-memory"].args[2]);
   const memory = config.mcpServers["yaps-memory"];
-  assert.deepEqual(memory.args, ["./scripts/launch-memory.mjs"]);
   assert.equal(memory.env.YAPS_MCP_CLIENT_ID, "cursor");
   assert.equal(memory.env.YAPS_MCP_AUTO_AUTHORIZE_READ, "0");
   assert.equal(memory.env.YAPS_PLUGIN_ID, "yaps");
   assert.equal(memory.env.YAPS_PLUGIN_VERSION, "0.2.0");
   const server = config.mcpServers?.yaps;
   assert.ok(server, "missing mcpServers.yaps");
-  assert.equal(server.command, "node");
-  assert.deepEqual(server.args, ["./scripts/launch.mjs"]);
-  assert.equal(server.cwd, ".");
   assert.equal(server.env.YAPS_PLUGIN_HOST, "cursor");
   assert.equal(server.env.YAPS_PLUGIN_ID, "yaps");
   assert.equal(server.env.YAPS_PLUGIN_VERSION, "0.2.0");

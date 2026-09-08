@@ -28,7 +28,10 @@ test("both packaged launchers speak MCP; Auto Cut executes and Memory retains na
     for (const [name, entry] of Object.entries(config.mcpServers)) {
       const client = new Client({ name: "yaps-plugin-test", version: "1" });
       clients.push(client);
-      const transport = new StdioClientTransport({ command: process.execPath, args: entry.args, cwd: pluginRoot,
+      // Keep fixture tests offline. Published archive installation is checked
+      // separately with npx from an unrelated working directory.
+      const script = name === "yaps" ? "launch.mjs" : "launch-memory.mjs";
+      const transport = new StdioClientTransport({ command: process.execPath, args: [join(pluginRoot, "scripts", script)], cwd: root,
         env: { ...process.env, ...entry.env, YAPS_CLI_BINARY: cli, QA_MARKER: join(root, "native-env.json") }, stderr: "pipe" });
       transport.stderr?.on("data", () => {});
       await client.connect(transport);
