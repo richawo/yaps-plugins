@@ -4,19 +4,21 @@ Each repository contains one named skill and one MCP server. Users can install t
 
 ## Publishing status
 
-Checked 8 September 2026. All twelve public repositories are published. The directory accepted five submissions before returning "Too many plugin submissions in the last hour. Please try again later." Four have visible install links. Dictation was flagged for manual security review because its npx launch downloads executable code from a pinned GitHub archive. The reviewer found the inspected runtime legitimate, with appropriate skill boundaries and no install hooks or network exfiltration. Verification was requested for all five accepted submissions. Those five listing payloads still use the original archive; the npm payload update was blocked by the same hourly quota at 22:35 UTC. A repository update does not automatically update the directory install payload.
+Checked 9 September 2026 at 00:07 UK time (8 September at 23:07 UTC). All twelve public repositories are published. Nine separate directory listings now have visible install links. This batch accepted the npm runtime update for Dictation and four new listings: Audio Cleaner, Auto Captions, SRT Generator, and Translation. All five passed the directory's security scan and display the exact npm runtime and their distinct server names in the install links. Dictation's earlier manual-review block has cleared. Separate verification requests are recorded for all nine accepted listings; these requests do not establish a verified badge.
+
+Three new listings remain: Video to Audio, Auto Cut, and Memory. Four existing listings still use the original pinned GitHub archive and need npm install-payload updates: Transcription, Meeting Notes, Text to Speech, and Background Removal. The latest batch used five scan requests. Wait until after 00:10 UTC on 9 September before the next batch. A repository update does not automatically update the directory install payload.
 
 | Plugin repository | Cursor Directory |
 | --- | --- |
-| [Yaps Dictation](https://github.com/richawo/yaps-cursor-dictation) | [Manual review required](https://cursor.directory/plugins/yaps-dictation) |
+| [Yaps Dictation](https://github.com/richawo/yaps-cursor-dictation) | [Live install link](https://cursor.directory/plugins/yaps-dictation) |
 | [Yaps Transcription](https://github.com/richawo/yaps-cursor-transcription) | [Live install link](https://cursor.directory/plugins/yaps-transcription) |
 | [Yaps Meeting Notes](https://github.com/richawo/yaps-cursor-meeting-transcription) | [Live install link](https://cursor.directory/plugins/yaps-meeting-notes) |
 | [Yaps Text to Speech](https://github.com/richawo/yaps-cursor-text-to-speech) | [Live install link](https://cursor.directory/plugins/yaps-text-to-speech) |
 | [Yaps Background Removal](https://github.com/richawo/yaps-cursor-background-removal) | [Live install link](https://cursor.directory/plugins/yaps-background-removal) |
-| [Yaps Audio Cleaner](https://github.com/richawo/yaps-cursor-audio-cleaner) | Ready; hourly submission limit |
-| [Yaps Auto Captions](https://github.com/richawo/yaps-cursor-auto-captions) | Ready; hourly submission limit |
-| [Yaps SRT Generator](https://github.com/richawo/yaps-cursor-srt-generator) | Ready; hourly submission limit |
-| [Yaps Translation](https://github.com/richawo/yaps-cursor-translation) | Ready; hourly submission limit |
+| [Yaps Audio Cleaner](https://github.com/richawo/yaps-cursor-audio-cleaner) | [Live install link](https://cursor.directory/plugins/yaps-audio-cleaner) |
+| [Yaps Auto Captions](https://github.com/richawo/yaps-cursor-auto-captions) | [Live install link](https://cursor.directory/plugins/yaps-auto-captions) |
+| [Yaps SRT Generator](https://github.com/richawo/yaps-cursor-srt-generator) | [Live install link](https://cursor.directory/plugins/yaps-srt-generator) |
+| [Yaps Translation](https://github.com/richawo/yaps-cursor-translation) | [Live install link](https://cursor.directory/plugins/yaps-translation) |
 | [Yaps Video to Audio](https://github.com/richawo/yaps-cursor-video-to-audio) | Ready; hourly submission limit |
 | [Yaps Auto Cut](https://github.com/richawo/yaps-cursor-video-clipping) | Ready; hourly submission limit |
 | [Yaps Memory](https://github.com/richawo/yaps-cursor-memory) | Ready; hourly submission limit |
@@ -33,7 +35,7 @@ The directory MCP button transfers server configuration only. Users must also ad
 
 The public npm package [yaps-cursor-runtime@0.3.0](https://www.npmjs.com/package/yaps-cursor-runtime/v/0.3.0) is published. Anonymous registry metadata and the downloaded artifact matched the prepared SHA-512 integrity recorded in the submission state. All twelve repositories now use plugin version `0.1.1` and pin this exact npm version. The published package source is commit `abaffd3b1d8911fa8faafa85a176f5781c688d33`. Node.js 20+ and npm/npx are required; first startup needs npm connectivity. No source checkout or Git installation is required.
 
-The npm release addresses the distribution concern raised on Dictation. It does not establish directory approval. Update accepted listings to use their current `directory-component.json` and request review of the changed install payload when the hourly quota permits. Prioritize Dictation, then the seven missing listings, then the other four archive payloads. Do not resubmit unchanged content to retry a security decision.
+The npm release addressed the distribution concern raised on Dictation, and its updated listing has cleared the security scan. Five directory payloads now use npm; four accepted payloads still use the working archive. Submit the three missing listings next, then update the four remaining archive payloads using their current `directory-component.json`. Do not resubmit unchanged content to retry a security decision.
 
 ## Validation boundaries
 

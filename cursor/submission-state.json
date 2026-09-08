@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-08T22:40:00Z",
+  "checkedAt": "2026-09-08T23:07:00Z",
   "runtimeCommit": "abaffd3b1d8911fa8faafa85a176f5781c688d33",
   "npmPackage": {
     "name": "yaps-cursor-runtime",
@@ -19,14 +19,16 @@
       "repository": "https://github.com/richawo/yaps-cursor-dictation",
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-dictation",
-      "listingStatus": "manual_review_required",
+      "listingStatus": "install_link_available",
       "verificationRequested": true,
       "repositoryCommit": "f0e3ce88169b294a6fbd5d96984ffed8fe8bcbc8",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
-      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
-      "npmListingUpdateStatus": "pending_hourly_quota"
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-08T23:07:00Z"
     },
     {
       "id": "yaps-transcription",
@@ -93,60 +95,68 @@
       "title": "Yaps Audio Cleaner",
       "repository": "https://github.com/richawo/yaps-cursor-audio-cleaner",
       "repositoryStatus": "published",
-      "listingUrl": null,
-      "listingStatus": "submission_rate_limited",
-      "verificationRequested": false,
+      "listingUrl": "https://cursor.directory/plugins/yaps-audio-cleaner",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true,
       "repositoryCommit": "57a8ee94933557f727d829ac434170d988c846b5",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
       "listingRuntimeCommit": null,
-      "npmListingUpdateStatus": "not_submitted"
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-08T23:07:00Z"
     },
     {
       "id": "yaps-auto-captions",
       "title": "Yaps Auto Captions",
       "repository": "https://github.com/richawo/yaps-cursor-auto-captions",
       "repositoryStatus": "published",
-      "listingUrl": null,
-      "listingStatus": "submission_rate_limited",
-      "verificationRequested": false,
+      "listingUrl": "https://cursor.directory/plugins/yaps-auto-captions",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true,
       "repositoryCommit": "34e8e5cdb8bad061c80c309e45738eccf464f5f9",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
       "listingRuntimeCommit": null,
-      "npmListingUpdateStatus": "not_submitted"
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-08T23:07:00Z"
     },
     {
       "id": "yaps-srt-generator",
       "title": "Yaps SRT Generator",
       "repository": "https://github.com/richawo/yaps-cursor-srt-generator",
       "repositoryStatus": "published",
-      "listingUrl": null,
-      "listingStatus": "submission_rate_limited",
-      "verificationRequested": false,
+      "listingUrl": "https://cursor.directory/plugins/yaps-srt-generator",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true,
       "repositoryCommit": "fa6abf1a84bbe5b0cfdac5eb3d3908427644e70e",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
       "listingRuntimeCommit": null,
-      "npmListingUpdateStatus": "not_submitted"
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-08T23:07:00Z"
     },
     {
       "id": "yaps-translation",
       "title": "Yaps Translation",
       "repository": "https://github.com/richawo/yaps-cursor-translation",
       "repositoryStatus": "published",
-      "listingUrl": null,
-      "listingStatus": "submission_rate_limited",
-      "verificationRequested": false,
+      "listingUrl": "https://cursor.directory/plugins/yaps-translation",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true,
       "repositoryCommit": "113eac0215e5844ae00b737f9045d0354294fcee",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
       "listingRuntimeCommit": null,
-      "npmListingUpdateStatus": "not_submitted"
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-08T23:07:00Z"
     },
     {
       "id": "yaps-video-to-audio",
@@ -199,6 +209,13 @@
   "directoryQuota": {
     "scope": "create_and_install_payload_updates",
     "requestsPerHour": 5,
-    "lastBlockedAt": "2026-09-08T22:35:00Z"
+    "lastBlockedAt": "2026-09-08T22:35:00Z",
+    "lastSuccessfulBatch": {
+      "startedAt": "2026-09-08T23:01:00Z",
+      "completedBy": "2026-09-08T23:05:00Z",
+      "scanRequests": 5,
+      "result": "one_update_and_four_new_listings_accepted"
+    },
+    "nextBatchNotBefore": "2026-09-09T00:10:00Z"
   }
 }
