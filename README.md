@@ -65,6 +65,10 @@ Processing happens on your device through the Yaps app. See the [Yaps privacy po
 - Email: [support@yaps.ai](mailto:support@yaps.ai)
 - Issues: [github.com/richawo/yaps-plugins/issues](https://github.com/richawo/yaps-plugins/issues)
 
+## Cursor
+
+A local Cursor / Grok Bot plugin wrapper lives at [`cursor/yaps/`](cursor/yaps/). It hosts skills and MCP metadata that reuse `mcpb/yaps/server/index.mjs`. It is not submitted to the Cursor marketplace.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).

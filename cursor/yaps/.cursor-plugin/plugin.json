@@ -1,0 +1,25 @@
+{
+  "name": "yaps",
+  "version": "0.1.0",
+  "description": "Local dictation, meeting notes, transcription, and read-aloud through the installed Yaps desktop app.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "dictation",
+    "transcription",
+    "notes",
+    "meeting",
+    "text-to-speech",
+    "read-aloud",
+    "local-first",
+    "mcp"
+  ],
+  "logo": "assets/yaps-icon.png",
+  "skills": "./skills/",
+  "mcpServers": "./mcp.json"
+}
