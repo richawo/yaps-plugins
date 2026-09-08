@@ -1,8 +1,7 @@
 {
-  "name": "@yaps-ai/cursor-plugin-runtime",
+  "name": "yaps-cursor-runtime",
   "version": "0.3.0",
-  "private": true,
-  "description": "Local runtime for the single Yaps Cursor and Grok plugin",
+  "description": "Shared local MCP runtime for the twelve focused Yaps Cursor plugins",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -23,5 +22,16 @@
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.30.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/richawo/yaps-plugins.git"
+  },
+  "homepage": "https://yaps.ai",
+  "bugs": {
+    "url": "https://github.com/richawo/yaps-plugins/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
