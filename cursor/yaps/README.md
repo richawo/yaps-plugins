@@ -6,9 +6,9 @@ Local Cursor / Grok Bot plugin wrapper around the existing Yaps MCP helper in th
 
 This plugin is **not submitted** to [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish) or [cursor.directory](https://cursor.directory). The repo catalog entry under `.cursor-plugin/marketplace.json` is for local checkout only.
 
-The 2026-09-08 lab check passed Windows first-connect (ticket 2629): `CASE2_CODE=pass_session_running_app`, `source=running_app`, portable `yaps_cli.exe`, `account_code=ready`. That ticket is no longer an open submit gate. This wrapper does not change finder logic and does not claim that find-the-app is fixed for all hosts. Do not treat every field 2629 customer as closed.
+Windows session resolution passed on TX16PRO, selecting the running portable sidecar with account ready. Live Cursor/Grok tool execution remains untested.
 
-The helper under this plugin root (`helper/`) is a publish snapshot of `mcpb/yaps`; listing is still not submitted.
+The helper under this plugin root (`helper/`) is a publish snapshot of `mcpb/yaps`.
 
 ## Requirements
 

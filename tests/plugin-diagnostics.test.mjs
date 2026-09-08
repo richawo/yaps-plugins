@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
-import { chmodSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 
-const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..", "..");
-const runner = join(repositoryRoot, "plugins", "yaps-dictation", "scripts", "yaps-plugin-runner.mjs");
+const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const runner = join(repositoryRoot, "yaps-dictation", "scripts", "yaps-plugin-runner.mjs");
 const ownerKey = "a".repeat(64);
 
 function run(root, action, script, { host = "codex_plugin", runnerPath = runner } = {}) {
@@ -80,8 +80,116 @@ test("runner records only reviewed metadata for attempts and outcomes", () => {
   }
 });
 
+function writeSessionDiscovery(scripts, resolveBody) {
+  writeFileSync(
+    join(scripts, "yaps-cli-discovery.mjs"),
+    `
+import {
+  applyResolvedSettings,
+  classifyCliResolutionFailure,
+  commandRequiresActiveAccount,
+  diagnoseAccount,
+  diagnoseConnection,
+  isYapsCliCommand,
+  isAuthStatusCommand,
+  resolveYapsSession as resolveRealYapsSession,
+} from ${JSON.stringify(join(repositoryRoot, "shared", "yaps-cli-discovery.mjs"))};
+
+export {
+  applyResolvedSettings,
+  classifyCliResolutionFailure,
+  commandRequiresActiveAccount,
+  diagnoseAccount,
+  diagnoseConnection,
+  isYapsCliCommand,
+  isAuthStatusCommand,
+};
+
+export async function resolveYapsSession() {
+  ${resolveBody}
+}
+export { resolveRealYapsSession };
+`,
+  );
+}
+
+function stagedDictationRunner(root) {
+  const pluginRoot = join(root, "yaps-dictation");
+  const scripts = join(pluginRoot, "scripts");
+  mkdirSync(join(pluginRoot, ".codex-plugin"), { recursive: true });
+  mkdirSync(scripts, { recursive: true });
+  writeFileSync(
+    join(pluginRoot, ".codex-plugin", "plugin.json"),
+    JSON.stringify({ name: "yaps-dictation", version: "0.1.9" }),
+  );
+  copyFileSync(runner, join(scripts, "yaps-plugin-runner.mjs"));
+  return { scripts, runnerPath: join(scripts, "yaps-plugin-runner.mjs") };
+}
+
+function runYapsCommand(root, runnerPath, action, command, extraEnv = {}) {
+  const env = {
+    ...process.env,
+    PATH: "",
+    YAPS_PLUGIN_DIAGNOSTICS_DIR: root,
+    YAPS_PLUGIN_HOST: "codex_plugin",
+    HOME: root,
+    ...extraEnv,
+  };
+  delete env.YAPS_CLI_BINARY;
+  delete env.YAPS_INSTALL_DIR;
+  return spawnSync(
+    process.execPath,
+    [runnerPath, "--action", action, "--stage", "execution", "--", ...command],
+    { encoding: "utf8", env },
+  );
+}
+
+test("yaps-dictation runner leftover-only stale_cli records account_status_unsafe and exits 78", () => {
+  const root = mkdtempSync(join(tmpdir(), "yaps-dictation-stale-runner-"));
+  try {
+    writeFileSync(join(root, "owner.json"), JSON.stringify({ schema_version: 1, owner_key: ownerKey }));
+    const { scripts, runnerPath } = stagedDictationRunner(root);
+    writeSessionDiscovery(
+      scripts,
+      `return resolveRealYapsSession({
+        platform: "win32",
+        env: { USERPROFILE: "C:\\\\Users\\\\tester", PATH: "", ProgramFiles: "C:\\\\Program Files" },
+        runningExecutables: [],
+        canAccess: (candidate) => candidate === "C:\\\\Program Files\\\\Yaps\\\\yaps_cli.exe",
+        probe: async () => ({ ok: true }),
+        readAppVersion: async () => "2.1.4",
+      });`,
+    );
+    const result = runYapsCommand(root, runnerPath, "dictation.status", ["yaps", "status", "--pretty"]);
+    assert.equal(result.status, 78, result.stderr);
+    assert.match(result.stderr, /2\.1\.4|2\.3\.124/i);
+    assert.doesNotMatch(result.stderr, /local_yaps_unreachable|cli_missing|cli_invalid/);
+    const failed = events(root).find((event) => event.status === "failure");
+    assert.equal(failed?.plugin_id, "yaps-dictation");
+    assert.equal(failed?.error_code, "account_status_unsafe");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test("yaps-dictation runner miss with no stale helper records local_yaps_unreachable and exits 127", () => {
+  const root = mkdtempSync(join(tmpdir(), "yaps-dictation-miss-runner-"));
+  try {
+    writeFileSync(join(root, "owner.json"), JSON.stringify({ schema_version: 1, owner_key: ownerKey }));
+    const result = runYapsCommand(root, runner, "dictation.status", ["yaps", "status", "--pretty"]);
+    assert.equal(result.status, 127, result.stderr);
+    assert.match(result.stderr, /could not be found|included with Yaps/i);
+    assert.doesNotMatch(result.stderr, /account_status_unsafe|2\.3\.124/);
+    const failed = events(root).find((event) => event.status === "failure");
+    assert.equal(failed?.plugin_id, "yaps-dictation");
+    assert.equal(failed?.error_code, "local_yaps_unreachable");
+  } finally {
+    rmSync(root, { recursive: true, force: true });
+  }
+});
+
 test("runner records the manifest version for the active host", () => {
-  const pluginRoot = join(repositoryRoot, "plugins", "yaps-auto-captions");
+  const pluginRoot = join(repositoryRoot, "yaps-auto-captions");
   const runnerPath = join(pluginRoot, "scripts", "yaps-plugin-runner.mjs");
   for (const [host, expectedVersion] of [["codex_plugin", "0.1.9"], ["claude_code", "0.1.12"]]) {
     const root = mkdtempSync(join(tmpdir(), `yaps-plugin-${host}-`));
