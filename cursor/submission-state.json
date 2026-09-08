@@ -1,0 +1,120 @@
+{
+  "checkedAt": "2026-09-08T21:57:00Z",
+  "runtimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
+  "npmPackage": {
+    "name": "yaps-cursor-runtime",
+    "version": "0.3.0",
+    "status": "prepared_not_published",
+    "blocker": "npm_login_required"
+  },
+  "plugins": [
+    {
+      "id": "yaps-dictation",
+      "title": "Yaps Dictation",
+      "repository": "https://github.com/richawo/yaps-cursor-dictation",
+      "repositoryStatus": "published",
+      "listingUrl": "https://cursor.directory/plugins/yaps-dictation",
+      "listingStatus": "manual_review_required",
+      "verificationRequested": true
+    },
+    {
+      "id": "yaps-transcription",
+      "title": "Yaps Transcription",
+      "repository": "https://github.com/richawo/yaps-cursor-transcription",
+      "repositoryStatus": "published",
+      "listingUrl": "https://cursor.directory/plugins/yaps-transcription",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true
+    },
+    {
+      "id": "yaps-meeting-transcription",
+      "title": "Yaps Meeting Notes",
+      "repository": "https://github.com/richawo/yaps-cursor-meeting-transcription",
+      "repositoryStatus": "published",
+      "listingUrl": "https://cursor.directory/plugins/yaps-meeting-notes",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true
+    },
+    {
+      "id": "yaps-text-to-speech",
+      "title": "Yaps Text to Speech",
+      "repository": "https://github.com/richawo/yaps-cursor-text-to-speech",
+      "repositoryStatus": "published",
+      "listingUrl": "https://cursor.directory/plugins/yaps-text-to-speech",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true
+    },
+    {
+      "id": "yaps-background-removal",
+      "title": "Yaps Background Removal",
+      "repository": "https://github.com/richawo/yaps-cursor-background-removal",
+      "repositoryStatus": "published",
+      "listingUrl": "https://cursor.directory/plugins/yaps-background-removal",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true
+    },
+    {
+      "id": "yaps-audio-cleaner",
+      "title": "Yaps Audio Cleaner",
+      "repository": "https://github.com/richawo/yaps-cursor-audio-cleaner",
+      "repositoryStatus": "published",
+      "listingUrl": null,
+      "listingStatus": "submission_rate_limited",
+      "verificationRequested": false
+    },
+    {
+      "id": "yaps-auto-captions",
+      "title": "Yaps Auto Captions",
+      "repository": "https://github.com/richawo/yaps-cursor-auto-captions",
+      "repositoryStatus": "published",
+      "listingUrl": null,
+      "listingStatus": "submission_rate_limited",
+      "verificationRequested": false
+    },
+    {
+      "id": "yaps-srt-generator",
+      "title": "Yaps SRT Generator",
+      "repository": "https://github.com/richawo/yaps-cursor-srt-generator",
+      "repositoryStatus": "published",
+      "listingUrl": null,
+      "listingStatus": "submission_rate_limited",
+      "verificationRequested": false
+    },
+    {
+      "id": "yaps-translation",
+      "title": "Yaps Translation",
+      "repository": "https://github.com/richawo/yaps-cursor-translation",
+      "repositoryStatus": "published",
+      "listingUrl": null,
+      "listingStatus": "submission_rate_limited",
+      "verificationRequested": false
+    },
+    {
+      "id": "yaps-video-to-audio",
+      "title": "Yaps Video to Audio",
+      "repository": "https://github.com/richawo/yaps-cursor-video-to-audio",
+      "repositoryStatus": "published",
+      "listingUrl": null,
+      "listingStatus": "submission_rate_limited",
+      "verificationRequested": false
+    },
+    {
+      "id": "yaps-video-clipping",
+      "title": "Yaps Auto Cut",
+      "repository": "https://github.com/richawo/yaps-cursor-video-clipping",
+      "repositoryStatus": "published",
+      "listingUrl": null,
+      "listingStatus": "submission_rate_limited",
+      "verificationRequested": false
+    },
+    {
+      "id": "yaps-memory",
+      "title": "Yaps Memory",
+      "repository": "https://github.com/richawo/yaps-cursor-memory",
+      "repositoryStatus": "published",
+      "listingUrl": null,
+      "listingStatus": "submission_rate_limited",
+      "verificationRequested": false
+    }
+  ]
+}

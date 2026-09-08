@@ -1,10 +1,10 @@
-# Yaps for Cursor and Grok
+# Yaps shared Cursor runtime and compatibility bundle
 
-One `yaps` plugin with twelve workflow skills and two local MCP connectors. The media connector handles dictation, transcription, speech, translation, captions, background removal, audio cleaning, audio extraction, and Auto Cut. The memory connector exposes the native Yaps vault tools and their Agent Access controls.
+This directory contains the shared runtime, source skills, and the earlier combined `yaps` plugin with twelve workflow skills and two local MCP connectors. New purpose-specific packages are listed in [the publishing index](../PUBLISHING.md). The media connector handles dictation, transcription, speech, translation, captions, background removal, audio cleaning, audio extraction, and Auto Cut. The memory connector exposes the native Yaps vault tools and their Agent Access controls.
 
 ## Listing and validation
 
-The existing [Cursor Directory listing](https://cursor.directory/plugins/yaps) was accepted for security scanning. Directory acceptance is separate from public approval or submission to cursor.com/marketplace/publish. Keep updates on this single listing.
+The existing [Cursor Directory listing](https://cursor.directory/plugins/yaps) remains available while the twelve focused listings are introduced. Directory acceptance is separate from public approval or submission to cursor.com/marketplace/publish. Keep submission and verification status in [the publishing index](../PUBLISHING.md).
 
 Windows session resolution passed on TX16PRO, selecting the running portable sidecar with account ready before this workflow expansion. Live Cursor/Grok tool execution remains untested. Local package and protocol tests do not establish Windows or host UI execution.
 
@@ -14,7 +14,7 @@ Both connectors also passed direct MCP initialization when installed by `npx` fr
 
 ## Requirements and setup
 
-- Install [Yaps desktop](https://yaps.ai/download) on the same computer as the local Cursor or Grok session. Cloud and remote agents cannot reach that installation.
+- Install [Yaps desktop](https://yaps.ai/download) on the same computer as the local Cursor session. Cloud and remote agents cannot reach that installation.
 - Use Yaps 2.3.848 or newer for Auto Cut and meeting AI. The lower 2.3.124 floor only verifies credential-free account checks, not support for every tool. Tools reuse the desktop account and its active trial or Yaps Pro access.
 - Install Node.js 20+, including npm/npx. The directory MCP configuration uses `npx` to fetch this repository at an immutable commit and install the runtime dependencies. It works from any working directory and does not require a repository checkout or Git. First launch requires internet access to GitHub and npm; media and vault processing still use the local Yaps app.
 - Add `cursor/yaps` as one local plugin, or add the repository marketplace. Reload the host so its skills and both MCP connectors load.
@@ -39,7 +39,7 @@ Leave `YAPS_CLI_BINARY` unset for automatic discovery. Memory first looks beside
 | video-clipping | Auto Cut analysis, plan review, tuning, and export |
 | memory | Scoped retrieval and requested changes in the local Markdown vault |
 
-The `yaps` MCP entry runs `yaps-plugin-media`, which launches `scripts/launch.mjs`. `yaps-memory` runs `yaps-plugin-memory`, which launches `scripts/launch-memory.mjs` and hands the protocol to the installed native vault connector. These are components of one plugin, not separate products or listings. The media helper snapshot stays identical to `mcpb/yaps/server`.
+The `yaps` MCP entry runs `yaps-plugin-media`, which launches `scripts/launch.mjs`. `yaps-memory` runs `yaps-plugin-memory`, which launches `scripts/launch-memory.mjs` and hands the protocol to the installed native vault connector. These two entries belong to the compatibility bundle. Standalone packages each configure one server and scope the media tools with `YAPS_TOOL_PROFILE`. The media helper snapshot stays identical to `mcpb/yaps/server`.
 
 The directory's individual MCP install buttons transfer configuration only, so do not replace these commands with relative script paths. For local development, run `npm ci` or `bun install --frozen-lockfile` in `cursor/yaps` and launch the scripts directly. Runtime code changes require publishing a new commit containing the root npm package, then advancing the immutable archive URL in `mcp.json` and refreshing the existing listing.
 

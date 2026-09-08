@@ -6,7 +6,7 @@ Everything runs on your computer. Your audio, video, notes, and documents are pr
 
 ## Install
 
-For Cursor and Grok, use the single [Yaps plugin](https://cursor.directory/plugins/yaps), with twelve skills including Auto Cut, background removal, transcription, and Memory. See [setup and validation](cursor/yaps/README.md). Its MCP configuration installs the local helper from an immutable repository archive through Node.js 20+ and npx. It does not require a local repository checkout. Directory review and live host testing are recorded separately in that README.
+For Cursor, choose from [twelve focused plugins](cursor/PUBLISHING.md), including Auto Cut, background removal, transcription, and Memory. Each has one skill and one named MCP server. They share a maintained runtime and existing Yaps models. The earlier [combined Yaps listing](https://cursor.directory/plugins/yaps) remains available during the transition. Grok Bot distribution and local execution have not been validated.
 
 Add the marketplace once:
 
@@ -69,7 +69,7 @@ Processing happens on your device through the Yaps app. See the [Yaps privacy po
 
 ## Cursor
 
-A local Cursor / Grok Bot plugin wrapper lives at [`cursor/yaps/`](cursor/yaps/). It hosts skills and MCP metadata that reuse `mcpb/yaps/server/index.mjs`. It is not submitted to the Cursor marketplace.
+The twelve Cursor repositories are generated from [`cursor/standalone-plugins.json`](cursor/standalone-plugins.json). They use the shared runtime in [`cursor/yaps/`](cursor/yaps/), which stays aligned with `mcpb/yaps/server`. See [submission status, installation details, and validation](cursor/PUBLISHING.md). Cursor Directory submissions are separate from the official Cursor marketplace.
 
 ## License
 
