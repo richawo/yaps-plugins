@@ -38,4 +38,4 @@ Processing stays on the user's device through the Yaps app. See the [Yaps privac
 
 ## License
 
-MIT. See the repository [LICENSE](../../LICENSE).
+MIT. See the repository root `LICENSE`.

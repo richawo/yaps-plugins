@@ -81,13 +81,33 @@ test("thin launcher only sets host env and loads the existing server", () => {
   const launcher = readFileSync(join(pluginRoot, "scripts/launch.mjs"), "utf8");
   assert.match(launcher, /YAPS_PLUGIN_HOST/);
   assert.match(launcher, /cursor/);
-  assert.match(launcher, /mcpb\/yaps\/server\/index\.mjs/);
-  assert.match(launcher, /YAPS_CLI_BINARY unset|Leave YAPS_CLI_BINARY unset/);
+  assert.match(launcher, /"mcpb"/);
+  assert.match(launcher, /"yaps"/);
+  assert.match(launcher, /"server"/);
+  assert.match(launcher, /"index\.mjs"/);
+  assert.match(launcher, /Leave YAPS_CLI_BINARY unset/);
   assert.doesNotMatch(launcher, /@modelcontextprotocol\/sdk/);
   assert.doesNotMatch(launcher, /ListToolsRequestSchema/);
   assert.doesNotMatch(launcher, /CallToolRequestSchema/);
   assert.doesNotMatch(launcher, /new Server\b/);
-  assert.equal(existsSync(join(repoRoot, "mcpb/yaps/server/index.mjs")), true);
+  const resolvedServer = join(pluginRoot, "scripts", "..", "..", "..", "mcpb", "yaps", "server", "index.mjs");
+  assert.equal(existsSync(resolvedServer), true);
+  assert.equal(resolve(resolvedServer), join(repoRoot, "mcpb/yaps/server/index.mjs"));
+});
+
+test("repo marketplace catalog points at cursor/yaps and is not a public listing", () => {
+  const catalog = JSON.parse(readFileSync(join(repoRoot, ".cursor-plugin/marketplace.json"), "utf8"));
+  assert.equal(catalog.name, "yaps");
+  assert.equal(catalog.plugins.length, 1);
+  assert.equal(catalog.plugins[0].name, "yaps");
+  assert.equal(catalog.plugins[0].source, "cursor/yaps");
+  assert.match(catalog.metadata.description, /Not submitted to the Cursor marketplace/);
+  walkStrings(catalog, (value) => {
+    if (value.startsWith("http://") || value.startsWith("https://") || value.includes("@")) return;
+    assert.equal(isAbsolute(value), false, `absolute path: ${value}`);
+    assert.equal(value.includes(".."), false, `parent traversal: ${value}`);
+  });
+  assert.equal(existsSync(join(repoRoot, "cursor/yaps/.cursor-plugin/plugin.json")), true);
 });
 
 test("skills have required frontmatter and tell the agent to use existing tools", () => {
@@ -100,7 +120,7 @@ test("skills have required frontmatter and tell the agent to use existing tools"
     const fields = parseFrontmatter(contents);
     assert.equal(fields.name, name);
     assert.ok(fields.description, `${name} missing description`);
-    assert.match(contents, /existing Yaps MCP tools/i);
+    assert.match(contents, /existing Yaps MCP/);
     assert.match(contents, /Do not invent/);
     assert.match(contents, /yaps_status/);
     assert.match(contents, /local_yaps_unreachable/);
@@ -118,7 +138,8 @@ test("README states local-only use and that the listing is not submitted", () =>
   assert.match(readme, /local/i);
   assert.match(readme, /local_yaps_unreachable/);
   assert.match(readme, /2629/);
-  assert.match(readme, /does not claim that find-the-app is fixed|does not change finder/i);
+  assert.match(readme, /does not change finder logic/);
+  assert.match(readme, /does not claim that find-the-app is fixed/);
   assert.match(readme, /YAPS_CLI_BINARY/);
-  assert.doesNotMatch(readme, /find-the-app is fixed/);
+  assert.doesNotMatch(readme, /find-the-app is now fixed|finder is fixed/);
 });
