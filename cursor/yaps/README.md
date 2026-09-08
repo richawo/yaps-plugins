@@ -6,9 +6,9 @@ Local Cursor / Grok Bot plugin wrapper around the existing Yaps MCP helper in th
 
 This plugin is **not submitted** to [cursor.com/marketplace/publish](https://cursor.com/marketplace/publish) or [cursor.directory](https://cursor.directory). The repo catalog entry under `.cursor-plugin/marketplace.json` is for local checkout only.
 
-First-connect on Windows (`local_yaps_unreachable`, ticket 2629) is still the marketplace submit gate. This wrapper does not change finder logic and does not claim that find-the-app is fixed. CASE2 still needs Jr to load this package.
+The 2026-09-08 lab check passed Windows first-connect (ticket 2629): `CASE2_CODE=pass_session_running_app`, `source=running_app`, portable `yaps_cli.exe`, `account_code=ready`. That ticket is no longer an open submit gate. This wrapper does not change finder logic and does not claim that find-the-app is fixed for all hosts. Do not treat every field 2629 customer as closed.
 
-The helper under this plugin root (`helper/`) is a publish snapshot of `mcpb/yaps`; listing is still not submitted; first-connect (ticket 2629) remains the submit gate.
+The helper under this plugin root (`helper/`) is a publish snapshot of `mcpb/yaps`; listing is still not submitted.
 
 ## Requirements
 
@@ -26,7 +26,7 @@ From this repository:
 2. Restart Cursor or reload the window so skills and the `yaps` MCP server load.
 3. Open Yaps on this machine, then call `yaps_status`.
 
-If the tools report `local_yaps_unreachable`, the session cannot see the Yaps engine yet. Open Yaps and retry locally. Do not treat that as a missing plugin or a broken listing.
+If the tools report `local_yaps_unreachable` or `cli_missing`, the current session cannot see the Yaps engine. Open Yaps and retry locally. Do not treat that as Yaps uninstalled, a missing plugin, or a broken listing.
 
 ## What it reuses
 

@@ -160,7 +160,14 @@ test("skills have required frontmatter and tell the agent to use existing tools"
     assert.match(contents, /Do not invent/);
     assert.match(contents, /yaps_status/);
     assert.match(contents, /local_yaps_unreachable/);
+    assert.match(contents, /cli_missing/);
     assert.match(contents, /ticket 2629/);
+    assert.match(contents, /no longer an open submit gate/);
+    assert.match(contents, /cannot see the Yaps engine/);
+    assert.match(contents, /Do not claim Yaps is uninstalled/);
+    assert.match(contents, /do not treat every field 2629 customer as closed/);
+    assert.doesNotMatch(contents, /is still an open submit gate/);
+    assert.doesNotMatch(contents, /find-the-app is now fixed|finder is fixed/);
     assert.doesNotMatch(contents, /yaps-plugin-runner/);
     assert.doesNotMatch(contents, /yaps_cli /);
   }
@@ -173,9 +180,12 @@ test("README states local-only use and that the listing is not submitted", () =>
   assert.match(readme, /Yaps desktop/);
   assert.match(readme, /local/i);
   assert.match(readme, /local_yaps_unreachable/);
+  assert.match(readme, /cli_missing/);
   assert.match(readme, /2629/);
+  assert.match(readme, /no longer an open submit gate/);
   assert.match(readme, /does not change finder logic/);
   assert.match(readme, /does not claim that find-the-app is fixed/);
   assert.match(readme, /YAPS_CLI_BINARY/);
+  assert.doesNotMatch(readme, /is still the marketplace submit gate|remains the submit gate|is still an open submit gate/);
   assert.doesNotMatch(readme, /find-the-app is now fixed|finder is fixed/);
 });
