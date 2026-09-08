@@ -16,7 +16,7 @@ Use the existing Yaps MCP tools. Do not invent shell commands, PATH edits, or a 
 
 ## Reachability
 
-This plugin is local-only and requires the installed Yaps desktop app. If tools return `local_yaps_unreachable`, `cli_missing`, or equivalent, the current Cursor session cannot see the Yaps engine on this computer. Do not claim Yaps is uninstalled, do not invent a finder command, and do not say find-the-app is fixed. On Windows, first-connect unreachability (ticket 2629) is still an open submit gate. Offer [Download Yaps](https://yaps.ai/download), ask the user to open the app on this machine, and retry from a local Cursor session.
+This plugin is local-only and requires the installed Yaps desktop app. If tools return `local_yaps_unreachable`, `cli_missing`, or equivalent, the current Cursor session cannot see the Yaps engine on this computer. Do not claim Yaps is uninstalled, do not invent a finder command, and do not say find-the-app is fixed for all hosts. Windows first-connect (ticket 2629) is no longer an open submit gate; do not treat every field 2629 customer as closed. Offer [Download Yaps](https://yaps.ai/download), ask the user to open the app on this machine, and retry from a local Cursor session.
 
 ## Boundaries
 
