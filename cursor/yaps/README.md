@@ -43,6 +43,8 @@ The `yaps` MCP entry runs `yaps-plugin-media`, which launches `scripts/launch.mj
 
 The directory's individual MCP install buttons transfer configuration only, so do not replace these commands with relative script paths. For local development, run `npm ci` or `bun install --frozen-lockfile` in `cursor/yaps` and launch the scripts directly. Runtime code changes require publishing a new commit containing the root npm package, then advancing the immutable archive URL in `mcp.json` and refreshing the existing listing.
 
+In the directory editor, retain a single-server `mcpServers` wrapper around each connector's configuration, using its actual `yaps` or `yaps-memory` key. The directory otherwise generates both install links with the fallback name `server`, which can make the connectors collide. The repository's shared `mcp.json` already names both entries correctly.
+
 If a tool reports `local_yaps_unreachable` or `cli_missing`, the current session cannot see the Yaps engine. Open Yaps and retry locally. Do not treat that as proof Yaps is uninstalled. A missing Memory connector does not block media tools. Use `yaps_status` for media readiness and `vault_status` for the vault connection.
 
 ## Privacy and outputs
