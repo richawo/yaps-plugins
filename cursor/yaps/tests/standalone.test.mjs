@@ -12,6 +12,7 @@ test("twelve generated repositories each install one distinct workflow from the 
   const root = mkdtempSync(join(tmpdir(), "yaps-standalone-test-"));
   try {
     execFileSync(process.execPath, [join(repo, "scripts/generate-cursor-standalone.mjs"), root]);
+    const catalog = JSON.parse(readFileSync(join(repo, "cursor/standalone-plugins.json"), "utf8"));
     const directories = readdirSync(root);
     assert.equal(directories.length, 12);
     const names = new Set(), pins = new Set();
@@ -29,7 +30,12 @@ test("twelve generated repositories each install one distinct workflow from the 
       assert.deepEqual(readJson("directory-component.json"), config);
       const entry = config.mcpServers[manifest.name];
       assert.equal(entry.command, "npx");
-      assert.match(entry.args[2], /^https:\/\/codeload\.github\.com\/richawo\/yaps-plugins\/tar\.gz\/[a-f0-9]{40}$/);
+      if (catalog.runtimePackage) {
+        assert.match(entry.args[2], /^yaps-cursor-runtime@\d+\.\d+\.\d+$/);
+        assert.equal(entry.args[2], catalog.runtimePackage);
+      } else {
+        assert.equal(entry.args[2], `https://codeload.github.com/richawo/yaps-plugins/tar.gz/${catalog.runtimeCommit}`);
+      }
       pins.add(entry.args[2]);
       assert.equal(Object.hasOwn(entry, "cwd"), false);
       assert.equal(Object.hasOwn(entry.env, "YAPS_CLI_BINARY"), false);
