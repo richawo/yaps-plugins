@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const pluginRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(pluginRoot, "..", "..");
 const kebabName = /^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/;
-const expectedSkills = ["dictation", "notes", "read-aloud", "transcribe"];
+const expectedSkills = ["audio-cleaner", "auto-captions", "background-removal", "dictation", "notes", "read-aloud", "srt-generator", "transcribe", "translation", "video-to-audio"];
 
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(pluginRoot, relativePath), "utf8"));
