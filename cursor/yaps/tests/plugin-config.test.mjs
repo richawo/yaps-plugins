@@ -161,7 +161,7 @@ test("skills have required frontmatter and tell the agent to use existing tools"
     assert.match(contents, /yaps_status/);
     assert.match(contents, /local_yaps_unreachable/);
     assert.match(contents, /cli_missing/);
-    assert.match(contents, /ticket 2629/);
+    assert.match(contents, /ticket 2629/i);
     assert.match(contents, /no longer an open submit gate/);
     assert.match(contents, /cannot see the Yaps engine/);
     assert.match(contents, /Do not claim Yaps is uninstalled/);
