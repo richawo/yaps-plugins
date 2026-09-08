@@ -1,6 +1,7 @@
 {
-  "runtimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
-  "version": "0.1.0",
+  "runtimeCommit": "abaffd3b1d8911fa8faafa85a176f5781c688d33",
+  "runtimePackage": "yaps-cursor-runtime@0.3.0",
+  "version": "0.1.1",
   "plugins": [
     { "id": "yaps-dictation", "title": "Yaps Dictation", "skill": "dictation", "profile": "dictation", "description": "Check voice typing readiness and recover recent dictations with local Yaps. Uses your existing dictation models and desktop shortcuts.", "keywords": ["dictation", "voice-typing", "speech-to-text"] },
     { "id": "yaps-transcription", "title": "Yaps Transcription", "skill": "transcribe", "profile": "transcription", "description": "Transcribe local audio and video files into plain text with Yaps. Private speech-to-text for podcasts, interviews, recordings, and voice memos.", "keywords": ["transcription", "audio-to-text", "video-to-text", "speech-to-text"] },
