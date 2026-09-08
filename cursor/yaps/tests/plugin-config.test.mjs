@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 const pluginRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const repoRoot = resolve(pluginRoot, "..", "..");
 const kebabName = /^[a-z0-9](?:[a-z0-9.-]*[a-z0-9])?$/;
-const expectedSkills = ["audio-cleaner", "auto-captions", "background-removal", "dictation", "notes", "read-aloud", "srt-generator", "transcribe", "translation", "video-clipping", "video-to-audio"];
+const expectedSkills = ["audio-cleaner", "auto-captions", "background-removal", "dictation", "memory", "notes", "read-aloud", "srt-generator", "transcribe", "translation", "video-clipping", "video-to-audio"];
 
 function readJson(relativePath) {
   return JSON.parse(readFileSync(join(pluginRoot, relativePath), "utf8"));
@@ -37,7 +37,7 @@ test("Cursor plugin.json is structurally valid", () => {
   const manifest = readJson(".cursor-plugin/plugin.json");
   assert.equal(manifest.name, "yaps");
   assert.match(manifest.name, kebabName);
-  assert.equal(manifest.version, "0.1.0");
+  assert.equal(manifest.version, "0.2.0");
   assert.equal(typeof manifest.description, "string");
   assert.ok(manifest.description.length > 0);
   assert.equal(manifest.author?.name, "Yaps AI");
@@ -60,6 +60,13 @@ test("Cursor plugin.json is structurally valid", () => {
 
 test("MCP config points at the thin launcher and leaves YAPS_CLI_BINARY unset", () => {
   const config = readJson("mcp.json");
+  assert.deepEqual(Object.keys(config.mcpServers).sort(), ["yaps", "yaps-memory"]);
+  const memory = config.mcpServers["yaps-memory"];
+  assert.deepEqual(memory.args, ["./scripts/launch-memory.mjs"]);
+  assert.equal(memory.env.YAPS_MCP_CLIENT_ID, "cursor");
+  assert.equal(memory.env.YAPS_MCP_AUTO_AUTHORIZE_READ, "0");
+  assert.equal(memory.env.YAPS_PLUGIN_ID, "yaps");
+  assert.equal(memory.env.YAPS_PLUGIN_VERSION, "0.2.0");
   const server = config.mcpServers?.yaps;
   assert.ok(server, "missing mcpServers.yaps");
   assert.equal(server.command, "node");
@@ -67,7 +74,7 @@ test("MCP config points at the thin launcher and leaves YAPS_CLI_BINARY unset", 
   assert.equal(server.cwd, ".");
   assert.equal(server.env.YAPS_PLUGIN_HOST, "cursor");
   assert.equal(server.env.YAPS_PLUGIN_ID, "yaps");
-  assert.equal(server.env.YAPS_PLUGIN_VERSION, "0.1.0");
+  assert.equal(server.env.YAPS_PLUGIN_VERSION, "0.2.0");
   assert.equal(server.env.YAPS_PLUGIN_TRANSPORT, "mcp");
   assert.equal(Object.hasOwn(server.env, "YAPS_CLI_BINARY"), false);
 
@@ -132,13 +139,13 @@ test("copied helper is a snapshot of mcpb/yaps and stays inside the plugin root"
   assert.deepEqual(Object.keys(pluginPackage.dependencies), ["@modelcontextprotocol/sdk"]);
 });
 
-test("repo marketplace catalog points at cursor/yaps and is not a public listing", () => {
+test("repo marketplace catalog keeps one yaps plugin at cursor/yaps", () => {
   const catalog = JSON.parse(readFileSync(join(repoRoot, ".cursor-plugin/marketplace.json"), "utf8"));
   assert.equal(catalog.name, "yaps");
   assert.equal(catalog.plugins.length, 1);
   assert.equal(catalog.plugins[0].name, "yaps");
   assert.equal(catalog.plugins[0].source, "cursor/yaps");
-  assert.match(catalog.metadata.description, /Not submitted to the Cursor marketplace/);
+  assert.match(catalog.metadata.description, /cursor.directory\/plugins\/yaps/);
   walkStrings(catalog, (value) => {
     if (value.startsWith("http://") || value.startsWith("https://") || value.includes("@")) return;
     assert.equal(isAbsolute(value), false, `absolute path: ${value}`);
@@ -176,9 +183,9 @@ test("skills have required frontmatter and tell the agent to use existing tools"
   }
 });
 
-test("README states local-only use and that the listing is not submitted", () => {
+test("README records local-only use and the existing directory listing", () => {
   const readme = readFileSync(join(pluginRoot, "README.md"), "utf8");
-  assert.match(readme, /not submitted/i);
+  assert.match(readme, /cursor.directory\/plugins\/yaps/);
   assert.match(readme, /cursor\.com\/marketplace\/publish|cursor\.directory/);
   assert.match(readme, /Yaps desktop/);
   assert.match(readme, /local/i);

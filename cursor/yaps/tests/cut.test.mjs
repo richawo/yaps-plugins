@@ -85,7 +85,7 @@ test("Auto Cut refuses existing outputs and checks the actual rendered file", as
   } finally { await rm(root, { recursive: true, force: true }); }
 });
 
-test("Auto Cut serializes renders and releases the guard after a failed export", async () => {
+test("Auto Cut serializes renders and releases the guard after an export", async () => {
   let release;
   const pending = new Promise(resolve => { release = resolve; });
   const { handlers } = fixture({ requireWritableOutput: async () => pending, requireCreatedOutput: async () => {} });

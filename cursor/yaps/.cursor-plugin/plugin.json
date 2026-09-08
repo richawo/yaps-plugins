@@ -1,7 +1,7 @@
 {
   "name": "yaps",
-  "version": "0.1.0",
-  "description": "Local dictation, meeting notes, transcription, and read-aloud through the installed Yaps desktop app.",
+  "version": "0.2.0",
+  "description": "Local transcription, dictation, speech, memory, translation, captions, background removal, audio cleaning, and Auto Cut through Yaps desktop.",
   "author": {
     "name": "Yaps AI",
     "email": "support@yaps.ai"
@@ -17,7 +17,13 @@
     "text-to-speech",
     "read-aloud",
     "local-first",
-    "mcp"
+    "mcp",
+    "memory",
+    "auto-cut",
+    "background-removal",
+    "audio-cleaner",
+    "translation",
+    "captions"
   ],
   "logo": "assets/yaps-icon.png",
   "skills": "./skills/",

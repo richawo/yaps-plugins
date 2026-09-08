@@ -5,14 +5,14 @@
     "email": "support@yaps.ai"
   },
   "metadata": {
-    "description": "Local Cursor plugin wrapper for Yaps. Not submitted to the Cursor marketplace."
+    "description": "One Yaps plugin for Cursor and Grok, with twelve workflow skills. Listed at cursor.directory/plugins/yaps; public visibility depends on directory review."
   },
   "plugins": [
     {
       "name": "yaps",
       "source": "cursor/yaps",
-      "description": "Local dictation, meeting notes, transcription, and read-aloud through the installed Yaps desktop app.",
-      "version": "0.1.0",
+      "description": "Local transcription, dictation, speech, memory, translation, captions, background removal, audio cleaning, and Auto Cut through Yaps desktop.",
+      "version": "0.2.0",
       "license": "MIT",
       "keywords": [
         "dictation",
