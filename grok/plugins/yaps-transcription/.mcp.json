@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "yaps-transcription": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "yaps-cursor-runtime@0.3.1",
+        "yaps-plugin-media"
+      ],
+      "env": {
+        "YAPS_PLUGIN_ID": "yaps-transcription",
+        "YAPS_PLUGIN_VERSION": "0.1.0",
+        "YAPS_PLUGIN_HOST": "grok",
+        "YAPS_PLUGIN_TRANSPORT": "mcp",
+        "YAPS_TOOL_PROFILE": "transcription"
+      }
+    }
+  }
+}

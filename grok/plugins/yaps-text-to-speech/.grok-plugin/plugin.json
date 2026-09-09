@@ -1,0 +1,22 @@
+{
+  "name": "yaps-text-to-speech",
+  "version": "0.1.0",
+  "description": "Read text aloud and create local WAV narration with Yaps voices. Text-to-speech for scripts, documents, and voice-overs.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-text-to-speech",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps text to speech",
+    "yaps read aloud",
+    "yaps narration",
+    "yaps voice over"
+  ],
+  "skills": [
+    "./skills/yaps-text-to-speech"
+  ],
+  "mcpServers": "./.mcp.json"
+}

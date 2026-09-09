@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "yaps-memory": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "yaps-cursor-runtime@0.3.1",
+        "yaps-plugin-memory"
+      ],
+      "env": {
+        "YAPS_PLUGIN_ID": "yaps-memory",
+        "YAPS_PLUGIN_VERSION": "0.1.0",
+        "YAPS_PLUGIN_HOST": "grok",
+        "YAPS_PLUGIN_TRANSPORT": "mcp",
+        "YAPS_MCP_CLIENT_ID": "local-mcp",
+        "YAPS_MCP_AUTO_AUTHORIZE_READ": "0"
+      }
+    }
+  }
+}

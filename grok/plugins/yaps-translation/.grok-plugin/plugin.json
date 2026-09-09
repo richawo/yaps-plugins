@@ -1,0 +1,22 @@
+{
+  "name": "yaps-translation",
+  "version": "0.1.0",
+  "description": "Translate text, Markdown, and SRT subtitles privately with local Yaps translation models. Preserve subtitle timing and create separate translated files.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-translation",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps translation",
+    "yaps local translation",
+    "yaps subtitle translation",
+    "yaps languages"
+  ],
+  "skills": [
+    "./skills/yaps-translation"
+  ],
+  "mcpServers": "./.mcp.json"
+}

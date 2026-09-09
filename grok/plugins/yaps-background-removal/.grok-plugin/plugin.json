@@ -1,0 +1,22 @@
+{
+  "name": "yaps-background-removal",
+  "version": "0.1.0",
+  "description": "Remove image backgrounds locally with Yaps. Export transparent PNG cutouts or place the subject on a solid colour while preserving your source image.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-background-removal",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps background removal",
+    "yaps transparent png",
+    "yaps image cutout",
+    "yaps product photos"
+  ],
+  "skills": [
+    "./skills/yaps-background-removal"
+  ],
+  "mcpServers": "./.mcp.json"
+}

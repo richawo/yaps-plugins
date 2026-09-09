@@ -1,0 +1,22 @@
+{
+  "name": "yaps-transcription",
+  "version": "0.1.0",
+  "description": "Transcribe local audio and video files into plain text with Yaps. Private speech-to-text for podcasts, interviews, recordings, and voice memos.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-transcription",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps transcription",
+    "yaps audio to text",
+    "yaps video to text",
+    "yaps speech to text"
+  ],
+  "skills": [
+    "./skills/yaps-transcription"
+  ],
+  "mcpServers": "./.mcp.json"
+}

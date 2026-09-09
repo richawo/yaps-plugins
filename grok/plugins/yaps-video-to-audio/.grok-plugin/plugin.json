@@ -1,0 +1,22 @@
+{
+  "name": "yaps-video-to-audio",
+  "version": "0.1.0",
+  "description": "Extract a video's soundtrack to MP3, WAV, or M4A with Yaps. Fast local audio conversion that preserves the original video.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-video-to-audio",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps video to audio",
+    "yaps video to mp3",
+    "yaps audio extraction",
+    "yaps converter"
+  ],
+  "skills": [
+    "./skills/yaps-video-to-audio"
+  ],
+  "mcpServers": "./.mcp.json"
+}

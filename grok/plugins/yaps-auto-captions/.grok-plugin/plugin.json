@@ -1,0 +1,22 @@
+{
+  "name": "yaps-auto-captions",
+  "version": "0.1.0",
+  "description": "Add styled captions and word highlighting to local videos with Yaps. Review editable captions and export a separate captioned MP4.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-auto-captions",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps auto captions",
+    "yaps video captions",
+    "yaps subtitles",
+    "yaps word highlighting"
+  ],
+  "skills": [
+    "./skills/yaps-auto-captions"
+  ],
+  "mcpServers": "./.mcp.json"
+}

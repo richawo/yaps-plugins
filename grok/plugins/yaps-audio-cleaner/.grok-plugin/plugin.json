@@ -1,0 +1,22 @@
+{
+  "name": "yaps-audio-cleaner",
+  "version": "0.1.0",
+  "description": "Reduce noise, hiss, and static in speech recordings with local Yaps Audio Cleaner. Export a separate cleaned WAV for podcasts, interviews, and voice notes.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-audio-cleaner",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps audio cleaner",
+    "yaps noise reduction",
+    "yaps denoise",
+    "yaps podcast"
+  ],
+  "skills": [
+    "./skills/yaps-audio-cleaner"
+  ],
+  "mcpServers": "./.mcp.json"
+}

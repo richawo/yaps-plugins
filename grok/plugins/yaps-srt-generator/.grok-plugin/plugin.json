@@ -1,0 +1,22 @@
+{
+  "name": "yaps-srt-generator",
+  "version": "0.1.0",
+  "description": "Generate timestamped SRT subtitle files from local audio or video with Yaps. Create separate subtitles without changing the source recording.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-srt-generator",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps srt",
+    "yaps subtitles",
+    "yaps closed captions",
+    "yaps video to srt"
+  ],
+  "skills": [
+    "./skills/yaps-srt-generator"
+  ],
+  "mcpServers": "./.mcp.json"
+}

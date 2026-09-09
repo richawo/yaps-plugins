@@ -1,0 +1,21 @@
+{
+  "name": "yaps-dictation",
+  "version": "0.1.0",
+  "description": "Check voice typing readiness and recover recent dictations with local Yaps. Uses your existing dictation models and desktop shortcuts.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai"
+  },
+  "homepage": "https://github.com/richawo/yaps-plugins/tree/main/grok/plugins/yaps-dictation",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps dictation",
+    "yaps voice typing",
+    "yaps speech to text"
+  ],
+  "skills": [
+    "./skills/yaps-dictation"
+  ],
+  "mcpServers": "./.mcp.json"
+}
