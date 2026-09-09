@@ -13,3 +13,5 @@ Media workflows use the published `yaps-cursor-runtime@0.3.0`. Memory uses `yaps
 Submit each `grok/plugins/<id>` folder as a separate remote-source entry to [xAI's marketplace](https://github.com/xai-org/plugin-marketplace). Pin the complete public source commit SHA, set its `source.path`, and regenerate the upstream component index. xAI requires one catalog entry per pull request.
 
 Each package documents setup, permissions, network behavior, ownership, and validation limits. Direct MCP checks do not establish a live Grok host tool call, fresh Windows validation, or marketplace acceptance. Source is maintained by Richard Awoyemi under the existing `richawo` account; submissions must explain that ownership because xAI prefers organization-owned sources.
+
+See [submission links and remaining work](PUBLISHING.md), [validation evidence](VALIDATION.md), and [machine-readable review state](submission-state.json).

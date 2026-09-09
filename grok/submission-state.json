@@ -1,0 +1,478 @@
+{
+  "checkedAt": "2026-09-09T02:11:33.377065+00:00",
+  "marketplace": "https://github.com/xai-org/plugin-marketplace",
+  "targetProduct": "Grok Build",
+  "sourceCommit": "84b97889aa96ab3aef57b0a36bf6150dce9babbe",
+  "sourceRepository": "https://github.com/richawo/yaps-plugins",
+  "pluginVersion": "0.1.0",
+  "mediaRuntime": {
+    "package": "yaps-cursor-runtime@0.3.0",
+    "status": "published",
+    "anonymousMacOsMcpInitialization": "11_of_11_passed",
+    "sessionAndAccountReadiness": "11_of_11_ready"
+  },
+  "memoryRuntime": {
+    "package": "yaps-cursor-runtime@0.3.1",
+    "status": "publication_pending_npm_passkey",
+    "preparedArtifactIntegrity": "sha512-BYhxp+f1JBgnaqRa/zDj50yZE1RMR+4ogl0SQok4fSJI2SlB/krhBLLD97+BVkJLp5djWnAn5tThOb9uJ3suMA==",
+    "localArtifactMcpInitialization": "passed_28_tools",
+    "vaultAccess": "expected_policy_denial",
+    "anonymousRegistryInstall": "not_tested_unpublished",
+    "sourceCommit": "bfb4a2fe5a8c4b44135af7634f1ddc6410d6be57"
+  },
+  "validation": {
+    "runtimeTests": "24_passed",
+    "skillValidation": "12_passed",
+    "upstreamExtractor": "12_passed_one_skill_one_mcp_each",
+    "perPrCatalogAndIndexChecks": "passed",
+    "liveGrokHostToolCall": "not_tested",
+    "freshWindowsRun": "not_tested",
+    "freshModelDownloadsEveryWorkflow": "not_tested"
+  },
+  "plugins": [
+    {
+      "id": "yaps-dictation",
+      "title": "Yaps Dictation",
+      "sourcePath": "grok/plugins/yaps-dictation",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 626,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/626",
+      "prBranch": "codex/add-yaps-dictation",
+      "prHead": "e73ddbfcaf62f94d22e9e0222de22e11ce25f17d",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301434198"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/05a10f02-bcf1-45d4-9984-29e7d3934828"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224220419"
+        }
+      ]
+    },
+    {
+      "id": "yaps-transcription",
+      "title": "Yaps Transcription",
+      "sourcePath": "grok/plugins/yaps-transcription",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 627,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/627",
+      "prBranch": "codex/add-yaps-transcription",
+      "prHead": "20c9458ff0f87ef64b2d5b20699cf5101c1a9799",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301595695"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/ace80d84-a3fe-438c-811c-0675d38d5785"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224221246"
+        }
+      ]
+    },
+    {
+      "id": "yaps-meeting-transcription",
+      "title": "Yaps Meeting Notes",
+      "sourcePath": "grok/plugins/yaps-meeting-transcription",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 628,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/628",
+      "prBranch": "codex/add-yaps-meeting-transcription",
+      "prHead": "f24d78af5883a5accdf521bf8de6b45df885a420",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301654816"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/30a7ca1d-efc1-4846-9f5d-99a2968b76a5"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224221545"
+        }
+      ]
+    },
+    {
+      "id": "yaps-text-to-speech",
+      "title": "Yaps Text to Speech",
+      "sourcePath": "grok/plugins/yaps-text-to-speech",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 629,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/629",
+      "prBranch": "codex/add-yaps-text-to-speech",
+      "prHead": "d2b605016fe420dd16f3f889f36b8fda94e38591",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301713021"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/81e10aac-2b79-4b3c-9eaa-7b923674af44"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224221946"
+        }
+      ]
+    },
+    {
+      "id": "yaps-background-removal",
+      "title": "Yaps Background Removal",
+      "sourcePath": "grok/plugins/yaps-background-removal",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 630,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/630",
+      "prBranch": "codex/add-yaps-background-removal",
+      "prHead": "89c5786ec13dfeaaaa125cdb21b9ca192c5b5f98",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301778513"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/c60912c2-56f8-40dd-9cd6-34034e46eab9"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224222167"
+        }
+      ]
+    },
+    {
+      "id": "yaps-audio-cleaner",
+      "title": "Yaps Audio Cleaner",
+      "sourcePath": "grok/plugins/yaps-audio-cleaner",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 631,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/631",
+      "prBranch": "codex/add-yaps-audio-cleaner",
+      "prHead": "ed83acde48d682f427d993fe1872fb5dcfc35463",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301838279"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/1c8525c5-6070-4f4b-8c5b-184739778d18"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224222527"
+        }
+      ]
+    },
+    {
+      "id": "yaps-auto-captions",
+      "title": "Yaps Auto Captions",
+      "sourcePath": "grok/plugins/yaps-auto-captions",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 632,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/632",
+      "prBranch": "codex/add-yaps-auto-captions",
+      "prHead": "4b32bfcc04489938d9c6072ed7e9d2d6db2cd3b1",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301896992"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/fa9b0611-44db-4722-9f58-dc2ded6b4d08"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224222826"
+        }
+      ]
+    },
+    {
+      "id": "yaps-srt-generator",
+      "title": "Yaps SRT Generator",
+      "sourcePath": "grok/plugins/yaps-srt-generator",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 633,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/633",
+      "prBranch": "codex/add-yaps-srt-generator",
+      "prHead": "c13b7329ab10e416077ebf75d8e7cb71550c56f4",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34301956872"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/474b40bf-3697-4bb5-92bd-a6d162b35bdc"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224223130"
+        }
+      ]
+    },
+    {
+      "id": "yaps-translation",
+      "title": "Yaps Translation",
+      "sourcePath": "grok/plugins/yaps-translation",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 634,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/634",
+      "prBranch": "codex/add-yaps-translation",
+      "prHead": "4f33874989bb49a723ca092512dfc683baa1b812",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34302014165"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/1bb5bfac-3187-439f-add7-d5a73feef859"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224223396"
+        }
+      ]
+    },
+    {
+      "id": "yaps-video-to-audio",
+      "title": "Yaps Video to Audio",
+      "sourcePath": "grok/plugins/yaps-video-to-audio",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 635,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/635",
+      "prBranch": "codex/add-yaps-video-to-audio",
+      "prHead": "c3d33ea7661fd0c67627a6730b781473304ba289",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34302070844"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/e24592ed-caa2-4c18-bfa3-dd114dae74c1"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224223688"
+        }
+      ]
+    },
+    {
+      "id": "yaps-video-clipping",
+      "title": "Yaps Auto Cut",
+      "sourcePath": "grok/plugins/yaps-video-clipping",
+      "runtimePackage": "yaps-cursor-runtime@0.3.0",
+      "prNumber": 636,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/636",
+      "prBranch": "codex/add-yaps-video-clipping",
+      "prHead": "8baeef1ef97c5e05885b23cba36427e64a54c9d5",
+      "status": "submitted_awaiting_xai_review",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34302129794"
+      },
+      "githubChecks": [
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/ac372f58-209e-4260-a35e-4ff4efa42486"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        },
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans/224223905"
+        }
+      ]
+    },
+    {
+      "id": "yaps-memory",
+      "title": "Yaps Memory",
+      "sourcePath": "grok/plugins/yaps-memory",
+      "runtimePackage": "yaps-cursor-runtime@0.3.1",
+      "prNumber": 637,
+      "prUrl": "https://github.com/xai-org/plugin-marketplace/pull/637",
+      "prBranch": "codex/add-yaps-memory",
+      "prHead": "a48a9cdc9499d17776583d3792ca0802b20ab21f",
+      "status": "draft_pending_runtime_publication",
+      "localChecks": "passed",
+      "githubCatalogWorkflow": {
+        "status": "completed",
+        "conclusion": "action_required",
+        "url": "https://github.com/xai-org/plugin-marketplace/actions/runs/34302192359"
+      },
+      "githubChecks": [
+        {
+          "name": "semgrep-cloud-platform/scan",
+          "status": "IN_PROGRESS",
+          "conclusion": "",
+          "url": "https://semgrep.dev/orgs/xai/projects/6042313/scans"
+        },
+        {
+          "name": "Socket Security: Project Report",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev/dashboard/org/xai-org/sbom/bab0833f-b124-475f-9e68-df60d6709c6a"
+        },
+        {
+          "name": "Socket Security: Pull Request Alerts",
+          "status": "COMPLETED",
+          "conclusion": "SUCCESS",
+          "url": "https://socket.dev"
+        }
+      ]
+    }
+  ]
+}
