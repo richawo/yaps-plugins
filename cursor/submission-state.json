@@ -234,8 +234,8 @@
   },
   "combinedListing": {
     "url": "https://cursor.directory/plugins/yaps",
-    "status": "unpublish_attempt_not_confirmed",
-    "checkedAt": "2026-09-09T01:57:00Z",
-    "note": "All twelve replacements have install links. Owner confirmation returned to the dialog without a confirmed success; do not delete or claim hidden."
+    "status": "unpublish_blocked_by_directory_row_level_security",
+    "checkedAt": "2026-09-09T02:08:00Z",
+    "note": "Owner unpublish fails with: new row violates row-level security policy for table \"plugins\". Requires a Cursor Directory policy fix; the twelve separate listings are unaffected. Do not delete the combined listing."
   }
 }

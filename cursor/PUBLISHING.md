@@ -21,7 +21,7 @@ Checked 9 September 2026 at 02:44 UK time (01:44 UTC). All twelve separate direc
 | [Yaps Auto Cut](https://github.com/richawo/yaps-cursor-video-clipping) | [Live install link](https://cursor.directory/plugins/yaps-auto-cut) |
 | [Yaps Memory](https://github.com/richawo/yaps-cursor-memory) | [Live install link](https://cursor.directory/plugins/yaps-memory) |
 
-All replacements are approved. Hiding the [combined Yaps listing](https://cursor.directory/plugins/yaps) was attempted through its owner confirmation dialog, but a successful unpublish has not been confirmed. Do not delete it or claim it is hidden. The machine-readable [submission state](submission-state.json) distinguishes accepted, public, and blocked entries. A missing listing URL means the form has not accepted that submission.
+All replacements are approved. Hiding the [combined Yaps listing](https://cursor.directory/plugins/yaps) is blocked by Cursor Directory: its owner action returns `new row violates row-level security policy for table "plugins"`. This needs a directory-side policy fix. The twelve separate listings are unaffected. Do not delete the combined listing or claim it is hidden. The machine-readable [submission state](submission-state.json) distinguishes accepted, public, and blocked entries. A missing listing URL means the form has not accepted that submission.
 
 ## Why separate repositories
 
