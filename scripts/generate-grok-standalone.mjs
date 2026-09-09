@@ -8,7 +8,6 @@ import { execFileSync } from "node:child_process";
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(process.argv[2] || join(repo, "grok/plugins"));
 const catalog = JSON.parse(readFileSync(join(repo, "cursor/standalone-plugins.json"), "utf8"));
-const runtime = "yaps-cursor-runtime@0.3.1";
 const version = "0.1.0";
 const scratch = mkdtempSync(join(tmpdir(), "yaps-grok-source-"));
 const writeJson = (path, data) => writeFileSync(path, JSON.stringify(data, null, 2) + "\n");
@@ -17,6 +16,7 @@ try {
   // Reuse the maintained skill scoping and model-setup instructions.
   execFileSync(process.execPath, [join(repo, "scripts/generate-cursor-standalone.mjs"), scratch], { stdio: "pipe" });
   for (const plugin of catalog.plugins) {
+    const runtime = `yaps-cursor-runtime@${plugin.profile === "memory" ? "0.3.1" : "0.3.0"}`;
     const root = join(output, plugin.id);
     const cursorRoot = join(scratch, plugin.id.replace(/^yaps-/, "yaps-cursor-"));
     mkdirSync(join(root, ".grok-plugin"), { recursive: true });

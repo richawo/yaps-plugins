@@ -5,7 +5,7 @@
       "args": [
         "--yes",
         "--package",
-        "yaps-cursor-runtime@0.3.1",
+        "yaps-cursor-runtime@0.3.0",
         "yaps-plugin-media"
       ],
       "env": {

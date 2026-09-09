@@ -8,7 +8,7 @@ Generate packages with:
 node scripts/generate-grok-standalone.mjs
 ```
 
-The runtime is pinned to `yaps-cursor-runtime@0.3.1`. Its Grok Memory launcher uses the generic `local-mcp` identity and leaves automatic authorization disabled. Existing Cursor packages remain on their previously verified runtime reference.
+Media workflows use the published `yaps-cursor-runtime@0.3.0`. Memory uses `yaps-cursor-runtime@0.3.1`, whose publication requires npm approval before its marketplace PR can be marked ready. Its Grok Memory launcher uses the generic `local-mcp` identity and leaves automatic authorization disabled. Existing Cursor packages remain on their previously verified runtime reference.
 
 Submit each `grok/plugins/<id>` folder as a separate remote-source entry to [xAI's marketplace](https://github.com/xai-org/plugin-marketplace). Pin the complete public source commit SHA, set its `source.path`, and regenerate the upstream component index. xAI requires one catalog entry per pull request.
 

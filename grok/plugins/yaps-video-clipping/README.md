@@ -7,7 +7,7 @@ One purpose-specific plugin with one skill and one local MCP server. Install onl
 ## Setup
 
 1. Install [Yaps desktop](https://yaps.ai/download) on the same computer and sign in with active desktop access.
-2. Install Node.js 20+ with npm/npx. The MCP configuration installs the exact package `yaps-cursor-runtime@0.3.1` from npm. No Git checkout or separate CLI installation is needed.
+2. Install Node.js 20+ with npm/npx. The MCP configuration installs the exact package `yaps-cursor-runtime@0.3.0` from npm. No Git checkout or separate CLI installation is needed.
 3. Install this plugin in a Grok Build environment that can start local stdio MCP processes on that computer. A cloud-only session cannot reach a desktop engine on another machine.
 4. Call yaps_status to check feature and model readiness. Missing feature models can be installed after your agreement; existing models and your Yaps account are reused.
 
