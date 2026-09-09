@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-08T23:07:00Z",
+  "checkedAt": "2026-09-09T00:25:00Z",
   "runtimeCommit": "abaffd3b1d8911fa8faafa85a176f5781c688d33",
   "npmPackage": {
     "name": "yaps-cursor-runtime",
@@ -36,14 +36,16 @@
       "repository": "https://github.com/richawo/yaps-cursor-transcription",
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-transcription",
-      "listingStatus": "install_link_available",
+      "listingStatus": "security_scan_pending",
       "verificationRequested": true,
       "repositoryCommit": "34bb245c033b8954a9f6247c78e1906932d3f557",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
-      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
-      "npmListingUpdateStatus": "pending_hourly_quota"
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-09T00:25:00Z"
     },
     {
       "id": "yaps-meeting-transcription",
@@ -51,14 +53,16 @@
       "repository": "https://github.com/richawo/yaps-cursor-meeting-transcription",
       "repositoryStatus": "published",
       "listingUrl": "https://cursor.directory/plugins/yaps-meeting-notes",
-      "listingStatus": "install_link_available",
+      "listingStatus": "security_scan_pending",
       "verificationRequested": true,
       "repositoryCommit": "24eb4ab933f04e032f70f3027574398eb3a615fd",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
-      "listingRuntimeCommit": "189945737dce216c3d8112e86aa4da37786275df",
-      "npmListingUpdateStatus": "pending_hourly_quota"
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
+      "listingRuntimeCommit": null,
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-09T00:25:00Z"
     },
     {
       "id": "yaps-text-to-speech",
@@ -163,45 +167,51 @@
       "title": "Yaps Video to Audio",
       "repository": "https://github.com/richawo/yaps-cursor-video-to-audio",
       "repositoryStatus": "published",
-      "listingUrl": null,
-      "listingStatus": "submission_rate_limited",
-      "verificationRequested": false,
+      "listingUrl": "https://cursor.directory/plugins/yaps-video-to-audio",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true,
       "repositoryCommit": "f6074f216011798c655c645df32923d7fef496d9",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
       "listingRuntimeCommit": null,
-      "npmListingUpdateStatus": "not_submitted"
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-09T00:25:00Z"
     },
     {
       "id": "yaps-video-clipping",
       "title": "Yaps Auto Cut",
       "repository": "https://github.com/richawo/yaps-cursor-video-clipping",
       "repositoryStatus": "published",
-      "listingUrl": null,
-      "listingStatus": "submission_rate_limited",
-      "verificationRequested": false,
+      "listingUrl": "https://cursor.directory/plugins/yaps-auto-cut",
+      "listingStatus": "install_link_available",
+      "verificationRequested": true,
       "repositoryCommit": "35aac9140074608ebde68e090a30e3f7fe256490",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
       "listingRuntimeCommit": null,
-      "npmListingUpdateStatus": "not_submitted"
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-09T00:25:00Z"
     },
     {
       "id": "yaps-memory",
       "title": "Yaps Memory",
       "repository": "https://github.com/richawo/yaps-cursor-memory",
       "repositoryStatus": "published",
-      "listingUrl": null,
-      "listingStatus": "submission_rate_limited",
-      "verificationRequested": false,
+      "listingUrl": "https://cursor.directory/plugins/yaps-memory",
+      "listingStatus": "security_scan_pending",
+      "verificationRequested": true,
       "repositoryCommit": "6552198e7c8bc878639bb88bf44bd60025dcc2f8",
       "repositoryVersion": "0.1.1",
       "repositoryRuntimePackage": "yaps-cursor-runtime@0.3.0",
-      "listingRuntimePackage": null,
+      "listingRuntimePackage": "yaps-cursor-runtime@0.3.0",
       "listingRuntimeCommit": null,
-      "npmListingUpdateStatus": "not_submitted"
+      "npmListingUpdateStatus": "accepted",
+      "listingVersion": "0.1.1",
+      "listingCheckedAt": "2026-09-09T00:25:00Z"
     }
   ],
   "runtimePackage": "yaps-cursor-runtime@0.3.0",
@@ -211,11 +221,11 @@
     "requestsPerHour": 5,
     "lastBlockedAt": "2026-09-08T22:35:00Z",
     "lastSuccessfulBatch": {
-      "startedAt": "2026-09-08T23:01:00Z",
-      "completedBy": "2026-09-08T23:05:00Z",
+      "startedAt": "2026-09-09T00:20:00Z",
+      "completedBy": "2026-09-09T00:24:00Z",
       "scanRequests": 5,
-      "result": "one_update_and_four_new_listings_accepted"
+      "result": "three_new_listings_and_two_updates_accepted"
     },
-    "nextBatchNotBefore": "2026-09-09T00:10:00Z"
+    "nextBatchNotBefore": "2026-09-09T01:30:00Z"
   }
 }
