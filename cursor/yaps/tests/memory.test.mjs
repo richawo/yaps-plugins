@@ -27,6 +27,21 @@ test("Memory resolves a macOS CLI symlink before finding its native connector", 
   assert.equal(launch.command, native);
 });
 
+test("Grok Memory cannot inherit Cursor or first-party auto-authorization", async () => {
+  for (const suppliedClient of ["cursor", "codex", "claude-code", "grok"]) {
+    const launch = await prepareMemoryLaunch({
+      platform: "win32",
+      env: { YAPS_PLUGIN_HOST: "grok", YAPS_MCP_CLIENT_ID: suppliedClient, YAPS_MCP_AUTO_AUTHORIZE_READ: "1" },
+      resolveSession: async () => cli,
+      canonicalize: path => path,
+      canAccess: path => path === "C:\\portable\\yaps_mcp.exe",
+    });
+    assert.equal(launch.env.YAPS_MCP_CLIENT_ID, "local-mcp");
+    assert.equal(launch.env.YAPS_MCP_AUTO_AUTHORIZE_READ, "0");
+    assert.equal(launch.env.YAPS_SETTINGS_PATH, cli.settingsPath);
+  }
+});
+
 test("Memory respects invalid explicit connector overrides without falling back", async () => {
   for (const env of [{ YAPS_MCP_BINARY: "C:\\missing\\yaps_mcp.exe" }, { YAPS_INSTALL_DIR: "C:\\missing" }]) {
     await assert.rejects(prepareMemoryLaunch({

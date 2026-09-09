@@ -1,6 +1,6 @@
 {
   "name": "yaps-cursor-runtime",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Shared local MCP runtime for the twelve focused Yaps Cursor plugins",
   "license": "MIT",
   "type": "module",
