@@ -4,15 +4,13 @@ Each repository contains one named skill and one MCP server. Users can install t
 
 ## Publishing status
 
-Checked 9 September 2026 at 01:25 UK time (00:25 UTC). All twelve public repositories and all twelve separate directory submissions are accepted. Nine listings currently have visible install links. Video to Audio and Auto Cut have cleared their security scans. Memory and the updated Transcription and Meeting Notes payloads are still being scanned and are temporarily hidden. Separate verification requests are recorded for all twelve listings; these requests do not establish a verified badge.
-
-Ten listing payloads now use the exact npm runtime. Only Text to Speech and Background Removal still need their original pinned GitHub archive changed to npm. The latest batch used five scan requests: three new submissions and two install-payload updates. Wait until 01:30 UTC on 9 September before the next batch. A repository update does not automatically update the directory install payload.
+Checked 9 September 2026 at 02:44 UK time (01:44 UTC). All twelve separate directory listings have visible install links, plugin version `0.1.1`, and the exact npm runtime `yaps-cursor-runtime@0.3.0`. The final Text to Speech and Background Removal payload updates were accepted and their scans cleared. No further payload submissions remain. Separate verification requests are recorded for all twelve listings; these requests do not establish a verified badge.
 
 | Plugin repository | Cursor Directory |
 | --- | --- |
 | [Yaps Dictation](https://github.com/richawo/yaps-cursor-dictation) | [Live install link](https://cursor.directory/plugins/yaps-dictation) |
-| [Yaps Transcription](https://github.com/richawo/yaps-cursor-transcription) | [Security scan pending](https://cursor.directory/plugins/yaps-transcription) |
-| [Yaps Meeting Notes](https://github.com/richawo/yaps-cursor-meeting-transcription) | [Security scan pending](https://cursor.directory/plugins/yaps-meeting-notes) |
+| [Yaps Transcription](https://github.com/richawo/yaps-cursor-transcription) | [Live install link](https://cursor.directory/plugins/yaps-transcription) |
+| [Yaps Meeting Notes](https://github.com/richawo/yaps-cursor-meeting-transcription) | [Live install link](https://cursor.directory/plugins/yaps-meeting-notes) |
 | [Yaps Text to Speech](https://github.com/richawo/yaps-cursor-text-to-speech) | [Live install link](https://cursor.directory/plugins/yaps-text-to-speech) |
 | [Yaps Background Removal](https://github.com/richawo/yaps-cursor-background-removal) | [Live install link](https://cursor.directory/plugins/yaps-background-removal) |
 | [Yaps Audio Cleaner](https://github.com/richawo/yaps-cursor-audio-cleaner) | [Live install link](https://cursor.directory/plugins/yaps-audio-cleaner) |
@@ -21,9 +19,9 @@ Ten listing payloads now use the exact npm runtime. Only Text to Speech and Back
 | [Yaps Translation](https://github.com/richawo/yaps-cursor-translation) | [Live install link](https://cursor.directory/plugins/yaps-translation) |
 | [Yaps Video to Audio](https://github.com/richawo/yaps-cursor-video-to-audio) | [Live install link](https://cursor.directory/plugins/yaps-video-to-audio) |
 | [Yaps Auto Cut](https://github.com/richawo/yaps-cursor-video-clipping) | [Live install link](https://cursor.directory/plugins/yaps-auto-cut) |
-| [Yaps Memory](https://github.com/richawo/yaps-cursor-memory) | [Security scan pending](https://cursor.directory/plugins/yaps-memory) |
+| [Yaps Memory](https://github.com/richawo/yaps-cursor-memory) | [Live install link](https://cursor.directory/plugins/yaps-memory) |
 
-Keep the [combined Yaps listing](https://cursor.directory/plugins/yaps) available until all replacements are approved. Do not delete it. The machine-readable [submission state](submission-state.json) distinguishes accepted, public, and blocked entries. A missing listing URL means the form has not accepted that submission.
+All replacements are approved. Hiding the [combined Yaps listing](https://cursor.directory/plugins/yaps) was attempted through its owner confirmation dialog, but a successful unpublish has not been confirmed. Do not delete it or claim it is hidden. The machine-readable [submission state](submission-state.json) distinguishes accepted, public, and blocked entries. A missing listing URL means the form has not accepted that submission.
 
 ## Why separate repositories
 
@@ -35,7 +33,7 @@ The directory MCP button transfers server configuration only. Users must also ad
 
 The public npm package [yaps-cursor-runtime@0.3.0](https://www.npmjs.com/package/yaps-cursor-runtime/v/0.3.0) is published. Anonymous registry metadata and the downloaded artifact matched the prepared SHA-512 integrity recorded in the submission state. All twelve repositories now use plugin version `0.1.1` and pin this exact npm version. The published package source is commit `abaffd3b1d8911fa8faafa85a176f5781c688d33`. Node.js 20+ and npm/npx are required; first startup needs npm connectivity. No source checkout or Git installation is required.
 
-The npm release addressed the distribution concern raised on Dictation, and its updated listing has cleared the security scan. Ten directory payloads now use npm; the Text to Speech and Background Removal listings still use the working archive. Update those two payloads using their current `directory-component.json` after the quota window clears. Recheck pending review outcomes without resubmitting unchanged content.
+The npm release addressed the distribution concern raised on Dictation, and its updated listing has cleared the security scan. All twelve directory payloads now use npm and have install links. No unchanged payload needs resubmission.
 
 ## Validation boundaries
 
