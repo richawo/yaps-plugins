@@ -7,9 +7,7 @@
     "./skills"
   ],
   "categories": [
-    "voice",
-    "media",
-    "productivity"
+    "voice"
   ],
   "configSchema": {
     "type": "object",
