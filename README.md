@@ -1,6 +1,6 @@
 # Yaps skills and plugins for AI agents
 
-Local-first voice, transcription, media, translation, and memory tools for OpenClaw, Hermes, OpenCode, Goose, Claude Code, Codex, and other agents that support `SKILL.md`. The tools use the [Yaps](https://www.yaps.ai) desktop app.
+Voice, transcription, media, translation, and memory tools for your AI agent. Choose one focused skill or install the full set of 14. The tools use the [Yaps](https://www.yaps.ai) app on your computer.
 
 Yaps processes selected files with the engine installed on the same computer as the agent's command runner. A remote agent cannot reach your desktop installation through these local skills. Text or files the agent reads can enter that agent's own context.
 
@@ -30,23 +30,70 @@ The bundle contains the same 14 standalone skills. Review the repository before 
 
 ### Hermes Agent
 
-Hermes can install from ClawHub or use this repository as a skill tap:
+Add Yaps as a skill source, then install the tool you need:
 
 ```sh
 hermes skills tap add richawo/yaps-plugins
 hermes skills install richawo/yaps-plugins/yaps-transcription
 ```
 
-### OpenCode, Goose, and other skills.sh agents
+Start a new Hermes session and ask:
 
-The [`skills` CLI](https://skills.sh/docs/cli) discovers the `skills/` catalog in this repository and lets you choose your agent and scope:
+> Use Yaps to transcribe this recording. Save the transcript beside the audio file.
+
+Replace `yaps-transcription` with any skill in the catalog below. Use `yaps`
+for the general skill. Hermes keeps its normal install confirmation and
+security scan. See [Hermes skills](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
+for updating or removing a skill.
+
+### OpenCode, Goose, Pi, and more agents
+
+The [`skills` CLI](https://skills.sh/docs/cli) installs the same complete bundles
+for each supported agent. Run this inside the project where you use your agent:
 
 ```sh
-npx skills add richawo/yaps-plugins --list
-npx skills add richawo/yaps-plugins --skill yaps-transcription
+npx skills add richawo/yaps-plugins --skill yaps-transcription --agent opencode
 ```
 
-Use `--skill '*'` to select the full catalog. The 14 standalone bundles are in [`skills/`](skills/); each includes its own runtime and does not depend on another Yaps skill.
+Replace `opencode` with the value for your agent:
+
+| Agent | `--agent` value |
+| :--- | :--- |
+| OpenCode | `opencode` |
+| Goose | `goose` |
+| Pi | `pi` |
+| Hermes Agent | `hermes-agent` |
+| OpenClaw | `openclaw` |
+| Gemini CLI | `gemini-cli` |
+| Cline | `cline` |
+| Kilo Code | `kilo` |
+| Qwen Code | `qwen-code` |
+| Mistral Vibe | `mistral-vibe` |
+| Amp | `amp` |
+| GitHub Copilot | `github-copilot` |
+| Cursor | `cursor` |
+| Claude Code | `claude-code` |
+| Codex | `codex` |
+
+To install all 14 skills, replace `--skill yaps-transcription` with `--skill '*'`.
+Add `--global` to make them available across projects.
+To browse before installing, run `npx skills add richawo/yaps-plugins --list`.
+
+**Verified on 24 September 2026:** all 14 skills installed into fresh project
+folders for every agent above using `skills@1.7.0`. All installed files matched
+the published catalog and the runtime modules loaded. Hermes 0.21.5 also
+installed all 14 through its own CLI and security scanner.
+
+These checks cover installation and package loading. They do not establish
+end-to-end task success in every agent or approval in each agent's own marketplace.
+Each [standalone skill](skills/) includes its runtime and can work independently.
+
+### Cursor Marketplace and Grok Bot
+
+The separate [Yaps Cursor and Grok Bot plugin](https://github.com/richawo/yaps-plugin)
+contains the same focused skills plus MCP tools. Follow that repository's setup
+guide for local-computer execution. A public plugin repository is available;
+a searchable marketplace listing has not yet been verified.
 
 ## Portable skills
 
@@ -115,7 +162,7 @@ claude plugin install yaps-auto-captions@yaps
 
 ## How it works
 
-Each plugin ships a skill that teaches Claude when and how to run the corresponding Yaps workflow through the locally installed Yaps CLI. File access follows Claude Code's normal permission model: reading your input files and writing results is governed by the same approvals as any other tool use.
+Each skill teaches your agent when and how to run a Yaps workflow through the locally installed Yaps CLI. File access follows your agent's normal permissions for reading inputs and writing results.
 
 `yaps-memory` additionally ships an MCP server that connects Claude to your private local Markdown vault. It starts read-only; vault writes are opt-in under **Yaps → Settings → Agent Access**.
 
