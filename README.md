@@ -20,13 +20,13 @@ clawhub install @yaps/yaps-transcription
 
 Replace `yaps-transcription` with another skill below. Install `@yaps/yaps` for the general Yaps skill. ClawHub also exposes these skills to Hermes as a community source.
 
-To add the full catalog as one OpenClaw plugin bundle from this repository:
+To add the full catalog as one OpenClaw plugin bundle from the Yaps marketplace:
 
 ```sh
-openclaw plugins install git:github.com/richawo/yaps-plugins --force
+openclaw plugins install yaps-all --marketplace richawo/yaps-plugins --force
 ```
 
-The bundle contains the same 14 standalone skills. Review the repository before using `--force`, which confirms a third-party Git source.
+The bundle contains the same 14 standalone skills. Review the repository before using `--force`, which confirms a third-party marketplace source.
 
 ### Hermes Agent
 
