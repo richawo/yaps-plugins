@@ -1,0 +1,36 @@
+{
+  "mcpServers": {
+    "yaps": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/c96839613550a79bc7b805285b700b8c681fffd4",
+        "yaps-plugin-media"
+      ],
+      "env": {
+        "YAPS_PLUGIN_ID": "yaps",
+        "YAPS_PLUGIN_VERSION": "1.0.0",
+        "YAPS_PLUGIN_HOST": "grok",
+        "YAPS_PLUGIN_TRANSPORT": "mcp"
+      }
+    },
+    "yaps-memory": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/c96839613550a79bc7b805285b700b8c681fffd4",
+        "yaps-plugin-memory"
+      ],
+      "env": {
+        "YAPS_PLUGIN_ID": "yaps",
+        "YAPS_PLUGIN_VERSION": "1.0.0",
+        "YAPS_PLUGIN_HOST": "grok",
+        "YAPS_PLUGIN_TRANSPORT": "mcp",
+        "YAPS_MCP_CLIENT_ID": "local-mcp",
+        "YAPS_MCP_AUTO_AUTHORIZE_READ": "0"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "yaps",
+  "displayName": "Yaps",
+  "version": "1.0.0",
+  "description": "Supercharge Grok with powerful local AI tools from Yaps: transcription, speaker-labelled meeting notes, captions, subtitles, translation, text to speech, audio cleanup, background removal, Auto Cut, and private Markdown memory. Runs on your own computer through the Yaps desktop app.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://yaps.ai"
+  },
+  "homepage": "https://yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "yaps",
+    "yaps ai",
+    "yaps local ai",
+    "yaps transcription",
+    "yaps captions",
+    "yaps memory"
+  ],
+  "logo": "assets/yaps-icon.png",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

@@ -1,5 +1,19 @@
 # Yaps plugins for Grok Build
 
+## One plugin: `grok/yaps`
+
+**Supercharge Grok with powerful local AI tools.** [`grok/yaps`](yaps/) is the single all-in-one Yaps plugin for the xAI marketplace: twelve skills, one local MCP server for every media workflow (48 tools), and the private-vault Memory connector. It is the entry to submit and promote.
+
+Generate it with:
+
+```sh
+node scripts/generate-grok-bundle.mjs
+```
+
+Both servers run from one pinned public commit of this repository through `npx`, so the Memory launcher's Grok identity ships without waiting on an npm release. Bump `RUNTIME_COMMIT` only to a pushed, reachable commit, regenerate, push, then bump the marketplace `sha`.
+
+## Twelve focused plugins (superseded)
+
 Twelve purpose-specific plugins, each containing one skill and one local stdio MCP server. They reuse the existing Yaps desktop app and the shared runtime. The catalog supports source subdirectories, so these plugins can have separate marketplace entries without twelve extra repositories.
 
 Generate packages with:

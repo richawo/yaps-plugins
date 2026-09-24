@@ -1,5 +1,11 @@
 # Yaps Grok marketplace submissions
 
+## Single plugin (preferred)
+
+`grok/yaps` combines every workflow into one catalog entry, `yaps`, so Grok users install Yaps once. Submit it as one remote-source entry with `source.path` set to `grok/yaps` and the full commit SHA that contains it. Once it is open, the twelve focused PRs below are duplicates of it and should be closed, so reviewers see one Yaps entry.
+
+Earlier twelve-PR record:
+
 Checked 2026-09-09T02:11:33.377065+00:00. Twelve separate pull requests are open in the xAI Grok Build marketplace: eleven submitted for review and one Memory draft. None is merged or an accepted marketplace listing.
 
 Each PR adds exactly one purpose-specific plugin, with one skill and one named local MCP server. All source entries pin `84b97889aa96ab3aef57b0a36bf6150dce9babbe` and a distinct `grok/plugins/<id>` directory in the existing repository. No extra source repositories were required.
