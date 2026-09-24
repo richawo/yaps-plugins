@@ -70,11 +70,42 @@ def resolve_cli(explicit: str | None) -> Path:
     return resolve_cli_session(explicit)[0]
 
 
+class YapsCliError(RuntimeError):
+    def __init__(self, message: str, exit_code: int = 1) -> None:
+        super().__init__(message)
+        self.exit_code = exit_code
+
+
+def cli_failure_detail(completed: subprocess.CompletedProcess[str], fallback: str) -> str:
+    # Current Yaps prints {"error", "error_code"} on stdout (plus an
+    # "Error: ..." line on stderr); older builds print plain text on stderr
+    # with an empty stdout. Progress lines (YAPS_CLI_PROGRESS=json) are NDJSON
+    # on stderr and never an explanation.
+    try:
+        payload = json.loads(completed.stdout)
+    except (json.JSONDecodeError, TypeError):
+        payload = None
+    if isinstance(payload, dict):
+        message = payload.get("error")
+        if isinstance(message, str) and message.strip():
+            return message.strip()
+    if completed.returncode == 130:
+        return "The Yaps run was cancelled before it finished. No output was saved."
+    lines = [
+        line
+        for line in (completed.stderr or "").splitlines()
+        if line.strip() and not line.lstrip().startswith("{")
+    ]
+    return "\n".join(lines).strip() or (completed.stdout or "").strip() or fallback
+
+
 def run_json(command: list[str], failure_message: str) -> dict[str, object]:
     completed = subprocess.run(command, capture_output=True, text=True, check=False)
     if completed.returncode != 0:
-        detail = completed.stderr.strip() or completed.stdout.strip()
-        raise RuntimeError(detail or failure_message)
+        raise YapsCliError(
+            cli_failure_detail(completed, failure_message),
+            130 if completed.returncode == 130 else 1,
+        )
     try:
         result = json.loads(completed.stdout)
     except json.JSONDecodeError as error:
@@ -309,4 +340,4 @@ if __name__ == "__main__":
         raise SystemExit(main())
     except RuntimeError as error:
         print(f"error: {error}", file=sys.stderr)
-        raise SystemExit(1)
+        raise SystemExit(getattr(error, "exit_code", 1))

@@ -119,15 +119,20 @@ export async function runYaps(args, { discovery, capture = false, allowArray = f
   if (invocation.result) return capture ? invocation.result : { code: 0, result: invocation.result };
   const execution = await execute(invocation.command, invocation.args, { env: invocation.env, capture, signal });
   if (!capture) return execution;
+  // Yaps exit codes: 1 error, 2 usage, 3 not_found, 4 conflict, 75 busy,
+  // 130 cancelled. Current builds also print {"error","error_code"} on
+  // stdout; older builds print plain text on stderr with an empty stdout.
+  const exitCode = execution.code === 0 ? 1 : execution.code;
   let result;
   try { result = JSON.parse(execution.stdout); } catch {
-    throw new AdapterError("invalid_engine_response", `Yaps did not return a JSON result (exit ${execution.code}). Retry the same command through CLI mode to inspect the engine's recovery guidance.`);
+    if (execution.code === 130) throw new AdapterError("cancelled", "The Yaps operation was cancelled before completion.", 130);
+    throw new AdapterError("invalid_engine_response", `Yaps did not return a JSON result (exit ${execution.code}). Retry the same command through CLI mode to inspect the engine's recovery guidance.`, exitCode);
   }
   if (execution.code !== 0 || !result || (Array.isArray(result) && !allowArray) || typeof result !== "object"
       || result.error || result.success === false) {
     const safeCode = typeof result?.error_code === "string" && /^[a-z0-9_]{1,80}$/.test(result.error_code)
       ? result.error_code : "engine_failed";
-    throw new AdapterError(safeCode, `Yaps did not complete the operation (${safeCode}). No successful result was recorded.`);
+    throw new AdapterError(safeCode, `Yaps did not complete the operation (${safeCode}). No successful result was recorded.`, safeCode === "cancelled" ? 130 : exitCode);
   }
   return result;
 }
@@ -254,11 +259,56 @@ export async function meetingFile(request, { run = runYaps, signal } = {}) {
   }
 }
 
-async function readRequest(path) {
-  if (!path || (await stat(path)).size > 1024 * 1024) throw new AdapterError("invalid_request", "A JSON request file of at most 1 MiB is required.", 2);
-  try { return JSON.parse(await readFile(path, "utf8")); } catch {
-    throw new AdapterError("invalid_request", "The request file must contain valid JSON.", 2);
+const MAX_REQUEST_BYTES = 1024 * 1024;
+
+// "-" reads the request from stdin, so a host that runs commands on another
+// computer (Grok Bot's local-computer execution) can pass JSON through a
+// single-quoted heredoc instead of creating a temporary file there first.
+async function readStdin(input = process.stdin) {
+  const chunks = [];
+  let size = 0;
+  for await (const chunk of input) {
+    size += chunk.length;
+    if (size > MAX_REQUEST_BYTES) throw new AdapterError("invalid_request", "A JSON request of at most 1 MiB is required.", 2);
+    chunks.push(Buffer.from(chunk));
   }
+  return Buffer.concat(chunks).toString("utf8");
+}
+
+export async function readRequest(path, { stdin } = {}) {
+  let text;
+  if (path === "-") {
+    text = await readStdin(stdin);
+  } else {
+    if (!path || (await stat(path)).size > MAX_REQUEST_BYTES) throw new AdapterError("invalid_request", "A JSON request file of at most 1 MiB is required.", 2);
+    text = await readFile(path, "utf8");
+  }
+  try { return JSON.parse(text); } catch {
+    throw new AdapterError("invalid_request", "The request must contain valid JSON.", 2);
+  }
+}
+
+const WORKFLOWS = { "transcribe-file": transcribeFile, "srt-file": subtitleFile, "meeting-file": meetingFile };
+const ADAPTER_VERBS = new Set(["--", "--args-file", "request", ...Object.keys(WORKFLOWS)]);
+
+// Yaps CLIs newer than 2.4.0 answer `request` themselves; this mirrors that
+// surface so a skill can call either one with the same command.
+async function requestMode(source, options) {
+  const request = await readRequest(source);
+  if (Array.isArray(request)) return runYaps(stripRedact(request), options);
+  if (request && typeof request === "object" && Object.hasOwn(WORKFLOWS, request.workflow)) {
+    const { workflow, ...rest } = request;
+    return { code: 0, result: await WORKFLOWS[workflow](rest, { signal: options.signal }) };
+  }
+  throw new AdapterError("invalid_request", "Send a JSON array of Yaps arguments or a {\"workflow\": ...} object.", 2);
+}
+
+// The adapter's own `auth status` is always redacted; older CLIs do not know
+// the flag, so drop it rather than forward an unknown option.
+export function stripRedact(args) {
+  const words = args.filter((arg) => arg !== "--pretty");
+  return words.length === 3 && words[0] === "auth" && words[1] === "status" && words[2] === "--redact"
+    ? args.filter((arg) => arg !== "--redact") : args;
 }
 
 export async function main(argv) {
@@ -268,22 +318,31 @@ export async function main(argv) {
   process.once("SIGTERM", cancel);
   try {
     let result;
-    if (argv[0] === "--" || (argv[0] === "--args-file" && argv.length === 2)) {
+    if (argv[0] === "request" && argv.length <= 2) {
+      const execution = await requestMode(argv[1] ?? "-", { signal: controller.signal });
+      result = execution.result;
+      process.exitCode = execution.code;
+    } else if (argv.length && !ADAPTER_VERBS.has(argv[0])) {
+      // Plain Yaps arguments, exactly as the installed CLI would take them.
+      const execution = await runYaps(stripRedact(argv), { signal: controller.signal });
+      result = execution.result;
+      process.exitCode = execution.code;
+    } else if (argv[0] === "--" || (argv[0] === "--args-file" && argv.length === 2)) {
       const args = argv[0] === "--" ? argv.slice(1) : await readRequest(argv[1]);
       const execution = await runYaps(args, { signal: controller.signal });
       result = execution.result;
       process.exitCode = execution.code;
     } else if (["transcribe-file", "srt-file", "meeting-file"].includes(argv[0]) && argv.length === 2) {
       const request = await readRequest(argv[1]);
-      if (!request || Array.isArray(request) || typeof request !== "object") throw new AdapterError("invalid_request", "The request file must contain an object.", 2);
+      if (!request || Array.isArray(request) || typeof request !== "object") throw new AdapterError("invalid_request", "The request must contain a JSON object.", 2);
       result = await ({"transcribe-file":transcribeFile, "srt-file":subtitleFile, "meeting-file":meetingFile}[argv[0]])(request, { signal: controller.signal });
     } else {
-      throw new AdapterError("usage", "Usage: node run.mjs -- <Yaps arguments> | --args-file <JSON array file> | transcribe-file <JSON object file> | srt-file <JSON object file> | meeting-file <JSON object file>", 2);
+      throw new AdapterError("usage", "Usage: node run.mjs <Yaps arguments> | request [-|<JSON file>] | -- <Yaps arguments> | --args-file <JSON array file or -> | transcribe-file|srt-file|meeting-file <JSON object file or -> (- reads stdin)", 2);
     }
     if (result !== undefined) process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
   } catch (error) {
     const known = error instanceof AdapterError;
-    process.stderr.write(`${JSON.stringify({ error_code: known ? error.code : "adapter_failed", error: known ? error.message : "The Muse adapter could not complete the request. Check file access and the installed Yaps version." })}\n`);
+    process.stderr.write(`${JSON.stringify({ error_code: known ? error.code : "adapter_failed", error: known ? error.message : "The Yaps adapter could not complete the request. Check file access and the installed Yaps version." })}\n`);
     process.exitCode = known ? error.exitCode : 1;
   } finally {
     process.removeListener("SIGINT", cancel);

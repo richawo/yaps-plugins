@@ -127,6 +127,17 @@ python3 <plugin-root>/scripts/transcribe_with_yaps.py <media-path> --output <tra
 - The script uses Yaps for decoding, extracts the returned transcript, removes its temporary SRT intermediary, and prints a JSON summary.
 - Read the resulting `.txt` only when the user also asked for review, cleanup, summarization, or another downstream task.
 
+## Long recordings and many files
+
+For a recording longer than about 20 minutes, queue it as a Yaps background job so a host command timeout cannot interrupt it, then collect the transcript:
+
+```text
+python3 "$CLAUDE_PLUGIN_ROOT/scripts/transcribe_with_yaps.py" <media-path> --output <transcript.txt> --detach
+python3 "$CLAUDE_PLUGIN_ROOT/scripts/transcribe_with_yaps.py" --collect <job-id> --output <transcript.txt> --wait-secs 90
+```
+
+`--detach` prints a `job_id` at once. `--collect` waits up to `--wait-secs` (keep it shorter than the host's command timeout); if it reports `"done": false` the job is still running, so collect again instead of starting a second run. It saves the `.txt`, removes the private staging SRT, and prints the same summary as a foreground run. For several files, queue each with `--detach` first, then collect each. `yaps --pretty jobs events <job-id>` shows progress and `yaps --pretty jobs cancel <job-id>` stops a job cleanly. `--detach` needs a Yaps whose `yaps --help` lists `jobs`; otherwise run in the foreground.
+
 ## Report
 
 Return the transcript path, engine, duration, and word count reported by Yaps. State clearly when no speech was detected or the engine failed. Do not fabricate missing words or call a partial result complete.
@@ -143,13 +154,15 @@ features list|dictation|cleanup|reading|subtitles|auto-captions|audio-cleaner|te
 vault status|list|get|create|update|move|rename|delete|search|search-semantic|daily-open|create-from-template|history-list|history-restore|pin|folders|tags|mentions|backlinks
 speech synthesize (alias: tts)
 srt generate
-meeting transcribe|show|correct|assign|rename-speaker|export
+meeting transcribe|show|correct|assign|rename-speaker|export|list|delete|save-to-vault
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 media extract-audio|remove-background|generate-image
 audio clean
 translate
 history-list
 usage-local
+jobs list|status|wait|result|logs|events|cancel|retry|prune|config · batch <manifest.jsonl>
+vocab list|add|remove|rules|shortcuts · speech voices · features models
 ```
 
 Run `<cli> --help` and the relevant group help before an unfamiliar workflow. If the session cannot reach the local CLI (for example ChatGPT web), offer a local-capable session — Claude Code, or [ChatGPT desktop](https://chatgpt.com/download/) for a Work or Codex task — or offer to guide the user through the same workflow in **Yaps → Studio**.

@@ -143,6 +143,22 @@ For a video, the script first asks Yaps to extract a temporary WAV, then creates
 
 Return the meeting ID, engine and selection reason, duration, detected speaker count, segment count, project path, and the path of the persisted project audio. Do not claim success when no segments were produced.
 
+## Long recordings and many files
+
+When `yaps --help` lists `jobs` and `batch`, queue a recording longer than about 30 minutes as a background job so a host command timeout cannot interrupt it. For an audio file:
+
+```text
+yaps --pretty meeting transcribe <audio> --engine auto --detach --job-label "meeting"
+yaps --pretty jobs wait <job-id> --timeout-secs 90
+yaps --pretty jobs result <job-id>
+```
+
+For a video, first run `yaps --pretty media extract-audio <video> --format wav --output <private temporary .wav>`, queue that WAV, and delete it once `jobs wait` reports success; the meeting project keeps its own audio copy. `meeting summarize <meeting-id>` can also take minutes and accepts `--detach`. `--detach` prints a `job_id` at once. Keep each `jobs wait` shorter than the host's command timeout. It exits non-zero on a timeout or an unsuccessful job; when `timed_out` is true the job is still running, so wait again instead of starting a second run. `jobs events <job-id>` shows progress and `jobs cancel <job-id>` stops the job cleanly. `jobs result` prints the same JSON the command prints in the foreground.
+
+For several files, write one argument array per line to a JSONL manifest, without the `yaps` executable and with absolute paths, for example `{"args":["meeting","transcribe","/abs/standup.wav","--engine","auto"],"key":"<file name>"}`. The `key` lets a re-run skip items that already succeeded. Run `yaps --pretty batch <manifest.jsonl> --wait --timeout-secs 90`, then `jobs wait` any items still pending.
+
+For a foreground run, `YAPS_CLI_PROGRESS=json` prints NDJSON progress lines on stderr. Failures print `{"error","error_code"}` on stdout; exit 4 means the output already exists and 130 means the run was cancelled. On an older Yaps whose `yaps --help` has no `jobs`, run the foreground command instead.
+
 ## Review and correct
 
 Inspect stable segment IDs before editing:
@@ -177,6 +193,8 @@ Export the corrected speaker transcript:
 ```text
 yaps meeting export <meeting-id> --output "/path/Meeting transcript.md"
 ```
+
+Yaps refuses to replace an existing export. Add `--overwrite` only after the user approves replacing that exact file; otherwise choose a new filename.
 
 Never rewrite the project JSON directly. Use the meeting commands so Yaps regenerates all companion transcript artifacts consistently. Suggest opening **Yaps → Meeting** for waveform playback, visual previews, notes, and larger correction passes.
 
@@ -243,7 +261,7 @@ features list|dictation|cleanup|reading|subtitles|auto-captions|auto-cut|audio-c
 vault status|list|get|create|update|move|rename|delete|search|search-semantic|daily-open|create-from-template|history-list|history-restore|pin|folders|tags|mentions|backlinks
 speech synthesize (alias: tts)
 srt generate
-meeting transcribe|show|correct|assign|rename-speaker|export|summarize|chapters|ask|speakers|merge-speakers|add-speaker
+meeting transcribe|show|correct|assign|rename-speaker|export|list|delete|save-to-vault|summarize|chapters|ask|speakers|merge-speakers|add-speaker
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 cut presets|verify|create|list|show|plan|export-plan|set|redetect|render|delete (alias: autocut)
 media extract-audio|remove-background|generate-image
@@ -251,6 +269,8 @@ audio clean
 translate
 history-list
 usage-local
+jobs list|status|wait|result|logs|events|cancel|retry|prune|config · batch <manifest.jsonl>
+vocab list|add|remove|rules|shortcuts · speech voices · features models
 ```
 
 Run `<cli> --help` and the relevant group help before an unfamiliar workflow. If the session cannot reach the local CLI (for example ChatGPT web), offer a local-capable session — Claude Code, or [ChatGPT desktop](https://chatgpt.com/download/) for a Work or Codex task — or offer to guide the user through the same workflow in **Yaps → Meeting**.

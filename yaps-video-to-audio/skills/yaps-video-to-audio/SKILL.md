@@ -142,13 +142,15 @@ features list|dictation|cleanup|reading|subtitles|auto-captions|audio-cleaner|te
 vault status|list|get|create|update|move|rename|delete|search|search-semantic|daily-open|create-from-template|history-list|history-restore|pin|folders|tags|mentions|backlinks
 speech synthesize (alias: tts)
 srt generate
-meeting transcribe|show|correct|assign|rename-speaker|export
+meeting transcribe|show|correct|assign|rename-speaker|export|list|delete|save-to-vault
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 media extract-audio|remove-background|generate-image
 audio clean
 translate
 history-list
 usage-local
+jobs list|status|wait|result|logs|events|cancel|retry|prune|config · batch <manifest.jsonl>
+vocab list|add|remove|rules|shortcuts · speech voices · features models
 ```
 
 Run `<cli> --help` and the relevant group help before an unfamiliar workflow. If the session cannot reach the local CLI (for example ChatGPT web), offer a local-capable session — Claude Code, or [ChatGPT desktop](https://chatgpt.com/download/) for a Work or Codex task — or offer to guide the user through the same workflow in **Yaps → Media**.

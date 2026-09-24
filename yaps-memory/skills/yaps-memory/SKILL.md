@@ -105,6 +105,8 @@ vault_mentions_*             yaps vault mentions list|terms
 vault_backlinks              yaps vault backlinks <path>
 ```
 
+`vault_notes_list` and `yaps vault list` return a short Markdown excerpt with `markdown_truncated: true`. Read a note in full with `vault_note_get` / `yaps vault get`; pass `include_markdown: true` / `--include-markdown` only when several whole notes are genuinely needed.
+
 Run `yaps vault <command> --help` before using an unfamiliar option. For substantial Markdown, write the proposed body to a temporary file and pass `--markdown-file`; do not risk shell quoting corruption. Remove temporary files after the command completes.
 
 Project arguments were added after some Yaps 2.3.2129 packages had already
@@ -214,13 +216,15 @@ features list|dictation|cleanup|reading|subtitles|auto-captions
 vault status|list|get|create|update|move|rename|delete|search|search-semantic|daily-open|create-from-template|history-list|history-restore|pin|folders|tags|mentions|backlinks
 speech synthesize (alias: tts)
 srt generate
-meeting transcribe|show|correct|assign|rename-speaker|export
+meeting transcribe|show|correct|assign|rename-speaker|export|list|delete|save-to-vault
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 media extract-audio|remove-background|generate-image
 audio clean
 translate
 history-list
 usage-local
+jobs list|status|wait|result|logs|events|cancel|retry|prune|config · batch <manifest.jsonl>
+vocab list|add|remove|rules|shortcuts · speech voices · features models
 ```
 
 ## Friendly completion and discovery

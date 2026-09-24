@@ -127,7 +127,7 @@ Maltese has no engine at all. Say so rather than substituting one, and do the sa
 
 ## Generate
 
-Choose the destination first. Default beside an input text file as `<source name> Audio.wav`, or use `Yaps Speech.wav` in the current working directory for inline text. Check whether it exists and never replace it without explicit approval.
+Choose the destination first. Default beside an input text file as `<source name> Audio.wav`, or use `Yaps Speech.wav` in the current working directory for inline text. Check whether it exists and never replace it without explicit approval. Only after approval, add `--overwrite`: current Yaps refuses an existing `--output` without it. If `speech synthesize --help` has no `--overwrite` (older Yaps), choose a new filename instead.
 
 For a text file:
 
@@ -142,6 +142,22 @@ yaps --pretty speech synthesize --text <text> --mode <kokoro|chatterbox|superton
 ```
 
 Prefer `--text-file` for long text, multiline text, or text containing shell-sensitive characters. `--mode` applies to that one run and does not change the user's default reading voice, so pass it explicitly rather than switching the app default to synthesize once. Add `--voice <id>` only when the user selected a voice or the request requires one; voice ids belong to a single engine, so never carry one across a `--mode` change. Add `--format pcm` only for explicit raw-PCM requests.
+
+## Long recordings and many files
+
+When `yaps --help` lists `jobs` and `batch`, run text longer than a few thousand words as a background job so a host command timeout cannot interrupt it:
+
+```text
+yaps --pretty speech synthesize --text-file <input.txt> --mode <mode> --output <output.wav> --detach --job-label "speech"
+yaps --pretty jobs wait <job-id> --timeout-secs 90
+yaps --pretty jobs result <job-id>
+```
+
+`--detach` prints a `job_id` at once. Keep each `jobs wait` shorter than the host's command timeout. It exits non-zero on a timeout or an unsuccessful job; when `timed_out` is true the job is still running, so wait again instead of starting a second run. `jobs events <job-id>` shows progress and `jobs cancel <job-id>` stops the job cleanly. `jobs result` prints the same JSON the command prints in the foreground.
+
+For several files, write one argument array per line to a JSONL manifest, without the `yaps` executable and with absolute paths, for example `{"args":["speech","synthesize","--text-file","/abs/chapter-1.txt","--mode","supertonic","--output","/abs/chapter-1 Audio.wav"],"key":"<file name>"}`. The `key` lets a re-run skip items that already succeeded. Run `yaps --pretty batch <manifest.jsonl> --wait --timeout-secs 90`, then `jobs wait` any items still pending.
+
+For a foreground run, `YAPS_CLI_PROGRESS=json` prints NDJSON progress lines on stderr. Failures print `{"error","error_code"}` on stdout; exit 4 means the output already exists and 130 means the run was cancelled. On an older Yaps whose `yaps --help` has no `jobs`, run the foreground command instead.
 
 ## Verify and report
 
@@ -161,13 +177,15 @@ features list|dictation|cleanup|reading|subtitles|auto-captions|audio-cleaner|te
 vault status|list|get|create|update|move|rename|delete|search|search-semantic|daily-open|create-from-template|history-list|history-restore|pin|folders|tags|mentions|backlinks
 speech synthesize (alias: tts)
 srt generate
-meeting transcribe|show|correct|assign|rename-speaker|export
+meeting transcribe|show|correct|assign|rename-speaker|export|list|delete|save-to-vault
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 media extract-audio|remove-background|generate-image
 audio clean
 translate
 history-list
 usage-local
+jobs list|status|wait|result|logs|events|cancel|retry|prune|config · batch <manifest.jsonl>
+vocab list|add|remove|rules|shortcuts · speech voices · features models
 ```
 
 Run `<cli> --help` and the relevant group help before an unfamiliar workflow. If the session cannot reach the local CLI (for example ChatGPT web), offer a local-capable session — Claude Code, or [ChatGPT desktop](https://chatgpt.com/download/) for a Work or Codex task — or offer to guide the user through the same workflow in **Yaps → Features → Reading**.

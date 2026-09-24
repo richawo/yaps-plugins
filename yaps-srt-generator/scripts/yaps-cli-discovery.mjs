@@ -862,6 +862,9 @@ export function commandRequiresActiveAccount(args) {
   if (command.includes("--help") || command.includes("-h")) return false;
   if (!command.length || ["status", "settings", "auth"].includes(command[0])) return false;
   if (command[0] === "features" && command[1] === "list") return false;
+  // Reading, waiting on or cancelling already-queued background jobs must keep
+  // working if access lapses mid-job; only `jobs retry` queues new work.
+  if (command[0] === "jobs" && command[1] !== "retry") return false;
   return true;
 }
 
@@ -997,18 +1000,18 @@ export function diagnoseConnection({ cli, connector, needsConnector = false }) {
     if (cli?.rejected?.length) {
       return {
         code: "cli_invalid",
-        message: "A Yaps CLI candidate was found, but it did not pass the safe status check. If you set YAPS_CLI_BINARY, correct or remove that override. Otherwise update or reinstall Yaps, open it once, then start a new local ChatGPT or Codex task. Do not install a separate CLI or edit PATH.",
+        message: "A Yaps CLI candidate was found, but it did not pass the safe status check. If you set YAPS_CLI_BINARY, correct or remove that override. Otherwise update or reinstall Yaps, open it once, then start a new agent task on this computer. Do not install a separate CLI or edit PATH.",
       };
     }
     return {
       code: "cli_missing",
-      message: "The Yaps CLI could not be found from this local session. Install or update Yaps from https://yaps.ai/download, open it once, then start a new local ChatGPT or Codex task. The CLI is included with Yaps; no separate CLI or PATH setup is needed.",
+      message: "The Yaps CLI could not be found from this local session. Install or update Yaps from https://yaps.ai/download, open it once, then start a new agent task on this computer. The CLI is included with Yaps; no separate CLI or PATH setup is needed.",
     };
   }
   if (needsConnector && !connector?.path) {
     return {
       code: "vault_connector_unavailable",
-      message: "The Yaps CLI is installed and working, but the private-vault connector is unavailable. Update or reinstall Yaps from https://yaps.ai/download, open it once, then start a new local ChatGPT or Codex task. Do not reinstall the plugin, install a separate CLI, or edit PATH.",
+      message: "The Yaps CLI is installed and working, but the private-vault connector is unavailable. Update or reinstall Yaps from https://yaps.ai/download, open it once, then start a new agent task on this computer. Do not reinstall the plugin, install a separate CLI, or edit PATH.",
     };
   }
   return { code: "ready", message: "Yaps is ready." };

@@ -130,6 +130,23 @@ Only `unauthenticated` / `signed_out` means sign-in is needed.
 
 Treat the returned JSON as authoritative. Coded failures arrive as `{ "error": ..., "error_code": ... }`; branch on `error_code` (for example `exists`, `no_audio`, `too_long`, `ffmpeg_missing`).
 
+## Long recordings and many files
+
+When `yaps --help` lists `jobs` and `batch`, run caption creation or rendering for a video longer than a few minutes as a background job so a host command timeout cannot interrupt it:
+
+```text
+yaps --pretty captions create <video> --style <style> --detach --job-label "captions"
+yaps --pretty jobs wait <job-id> --timeout-secs 90
+yaps --pretty jobs result <job-id>
+yaps --pretty captions render <project> --output "<name> (Captioned).mp4" --detach
+```
+
+`--detach` prints a `job_id` at once. Keep each `jobs wait` shorter than the host's command timeout. It exits non-zero on a timeout or an unsuccessful job; when `timed_out` is true the job is still running, so wait again instead of starting a second run. `jobs events <job-id>` shows progress and `jobs cancel <job-id>` stops the job cleanly. `jobs result` prints the same JSON the command prints in the foreground. The `captions create` result carries the `project_id` for the next steps.
+
+For several files, write one argument array per line to a JSONL manifest, without the `yaps` executable and with absolute paths, for example `{"args":["captions","create","/abs/clip.mp4","--style","bold-highlight"],"key":"<file name>"}`. The `key` lets a re-run skip items that already succeeded. Run `yaps --pretty batch <manifest.jsonl> --wait --timeout-secs 90`, then `jobs wait` any items still pending.
+
+For a foreground run, `YAPS_CLI_PROGRESS=json` prints NDJSON progress lines on stderr. Failures print `{"error","error_code"}` on stdout; exit 4 means the output already exists and 130 means the run was cancelled. On an older Yaps whose `yaps --help` has no `jobs`, run the foreground command instead.
+
 ## Generalist Yaps mode
 
 Auto Captions is this plugin's default focus, not a boundary around what it can
@@ -142,10 +159,12 @@ status · settings list|get|set|unset · auth status|usage|billing
 features list|dictation|cleanup|reading|subtitles|auto-captions|audio-cleaner|text-in-between|background-removal|translation|meeting
 vault status|list|get|create|update|move|rename|delete|search|search-semantic|daily-open|create-from-template|history-list|history-restore|pin|folders|tags|mentions|backlinks
 speech synthesize (alias: tts) · srt generate
-meeting transcribe|show|correct|assign|rename-speaker|export
+meeting transcribe|show|correct|assign|rename-speaker|export|list|delete|save-to-vault
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 media extract-audio|remove-background|generate-image · audio clean · translate
 history-list · usage-local
+jobs list|status|wait|result|logs|events|cancel|retry|prune|config · batch <manifest.jsonl>
+vocab list|add|remove|rules|shortcuts · speech voices · features models
 ```
 
 Run `<cli> --help` or the relevant group help before using a less familiar

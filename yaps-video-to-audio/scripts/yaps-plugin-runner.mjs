@@ -126,6 +126,16 @@ function classifyError(output, launchError) {
   return "unknown";
 }
 
+// Yaps CLI exit codes (documented in `yaps --help`): 2 usage, 3 not_found,
+// 130 cancelled. Text classification wins when it is more specific.
+function classifyExit(code, output, launchError, yapsCli) {
+  const fromText = classifyError(output, launchError);
+  if (fromText !== "unknown" || !yapsCli) return fromText;
+  if (code === 2) return "invalid_input";
+  if (code === 3) return "not_found";
+  return "unknown";
+}
+
 function pruneInbox(inbox) {
   try {
     const entries = readdirSync(inbox)
@@ -230,7 +240,8 @@ for (const signal of ["SIGINT", "SIGTERM"]) {
 }
 
 let [command, ...commandArguments] = parsed.command;
-if (isYapsCliCommand(command)) {
+const runsYapsCli = isYapsCliCommand(command);
+if (runsYapsCli) {
   const commandIsPath = command !== basename(command);
   const accountPreflight = isAuthStatusCommand(commandArguments);
   const requiresActiveAccount = commandRequiresActiveAccount(commandArguments);
@@ -283,8 +294,9 @@ child.stdout.on("data", (chunk) => { outputTail = appendTail(outputTail, chunk);
 child.stderr.on("data", (chunk) => { outputTail = appendTail(outputTail, chunk); process.stderr.write(chunk); });
 child.on("error", (error) => { launchError = error; });
 child.on("close", (code, signal) => {
-  if (cancelled || signal) finishOnce("cancelled", "cancelled");
+  // A Yaps CLI stopped by Ctrl-C/SIGTERM (or `jobs cancel`) cleans up and exits 130.
+  if (cancelled || signal || code === 130) finishOnce("cancelled", "cancelled");
   else if (code === 0) finishOnce("success");
-  else finishOnce("failure", classifyError(outputTail.toString("utf8"), launchError));
+  else finishOnce("failure", classifyExit(code, outputTail.toString("utf8"), launchError, runsYapsCli));
   process.exitCode ??= code ?? (signal ? 1 : 127);
 });

@@ -75,6 +75,19 @@ failure: inspect the process, project, and output before retrying. Do not
 duplicate a job just because it produced no interim text. Saved Yaps projects
 remain in Yaps after a failed export; inspect them before another attempt.
 
+When `<yaps> --help` lists `jobs` and `batch`, prefer a background job for
+long media or long text: add `--detach` to the command, which prints a
+`job_id` at once, then run `<yaps> jobs wait <job-id> --timeout-secs 90`
+(shorter than the host's command timeout) and `<yaps> jobs result <job-id>`.
+A `timed_out` wait means the job is still running: wait again rather than
+starting another. `jobs events <job-id>` shows progress and `jobs cancel
+<job-id>` stops it cleanly. For many files, put one argument array per line in
+a JSONL manifest (`{"args":[...],"key":"<name>"}` lets a re-run skip finished
+items) and run `<yaps> batch <manifest.jsonl> --wait`. In the foreground,
+`YAPS_CLI_PROGRESS=json` prints NDJSON progress on stderr. Failures print
+`{"error","error_code"}` on stdout; exit 4 means the output already exists and
+130 means the run was cancelled.
+
 The adapter writes no diagnostic logs, credentials, or MCP configuration. Yaps
 retains its normal project, history, and usage state, and its entitlement
 refresh may use the network. Content read into the agent's conversation is

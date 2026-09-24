@@ -146,6 +146,22 @@ Subtitle files are translated cue by cue, so timestamps and indices survive byte
 
 Keep using the runner when the PATH shim is unavailable. If `translate` is unknown, ask the user to update Yaps and retry rather than translating with a hosted service.
 
+## Long recordings and many files
+
+When `yaps --help` lists `jobs` and `batch`, run a long document or subtitle file as a background job so a host command timeout cannot interrupt it:
+
+```text
+yaps --pretty translate <input-file> --to <code> --output <new-file> --detach --job-label "translation"
+yaps --pretty jobs wait <job-id> --timeout-secs 90
+yaps --pretty jobs result <job-id>
+```
+
+`--detach` prints a `job_id` at once. Keep each `jobs wait` shorter than the host's command timeout. It exits non-zero on a timeout or an unsuccessful job; when `timed_out` is true the job is still running, so wait again instead of starting a second run. `jobs events <job-id>` shows progress and `jobs cancel <job-id>` stops the job cleanly. `jobs result` prints the same JSON the command prints in the foreground.
+
+For several files, write one argument array per line to a JSONL manifest, without the `yaps` executable and with absolute paths, for example `{"args":["translate","/abs/notes.md","--to","de"],"key":"<file name>"}`. The `key` lets a re-run skip items that already succeeded. Run `yaps --pretty batch <manifest.jsonl> --wait --timeout-secs 90`, then `jobs wait` any items still pending.
+
+For a foreground run, `YAPS_CLI_PROGRESS=json` prints NDJSON progress lines on stderr. Failures print `{"error","error_code"}` on stdout; exit 4 means the output already exists and 130 means the run was cancelled. On an older Yaps whose `yaps --help` has no `jobs`, run the foreground command instead.
+
 ## Report
 
 Treat the returned JSON as authoritative. Text mode returns `text`, `detected_source_lang`, `engine`, and `chunks`; file mode returns `output_path`, `engine`, and `units`.
@@ -173,13 +189,15 @@ features list|dictation|cleanup|reading|subtitles|auto-captions|audio-cleaner|te
 vault status|list|get|create|update|move|rename|delete|search|search-semantic|daily-open|create-from-template|history-list|history-restore|pin|folders|tags|mentions|backlinks
 speech synthesize (alias: tts)
 srt generate
-meeting transcribe|show|correct|assign|rename-speaker|export
+meeting transcribe|show|correct|assign|rename-speaker|export|list|delete|save-to-vault
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 media extract-audio|remove-background|generate-image
 audio clean
 translate
 history-list
 usage-local
+jobs list|status|wait|result|logs|events|cancel|retry|prune|config · batch <manifest.jsonl>
+vocab list|add|remove|rules|shortcuts · speech voices · features models
 ```
 
 Run `<cli> --help` and the relevant group help before an unfamiliar workflow. If the session cannot reach the local CLI (for example ChatGPT web), offer a local-capable session — Claude Code, or [ChatGPT desktop](https://chatgpt.com/download/) for a Work or Codex task — or offer to guide the user through the same workflow in **Yaps → Translate**.
