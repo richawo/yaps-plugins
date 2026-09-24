@@ -11,7 +11,7 @@
     {
       "name": "yaps-all",
       "source": "./yaps-all",
-      "description": "Install the full Yaps skill catalog, including Auto Cut and the general Yaps skill.",
+      "description": "Get all 14 Yaps skills in one install: voice, media, translation, and memory. New users: install Yaps and sign in.",
       "category": "Productivity",
       "tags": [
         "voice",
@@ -24,141 +24,154 @@
     {
       "name": "yaps-memory",
       "source": "./yaps-memory",
-      "description": "Persistent private memory for Claude, stored as local Markdown.",
+      "description": "Find or save notes in your Yaps memory vault, including past dictations. New users: install Yaps and sign in.",
       "category": "Productivity",
       "tags": [
         "memory",
-        "markdown",
-        "local-first",
-        "notes"
+        "notes",
+        "personal-knowledge",
+        "past-dictations",
+        "markdown"
       ]
     },
     {
       "name": "yaps-dictation",
       "source": "./yaps-dictation",
-      "description": "Voice-type into Claude Code and other desktop apps through Yaps.",
+      "description": "Type with your voice using Yaps on desktop. Get set up, fix a problem, or recover a recent dictation. New users: install Yaps and sign in.",
       "category": "Productivity",
       "tags": [
         "dictation",
-        "voice",
+        "voice-typing",
         "speech-to-text",
-        "accessibility"
+        "accessibility",
+        "desktop"
       ]
     },
     {
       "name": "yaps-transcription",
       "source": "./yaps-transcription",
-      "description": "Transcribe audio and video files into clean text with Yaps.",
+      "description": "Turn an audio or video file into text with Yaps. Good for interviews, podcasts, and voice memos. New users: install Yaps and sign in.",
       "category": "Productivity",
       "tags": [
         "transcription",
-        "audio",
-        "video",
-        "speech-to-text"
+        "speech-to-text",
+        "audio-to-text",
+        "video-to-text",
+        "voice-memos"
       ]
     },
     {
       "name": "yaps-meeting-transcription",
       "source": "./yaps-meeting-transcription",
-      "description": "Transcribe meetings and interviews with timed speaker labels.",
+      "description": "Make a meeting transcript with speaker labels in Yaps. Correct it, export it, or ask questions. New users: install Yaps and sign in.",
       "category": "Productivity",
       "tags": [
-        "meetings",
-        "transcription",
-        "diarization",
-        "speakers"
+        "meeting-notes",
+        "meeting-transcription",
+        "speaker-labels",
+        "interviews",
+        "recaps"
       ]
     },
     {
       "name": "yaps-srt-generator",
       "source": "./yaps-srt-generator",
-      "description": "Generate timestamped SRT subtitles from video or audio with Yaps.",
+      "description": "Make a timed SRT subtitle file from audio or video with Yaps. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
-        "subtitles",
         "srt",
+        "subtitles",
         "captions",
+        "subtitle-generator",
         "video"
       ]
     },
     {
       "name": "yaps-auto-captions",
       "source": "./yaps-auto-captions",
-      "description": "Add editable social-video captions to any video with Yaps.",
+      "description": "Add captions to a video with Yaps. Review the words and timing, choose a style, then export. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
         "captions",
-        "video",
-        "shorts",
-        "reels"
+        "video-captions",
+        "burned-in-subtitles",
+        "short-form-video",
+        "editing"
       ]
     },
     {
       "name": "yaps-audio-cleaner",
       "source": "./yaps-audio-cleaner",
-      "description": "Remove background noise, hiss, and static from speech recordings locally.",
+      "description": "Reduce noise, hiss, and static in a speech recording with Yaps. Save a separate clean file. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
-        "audio",
+        "noise-removal",
+        "audio-cleanup",
         "denoise",
-        "speech",
-        "local"
+        "speech-audio",
+        "hiss-removal"
       ]
     },
     {
       "name": "yaps-background-removal",
       "source": "./yaps-background-removal",
-      "description": "Remove image backgrounds and export transparent PNGs with Yaps.",
+      "description": "Remove an image background with Yaps. Save a transparent PNG, solid background, or outlined sticker. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
-        "images",
         "background-removal",
-        "transparent-png"
+        "transparent-png",
+        "remove-background",
+        "stickers",
+        "images"
       ]
     },
     {
       "name": "yaps-image-generate",
       "source": "./yaps-image-generate",
-      "description": "Generate images from a prompt with a local FLUX.2 [klein] 4B model.",
+      "description": "Create an image from a written prompt with Yaps. Save the result or make a sticker. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
-        "images",
+        "image-generation",
         "text-to-image",
-        "local"
+        "ai-art",
+        "stickers",
+        "images"
       ]
     },
     {
       "name": "yaps-text-to-speech",
       "source": "./yaps-text-to-speech",
-      "description": "Turn text into spoken audio, narration, or voice-over with Yaps.",
+      "description": "Turn text into spoken audio with Yaps. Choose a supported voice and language, then save the file. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
         "text-to-speech",
         "tts",
-        "audio",
-        "voice-over"
+        "voiceover",
+        "narration",
+        "audio"
       ]
     },
     {
       "name": "yaps-translation",
       "source": "./yaps-translation",
-      "description": "Translate text and files locally without metered translation API tokens.",
+      "description": "Translate text or subtitle files with Yaps. Keep the original and preserve subtitle timing. New users: install Yaps and sign in.",
       "category": "Productivity",
       "tags": [
         "translation",
-        "local",
-        "documents",
-        "subtitles"
+        "subtitle-translation",
+        "srt",
+        "markdown",
+        "multilingual"
       ]
     },
     {
       "name": "yaps-video-to-audio",
       "source": "./yaps-video-to-audio",
-      "description": "Convert videos to MP3, WAV, or M4A audio files with Yaps.",
+      "description": "Save the sound from a video as MP3, WAV, or M4A with Yaps. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
-        "video",
-        "audio",
+        "extract-audio",
+        "video-to-audio",
         "mp3",
         "wav",
         "m4a"

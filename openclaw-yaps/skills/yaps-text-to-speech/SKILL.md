@@ -1,6 +1,6 @@
 ---
 name: yaps-text-to-speech
-description: "Turn supplied text or a local text file into speech audio with a supported Yaps voice and language."
+description: "Turn text into spoken audio with Yaps. Choose a supported voice and language, then save the file. New users: install Yaps and sign in."
 ---
 
 # Yaps Text to Speech

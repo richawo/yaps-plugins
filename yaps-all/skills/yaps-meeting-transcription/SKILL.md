@@ -1,6 +1,6 @@
 ---
 name: yaps-meeting-transcription
-description: "Create and edit speaker-labelled meeting transcripts in Yaps, with corrections, exports, recaps, and grounded questions."
+description: "Make a meeting transcript with speaker labels in Yaps. Correct it, export it, or ask questions. New users: install Yaps and sign in."
 ---
 
 # Yaps Meeting Transcription

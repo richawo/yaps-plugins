@@ -1,6 +1,6 @@
 ---
 name: yaps-memory
-description: "Search, cite, capture, and update notes in your local Yaps memory vault. Use for saved notes, project memory, and past dictations."
+description: "Find or save notes in your Yaps memory vault, including past dictations. New users: install Yaps and sign in."
 ---
 
 # Yaps Memory

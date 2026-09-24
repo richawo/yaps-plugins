@@ -1,6 +1,6 @@
 ---
 name: yaps-srt-generator
-description: "Generate timed SRT subtitles from a local audio or video recording with Yaps."
+description: "Make a timed SRT subtitle file from audio or video with Yaps. New users: install Yaps and sign in."
 ---
 
 # Yaps Subtitle Generator

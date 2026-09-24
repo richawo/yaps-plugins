@@ -1,12 +1,19 @@
 # Yaps for OpenClaw
 
-This package loads the Yaps desktop skill catalog in OpenClaw. The entry module
-registers no native tools. The `skills/` directory is copied from the portable
-catalog when this package is released to the public Yaps plugins repository.
+Use Yaps from OpenClaw for voice, media, translation, and memory tasks. The
+plugin includes 13 focused skills and a general Yaps skill.
 
-Install Yaps on the same computer as the OpenClaw command runner, sign in in
-the desktop app, then use an active free trial or Yaps Pro for gated features.
-See the [Yaps download page](https://yaps.ai/download).
+## Get started
 
-Each skill checks the installed Yaps CLI and account readiness before it runs.
-It does not ask for an API key or handle account credentials.
+1. Install the plugin: `openclaw plugins install clawhub:@yaps/openclaw-yaps`
+2. [Download Yaps](https://yaps.ai/download) on the same computer as OpenClaw,
+   open the app, and sign in.
+3. Ask OpenClaw to transcribe a file, clean audio, caption or shorten a video,
+   remove an image background, translate text, or search your Yaps notes.
+
+The skill checks whether Yaps is ready before it runs. New users can start
+with an active free trial; some features require Yaps Pro. OpenClaw does not
+ask for your Yaps password or an API key.
+
+The plugin loads the portable `skills/` catalog. Its entry module registers
+no native tools.

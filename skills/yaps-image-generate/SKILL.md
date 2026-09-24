@@ -1,6 +1,6 @@
 ---
 name: yaps-image-generate
-description: "Generate an image from a prompt with the installed Yaps image engine, including supported seeds and sticker output."
+description: "Create an image from a written prompt with Yaps. Save the result or make a sticker. New users: install Yaps and sign in."
 ---
 
 # Yaps Image Generation

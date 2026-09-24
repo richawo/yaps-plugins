@@ -1,6 +1,6 @@
 ---
 name: yaps-background-removal
-description: "Remove a local image background with Yaps and export a transparent PNG, solid-colour composite, or outlined sticker."
+description: "Remove an image background with Yaps. Save a transparent PNG, solid background, or outlined sticker. New users: install Yaps and sign in."
 ---
 
 # Yaps Background Removal

@@ -1,6 +1,6 @@
 ---
 name: yaps-translation
-description: "Translate text, Markdown, plain-text, or SRT files with Yaps while preserving the source and subtitle timings."
+description: "Translate text or subtitle files with Yaps. Keep the original and preserve subtitle timing. New users: install Yaps and sign in."
 ---
 
 # Yaps Translation

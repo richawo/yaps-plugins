@@ -1,10 +1,16 @@
 {
   "id": "yaps",
   "name": "Yaps",
-  "description": "Local Yaps skills for dictation, transcription, voice, video, images, translation, and memory",
-  "version": "1.0.0",
-  "skills": ["./skills"],
-  "categories": ["voice"],
+  "description": "Install all 14 Yaps skills for dictation, transcripts, voice, video, images, translation, and memory. Sign in to Yaps to use them.",
+  "version": "1.0.1",
+  "skills": [
+    "./skills"
+  ],
+  "categories": [
+    "voice",
+    "media",
+    "productivity"
+  ],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

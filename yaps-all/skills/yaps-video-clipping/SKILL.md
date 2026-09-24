@@ -1,6 +1,6 @@
 ---
 name: yaps-video-clipping
-description: "Remove long pauses from a local talking-head video through a reviewable Yaps Auto Cut project and separate export."
+description: "Shorten a talking-head video with Yaps Auto Cut. Review the pauses, adjust the cut, and export. New users: install Yaps and sign in."
 ---
 
 # Yaps Auto Cut

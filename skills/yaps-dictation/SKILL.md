@@ -1,6 +1,6 @@
 ---
 name: yaps-dictation
-description: "Set up or diagnose Yaps desktop voice typing, and recover a specifically requested recent dictation."
+description: "Type with your voice using Yaps on desktop. Get set up, fix a problem, or recover a recent dictation. New users: install Yaps and sign in."
 ---
 
 # Yaps Dictation

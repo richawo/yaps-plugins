@@ -1,6 +1,6 @@
 ---
 name: yaps-video-to-audio
-description: "Extract audio from a local video to a separate MP3, WAV, or M4A file with Yaps."
+description: "Save the sound from a video as MP3, WAV, or M4A with Yaps. New users: install Yaps and sign in."
 ---
 
 # Yaps Video to Audio

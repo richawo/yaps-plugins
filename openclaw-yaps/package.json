@@ -1,16 +1,25 @@
 {
   "name": "@yaps/openclaw-yaps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
-  "description": "Yaps local desktop skill catalog for OpenClaw",
+  "description": "Install all 14 Yaps skills for dictation, transcripts, voice, video, images, translation, and memory. Sign in to Yaps to use them.",
   "license": "MIT",
   "openclaw": {
-    "extensions": ["./index.mjs"],
+    "extensions": [
+      "./index.mjs"
+    ],
     "compat": {
       "pluginApi": ">=2026.6.35"
     },
     "build": {
       "openclawVersion": "2026.6.35"
     }
-  }
+  },
+  "keywords": [
+    "transcription",
+    "dictation",
+    "video",
+    "image-generation",
+    "memory"
+  ]
 }

@@ -1,6 +1,6 @@
 ---
 name: yaps-auto-captions
-description: "Create, correct, style, and render burned-in captions on a local video through an editable Yaps project."
+description: "Add captions to a video with Yaps. Review the words and timing, choose a style, then export. New users: install Yaps and sign in."
 ---
 
 # Yaps Video Captions

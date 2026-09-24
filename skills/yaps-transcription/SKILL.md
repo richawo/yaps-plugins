@@ -1,6 +1,6 @@
 ---
 name: yaps-transcription
-description: "Transcribe a local audio or video file to plain text with Yaps. Use for recordings, interviews, podcasts, and voice memos."
+description: "Turn an audio or video file into text with Yaps. Good for interviews, podcasts, and voice memos. New users: install Yaps and sign in."
 ---
 
 # Yaps Transcription

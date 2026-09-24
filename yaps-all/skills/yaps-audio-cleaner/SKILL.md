@@ -1,6 +1,6 @@
 ---
 name: yaps-audio-cleaner
-description: "Remove noise, hiss, and static from a local speech recording with Yaps, exporting a separate cleaned file."
+description: "Reduce noise, hiss, and static in a speech recording with Yaps. Save a separate clean file. New users: install Yaps and sign in."
 ---
 
 # Yaps Audio Cleaner

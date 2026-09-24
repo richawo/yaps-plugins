@@ -1,6 +1,6 @@
 ---
 name: yaps
-description: "Use the installed Yaps desktop app for local speech, media, translation, and memory tasks when no focused Yaps skill matches."
+description: "Use Yaps for voice, audio, video, images, translation, and memory when no focused skill fits. New users: install Yaps and sign in."
 ---
 
 # Yaps
