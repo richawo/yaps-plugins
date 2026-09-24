@@ -50,6 +50,23 @@ For registered tools as well as skills, follow the [native MCP setup](integratio
 Ready-to-merge configurations cover Hermes and OpenCode. OpenClaw's `yaps-all`
 bundle includes the MCP configuration automatically.
 
+### Gemini CLI
+
+Install the native extension for all 14 skills and registered media tools:
+
+```sh
+gemini extensions install https://github.com/richawo/yaps-plugins --ref main
+```
+
+Review and accept Gemini's install prompt, then start a new session. Ask:
+
+> Check Yaps, then create subtitles for this interview.
+
+[Install Yaps and sign in](https://www.yaps.ai/download?utm_source=gemini-cli&utm_medium=agent&utm_campaign=agent-plugins)
+on the same computer. Gated features need an active free trial or Yaps Pro.
+The extension is free. Optional memory access needs **Local MCP** permission in
+Yaps. See the [setup guide](integrations/README.md) for connection checks.
+
 ### OpenCode, Goose, Pi, and more agents
 
 The [`skills` CLI](https://skills.sh/docs/cli) installs the same complete bundles

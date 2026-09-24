@@ -18,6 +18,7 @@ reach a Yaps installation on another computer.
 | Agent | Setup |
 | :--- | :--- |
 | OpenClaw | Install or update `yaps-all` from the Yaps marketplace. Version 1.1.0 adds MCP tools to the 14 skills. |
+| Gemini CLI | Install the native extension using the command below. It includes all 14 skills and both MCP connections. |
 | Hermes | Merge the `mcp_servers` entries from [hermes.json](hermes.json) into your Hermes `config.yaml`. JSON objects are valid YAML. Keep your other settings. |
 | OpenCode 2 | Merge `mcp.servers` from [opencode.json](opencode.json) into your project's `opencode.json` or `opencode.jsonc`. Include the startup timeout for a first-time download. Run `opencode mcp list` to check the connection. |
 | OpenCode 1 | Use [opencode-v1.json](opencode-v1.json). Version 1 puts server names directly under `mcp`; version 2 uses `mcp.servers`. Keep your other settings. |
@@ -35,6 +36,21 @@ Review the source before `--force`, which confirms the third-party marketplace.
 `--accept-capabilities` accepts the bundle's declared skills and MCP tools.
 Your agent's own runtime requirements still apply. For example, recent OpenClaw
 versions require a newer Node.js than Yaps' Node.js 22 minimum.
+
+Gemini CLI installation:
+
+```sh
+gemini extensions install https://github.com/richawo/yaps-plugins --ref main
+gemini extensions list
+gemini mcp list
+gemini skills list
+```
+
+Review Gemini's install prompt, then start a new session. `extensions list`
+should include **yaps**, `mcp list` should connect **yaps** and **yaps-memory**,
+and `skills list` should show the 14 Yaps skills. A connected memory server still
+needs Local MCP permission before it can read your vault. Update with
+`gemini extensions update yaps` when you want a newer extension.
 
 Hermes' built-in catalog submission is [under review](https://github.com/NousResearch/hermes-agent/pull/121897).
 Use the configuration above now. The proposed catalog entry selects ten common
