@@ -36,6 +36,10 @@ Review the source before `--force`, which confirms the third-party marketplace.
 Your agent's own runtime requirements still apply. For example, recent OpenClaw
 versions require a newer Node.js than Yaps' Node.js 22 minimum.
 
+Hermes' built-in catalog submission is [under review](https://github.com/NousResearch/hermes-agent/pull/121897).
+Use the configuration above now. The proposed catalog entry selects ten common
+media tools and leaves private-vault access optional.
+
 ## What connects
 
 - **yaps:** transcription, meeting notes, captions, subtitles, speech, translation,
