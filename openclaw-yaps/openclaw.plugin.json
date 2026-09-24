@@ -1,0 +1,13 @@
+{
+  "id": "yaps",
+  "name": "Yaps",
+  "description": "Local Yaps skills for dictation, transcription, voice, video, images, translation, and memory",
+  "version": "1.0.0",
+  "skills": ["./skills"],
+  "categories": ["voice"],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

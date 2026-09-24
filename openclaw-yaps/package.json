@@ -1,0 +1,16 @@
+{
+  "name": "@yaps/openclaw-yaps",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Yaps local desktop skill catalog for OpenClaw",
+  "license": "MIT",
+  "openclaw": {
+    "extensions": ["./index.mjs"],
+    "compat": {
+      "pluginApi": ">=2026.6.35"
+    },
+    "build": {
+      "openclawVersion": "2026.6.35"
+    }
+  }
+}
