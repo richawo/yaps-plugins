@@ -106,14 +106,17 @@ Only `unauthenticated` / `signed_out` means sign-in is needed.
 2. Run `yaps auth status --pretty`. Require `authenticated: true` and `status: "active"` (an active free trial or Yaps Pro both count). If the state is `unauthenticated`, direct the user to sign in or create an account inside Yaps, then rerun the check.
 3. Do not run `auth billing` as an automatic gate. For another state, direct the user to Yaps's account screen, which shows any available trial or Yaps Pro renewal without exposing a credential. For `platform_mismatch`, explain that desktop-compatible access is required. Stop until `auth status` becomes active.
 4. Run `yaps features list --pretty`. Find the `auto_captions` feature. If enabling it requires a model download, explain that Auto Captions reuses the same Whisper model as Subtitles and ask once for approval. If the required model is already installed and only the feature toggle is off, enable it automatically without adding an approval step. Verify readiness and resume the original task.
-5. Read the `render_dep` block on the `auto_captions` feature. If `ffmpeg_found` is false, explain that FFmpeg is required (macOS: `brew install ffmpeg`, Windows: `winget install Gyan.FFmpeg`); do not install system packages without explicit approval. If `libass_available` is false, the FFmpeg build cannot burn captions and needs reinstalling with libass.
+5. Read the `render_dep` block on the `auto_captions` feature. If `ffmpeg_found` is false, explain that FFmpeg is required (macOS: `brew install ffmpeg`, Windows: `winget install Gyan.FFmpeg`, Debian/Ubuntu Linux: `sudo apt install ffmpeg`; on other Linux distributions use the native package that includes libass). Do not install system packages without explicit approval. If `libass_available` is false, the FFmpeg build cannot burn captions and needs reinstalling with libass.
 6. Resolve the exact video path and confirm it exists.
 
 ## Workflow
 
-1. Run `yaps captions styles --pretty` and use its returned catalogue as authoritative. If the user did not name a style, use `bold-highlight` as the sensible social-video default without adding a preference question. The Yaps 2.0.1 catalogue is:
-   - Social and animated: `bold-highlight`, `color-sweep`, `word-karaoke`, `spotlight`, `shout`, `glow`, `marker`, `outline`, `two-tone`, and `typewriter`.
-   - Clean and readable: `boxed-subtitle`, `minimal`, `editorial`, and `caption-card`.
+1. Run `yaps captions styles --pretty` and use its returned catalogue as authoritative. If the user did not name a style, use `bold-highlight` as the sensible social-video default without adding a preference question. The curated catalogue is:
+   - Bold social: `bold-highlight`, `shout`, `spotlight`, `pulse`, `marker`.
+   - Karaoke / sweep: `color-sweep`, `word-karaoke`.
+   - Boxed / pill: `boxed-subtitle` (Lower Third), `caption-card` (Paper).
+   - Editorial / cinematic: `minimal`, `editorial`, `typewriter`, `glass`, `cinema`.
+   Retired ids (`glow`, `outline`, `two-tone`, `frosted-sweep`) remap to a live look.
 2. Create the project: `yaps captions create <video> --style <style>` (use `bold-highlight` when the user explicitly wants the default; add `--max-words <1-12>` only when they request a caption-length override). Report the returned `project_id`, segment count, and duration.
 3. Inspect the result with `yaps captions show <project> --full --pretty`. Present caption IDs and wording in a readable list when the user wants to review or correct them. Apply a different template with `yaps captions style <project> --style <style>`.
 4. Make corrections, always addressing captions by their `caption-NNN` id:
@@ -141,7 +144,7 @@ vault status|list|get|create|update|move|rename|delete|search|search-semantic|da
 speech synthesize (alias: tts) · srt generate
 meeting transcribe|show|correct|assign|rename-speaker|export
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
-media extract-audio|remove-background · audio clean · translate
+media extract-audio|remove-background|generate-image · audio clean · translate
 history-list · usage-local
 ```
 

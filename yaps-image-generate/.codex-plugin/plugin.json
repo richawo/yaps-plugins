@@ -1,0 +1,54 @@
+{
+  "name": "yaps-image-generate",
+  "version": "0.1.0",
+  "description": "Generate an image from a prompt with Yaps.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai/codex?utm_source=codex&utm_medium=plugin&utm_campaign=official_plugins",
+  "repository": "https://github.com/richawo/yaps-codex-plugin",
+  "license": "MIT",
+  "keywords": [
+    "text-to-image",
+    "image-generation",
+    "generate-image-from-prompt",
+    "local-image-generator",
+    "flux-klein",
+    "ai-image-from-text",
+    "prompt-to-png",
+    "make-sticker-from-prompt",
+    "on-device-image-generation",
+    "product-photo-generator"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Yaps Image Generate",
+    "shortDescription": "Generate images from a prompt",
+    "longDescription": "Generate a PNG from a short prompt with Yaps desktop and its local FLUX.2 [klein] 4B model. The plugin checks the Yaps version, sign-in, trial or Yaps Pro access, and the local Image generation model first, then runs on your computer and writes a new PNG. Optional --sticker also needs the Background Removal model. Apple Silicon with 16 GB or more is required. Requires a local-capable ChatGPT Desktop Work or Codex session; ChatGPT web and cloud sessions cannot reach the installed Yaps engine. Users can also run the feature directly in Yaps.",
+    "developerName": "Yaps AI",
+    "category": "Creativity",
+    "capabilities": [
+      "Text to image",
+      "Local FLUX.2 [klein] 4B",
+      "PNG export",
+      "Optional die-cut sticker",
+      "Prompt to product photo",
+      "On-device generation",
+      "File export"
+    ],
+    "websiteURL": "https://www.yaps.ai/codex?utm_source=codex&utm_medium=plugin&utm_campaign=official_plugins",
+    "privacyPolicyURL": "https://www.yaps.ai/privacy",
+    "termsOfServiceURL": "https://www.yaps.ai/terms",
+    "defaultPrompt": [
+      "Generate a product photo of a glossy red apple on a white table.",
+      "Create an image from this prompt and save a PNG.",
+      "Generate this as a sticker."
+    ],
+    "brandColor": "#D4775B",
+    "composerIcon": "./assets/yaps-icon.png",
+    "logo": "./assets/yaps-icon.png",
+    "logoDark": "./assets/yaps-icon.png"
+  }
+}

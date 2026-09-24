@@ -673,11 +673,17 @@ function normalizedRecommendedSettingsPath(value, platform) {
 function sanitizedAuthStatus(value, platform) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   if (typeof value.authenticated !== "boolean" || typeof value.status !== "string") return null;
+  const diagnosticCode = typeof value.diagnostic_code === "string" ? value.diagnostic_code : null;
+  const followedSettingsPath = diagnosticCode === "followed_desktop_account"
+    ? normalizedRecommendedSettingsPath(value.settings_path, platform)
+    : null;
+  if (diagnosticCode === "followed_desktop_account" && !followedSettingsPath) return null;
   return {
     authenticated: value.authenticated,
     status: value.status,
-    diagnosticCode: typeof value.diagnostic_code === "string" ? value.diagnostic_code : null,
+    diagnosticCode,
     recommendedSettingsPath: normalizedRecommendedSettingsPath(value.recommended_settings_path, platform),
+    followedSettingsPath,
   };
 }
 
@@ -814,8 +820,20 @@ export function launchInstalledYaps(cli, {
   });
 }
 
-export function applyResolvedSettings(args, settingsPath, { env = process.env } = {}) {
-  if (!settingsPath || explicitSettingsSelected(args, env)) return [...args];
+export function applyResolvedSettings(args, settingsPath, { env = process.env, followDesktopAccount = false } = {}) {
+  if (!settingsPath) return [...args];
+  if (followDesktopAccount) {
+    const withoutOldPath = [];
+    for (let index = 0; index < args.length; index += 1) {
+      if (args[index] === "--settings-path") {
+        index += 1;
+      } else if (!args[index].startsWith("--settings-path=")) {
+        withoutOldPath.push(args[index]);
+      }
+    }
+    return ["--settings-path", settingsPath, ...withoutOldPath];
+  }
+  if (explicitSettingsSelected(args, env)) return [...args];
   return ["--settings-path", settingsPath, ...args];
 }
 
@@ -908,12 +926,14 @@ export async function resolveYapsSession(options = {}) {
   let settingsPath = null;
   const authResult = await readAuth(explicitSettingsPath, DEFAULT_AUTH_TIMEOUT_MS);
   let auth = authResult.ok ? authResult.auth : null;
+  if (auth?.followedSettingsPath) settingsPath = auth.followedSettingsPath;
 
   if (!explicitSettings && auth?.recommendedSettingsPath && auth.status === "settings_path_mismatch") {
     const retry = await readAuth(auth.recommendedSettingsPath, DEFAULT_AUTH_TIMEOUT_MS);
     if (retry.ok) {
       settingsPath = auth.recommendedSettingsPath;
       auth = retry.auth;
+      if (auth.followedSettingsPath) settingsPath = auth.followedSettingsPath;
     }
   }
 
@@ -940,6 +960,7 @@ export async function resolveYapsSession(options = {}) {
         );
         if (!retry.ok) continue;
         auth = retry.auth;
+        if (auth.followedSettingsPath) settingsPath = auth.followedSettingsPath;
         if (!refreshableAccount(auth)) break;
       }
     }

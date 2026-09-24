@@ -1,6 +1,6 @@
 ---
 name: yaps-background-removal
-description: Remove the background from an existing JPG, PNG, WebP, or BMP image and export a transparent PNG, or a version composited onto a solid colour, through the installed Yaps desktop engine. Trigger for background remover, remove the background from this image, make this PNG transparent, cut out the subject, remove a photo's background, create a subject cutout, isolate the foreground of an image, product photo cutout, or produce a transparent-background PNG. Do not use for removing a video's background (use the Yaps app's Media tab) or for placing text behind a subject.
+description: Remove the background from an existing JPG, PNG, WebP, or BMP image and export a transparent PNG, a version composited onto a solid colour, or a die-cut sticker with an outline, through the installed Yaps desktop engine. Trigger for background remover, remove the background from this image, make this PNG transparent, cut out the subject, remove a photo's background, create a subject cutout, isolate the foreground of an image, product photo cutout, produce a transparent-background PNG, or make a sticker from a photo. Do not use for removing a video's background (use the Yaps app's Media tab), for placing text behind a subject, or for generating a new image from a prompt.
 ---
 
 # Yaps Background Remover
@@ -121,7 +121,7 @@ Run:
 yaps --pretty media remove-background "/path/to/photo.jpg" --output "/path/to/photo Background Removed.png"
 ```
 
-Add `--mode color --color "#RRGGBB"` to composite the cutout onto a solid background colour instead of exporting a transparent PNG; the default mode is `transparent`. Reject any colour that is not exactly six hexadecimal digits prefixed with `#`.
+Add `--mode color --color "#RRGGBB"` to composite the cutout onto a solid background colour instead of exporting a transparent PNG; the default mode is `transparent`. Add `--mode sticker --color "#ffffff"` to export a die-cut sticker (outline plus a light shadow, tight-cropped PNG). In sticker mode `--color` is the outline, not a fill. Reject any colour that is not exactly six hexadecimal digits prefixed with `#`. Default sticker output beside the source is `<source name> Sticker.png`.
 
 Keep using the runner when the PATH shim is unavailable. If `media remove-background` is unknown, ask the user to update Yaps and retry rather than bypassing Yaps with a separate background remover.
 
@@ -147,7 +147,7 @@ vault status|list|get|create|update|move|rename|delete|search|search-semantic|da
 speech synthesize (alias: tts) · srt generate
 meeting transcribe|show|correct|assign|rename-speaker|export
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
-media extract-audio|remove-background · audio clean · translate
+media extract-audio|remove-background|generate-image · audio clean · translate
 history-list · usage-local
 ```
 
@@ -171,5 +171,6 @@ it after a failure, a decline, or when the user asks for a terse result.
 ## Boundaries
 
 - For removing a video's background, open the Yaps app and go to **Media → Video background**; this plugin only processes photos.
+- For generating a new image from a prompt, use `yaps media generate-image` (or **Yaps → Media → Generate**) rather than this skill.
 - Do not silently switch to a hosted background-removal service.
 - Do not retain another copy of the source image.

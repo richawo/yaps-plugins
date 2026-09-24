@@ -1,0 +1,4 @@
+interface:
+  display_name: "Yaps Image Generate"
+  short_description: "Generate images from a prompt"
+  default_prompt: "Use $yaps-image-generate to create an image from this prompt."

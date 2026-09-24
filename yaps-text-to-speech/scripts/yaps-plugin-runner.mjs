@@ -184,7 +184,50 @@ const identity = pluginIdentity(host);
 const context = ownerKey && identity ? { root, ownerKey, identity, host, action: parsed.action, stage: parsed.stage } : null;
 const operationId = randomUUID();
 const started = Date.now();
+let terminalWritten = false;
+let cancelled = false;
+let child = null;
+
+function finishOnce(status, errorCode = null) {
+  if (terminalWritten) return false;
+  terminalWritten = true;
+  writeEvent(context, status, operationId, errorCode, Date.now() - started);
+  return true;
+}
+
 writeEvent(context, "attempt", operationId);
+
+// Reasons and thrown values can contain customer content, paths, or command
+// output. Deliberately ignore them and persist only the reviewed `unknown`
+// diagnostic. `uncaughtExceptionMonitor` observes without changing Node's
+// normal fatal-exception behavior.
+process.once("uncaughtExceptionMonitor", () => {
+  finishOnce("failure", "unknown");
+});
+process.once("unhandledRejection", () => {
+  finishOnce("failure", "unknown");
+  process.exitCode = 1;
+});
+
+// Node runs `exit` listeners synchronously. This is the last cooperative
+// boundary for a runner that reaches process teardown without a child `close`
+// callback. It cannot run for SIGKILL, Windows TerminateProcess, power loss, or
+// an OS crash.
+process.once("exit", () => {
+  finishOnce(cancelled ? "cancelled" : "failure", cancelled ? "cancelled" : "unknown");
+});
+
+for (const signal of ["SIGINT", "SIGTERM"]) {
+  process.once(signal, () => {
+    cancelled = true;
+    finishOnce("cancelled", "cancelled");
+    if (child) {
+      try { child.kill(signal); } catch {}
+    } else {
+      process.exit(signal === "SIGINT" ? 130 : 143);
+    }
+  });
+}
 
 let [command, ...commandArguments] = parsed.command;
 if (isYapsCliCommand(command)) {
@@ -198,14 +241,14 @@ if (isYapsCliCommand(command)) {
   });
   if (!session.path) {
     const failure = classifyCliResolutionFailure(session);
-    writeEvent(context, "failure", operationId, failure.code, Date.now() - started);
+    finishOnce("failure", failure.code);
     process.stderr.write(`${failure.message}\n`);
     process.exit(failure.exitCode);
   }
   if (accountPreflight) {
     const account = diagnoseAccount(session);
     if (session.authStatusSafety !== "safe" || !session.auth) {
-      writeEvent(context, "failure", operationId, account.code, Date.now() - started);
+      finishOnce("failure", account.code);
       process.stderr.write(`${account.message}\n`);
       process.exit(78);
     }
@@ -215,36 +258,33 @@ if (isYapsCliCommand(command)) {
       diagnostic_code: session.auth.diagnosticCode,
       credential_status: "not_accessed",
     };
-    writeEvent(context, "success", operationId, null, Date.now() - started);
+    finishOnce("success");
     process.stdout.write(`${JSON.stringify(sanitized, null, commandArguments.includes("--pretty") ? 2 : 0)}\n`);
     process.exit(0);
   }
   if (requiresActiveAccount) {
     const account = diagnoseAccount(session);
     if (account.code !== "ready") {
-      writeEvent(context, "failure", operationId, account.code, Date.now() - started);
+      finishOnce("failure", account.code);
       process.stderr.write(`${account.message}\n`);
       process.exit(77);
     }
   }
   command = session.path;
-  commandArguments = applyResolvedSettings(commandArguments, session.settingsPath);
+  commandArguments = applyResolvedSettings(commandArguments, session.settingsPath, {
+    followDesktopAccount: session.auth?.diagnosticCode === "followed_desktop_account",
+  });
 }
 
 let outputTail = Buffer.alloc(0);
 let launchError = null;
-let cancelled = false;
-const child = spawn(command, commandArguments, { env: process.env, stdio: ["inherit", "pipe", "pipe"], windowsHide: true });
+child = spawn(command, commandArguments, { env: process.env, stdio: ["inherit", "pipe", "pipe"], windowsHide: true });
 child.stdout.on("data", (chunk) => { outputTail = appendTail(outputTail, chunk); process.stdout.write(chunk); });
 child.stderr.on("data", (chunk) => { outputTail = appendTail(outputTail, chunk); process.stderr.write(chunk); });
 child.on("error", (error) => { launchError = error; });
-for (const signal of ["SIGINT", "SIGTERM"]) {
-  process.on(signal, () => { cancelled = true; try { child.kill(signal); } catch {} });
-}
 child.on("close", (code, signal) => {
-  const duration = Date.now() - started;
-  if (cancelled || signal) writeEvent(context, "cancelled", operationId, "cancelled", duration);
-  else if (code === 0) writeEvent(context, "success", operationId, null, duration);
-  else writeEvent(context, "failure", operationId, classifyError(outputTail.toString("utf8"), launchError), duration);
-  process.exitCode = code ?? (signal ? 1 : 127);
+  if (cancelled || signal) finishOnce("cancelled", "cancelled");
+  else if (code === 0) finishOnce("success");
+  else finishOnce("failure", classifyError(outputTail.toString("utf8"), launchError));
+  process.exitCode ??= code ?? (signal ? 1 : 127);
 });

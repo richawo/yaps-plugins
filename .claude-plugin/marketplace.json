@@ -65,6 +65,13 @@
       "tags": ["images", "background-removal", "transparent-png"]
     },
     {
+      "name": "yaps-image-generate",
+      "source": "./yaps-image-generate",
+      "description": "Generate images from a prompt with a local FLUX.2 [klein] 4B model.",
+      "category": "Media",
+      "tags": ["images", "text-to-image", "local"]
+    },
+    {
       "name": "yaps-text-to-speech",
       "source": "./yaps-text-to-speech",
       "description": "Turn text into spoken audio, narration, or voice-over with Yaps.",

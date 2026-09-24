@@ -246,7 +246,7 @@ srt generate
 meeting transcribe|show|correct|assign|rename-speaker|export|summarize|chapters|ask|speakers|merge-speakers|add-speaker
 captions styles|create|show|correct|replace|split|merge|style|reset|render|verify
 cut presets|verify|create|list|show|plan|export-plan|set|redetect|render|delete (alias: autocut)
-media extract-audio|remove-background
+media extract-audio|remove-background|generate-image
 audio clean
 translate
 history-list

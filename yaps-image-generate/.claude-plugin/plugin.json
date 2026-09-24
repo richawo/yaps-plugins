@@ -1,0 +1,19 @@
+{
+  "name": "yaps-image-generate",
+  "displayName": "Yaps Image Generate",
+  "version": "0.1.0",
+  "description": "Generate an image from a prompt with Yaps.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "image-generation",
+    "text-to-image",
+    "local"
+  ]
+}
