@@ -22,6 +22,37 @@
       ]
     },
     {
+      "name": "yaps-toolkit",
+      "source": "./yaps-toolkit",
+      "description": "Transcribe recordings, create subtitles and captions, translate, clean audio, remove backgrounds, and trim video pauses with Yaps. Includes optional private memory. Install Yaps and sign in.",
+      "category": "Media",
+      "tags": [
+        "transcription",
+        "subtitles",
+        "captions",
+        "translation",
+        "audio-cleanup",
+        "background-removal",
+        "video-editing",
+        "dictation",
+        "private-memory"
+      ]
+    },
+    {
+      "name": "yaps-video-clipping",
+      "source": "./yaps-video-clipping",
+      "description": "Remove long pauses from a talking-head video with Yaps Auto Cut. Review the cut plan, adjust the pacing, and export a separate MP4. Install Yaps and sign in.",
+      "category": "Media",
+      "tags": [
+        "video-editing",
+        "auto-cut",
+        "silence-removal",
+        "pause-removal",
+        "talking-head",
+        "mp4"
+      ]
+    },
+    {
       "name": "yaps-memory",
       "source": "./yaps-memory",
       "description": "Find or save notes in your Yaps memory vault, including past dictations. New users: install Yaps and sign in.",

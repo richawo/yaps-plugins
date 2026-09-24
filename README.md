@@ -167,6 +167,8 @@ Or browse everything interactively with `/plugin`.
 | `yaps-text-to-speech` | Turn text into spoken audio, narration, or voice-over files. |
 | `yaps-translation` | Translate text, Markdown, and SRT files locally, without metered API tokens. |
 | `yaps-video-to-audio` | Convert videos to MP3, WAV, or M4A audio files. |
+| `yaps-video-clipping` | Review long pauses, adjust pacing, and export a tightened video with Auto Cut. |
+| `yaps-toolkit` | Eleven focused transcription, media editing, translation, dictation, and memory skills in one install. |
 
 Install any of them the same way, for example:
 
@@ -174,6 +176,13 @@ Install any of them the same way, for example:
 claude plugin install yaps-transcription@yaps
 claude plugin install yaps-auto-captions@yaps
 ```
+
+`yaps-toolkit` is the Claude directory edition. It bundles 11 focused skills
+without image generation, speech synthesis, the general-purpose skill, or the
+full media MCP server. The separate `yaps-all` bundle contains the full toolkit.
+Publication in this Yaps marketplace does not mean acceptance into Anthropic's
+directory. Both new packages target local Claude Code; Cowork compatibility has
+not been verified.
 
 ## Requirements and access
 

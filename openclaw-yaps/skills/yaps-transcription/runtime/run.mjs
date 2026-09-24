@@ -3,7 +3,7 @@
 // Muse adapter. Discovery is copied verbatim from plugins/shared at build time.
 // This adapter writes no diagnostics, credentials, settings, or host permissions.
 import { spawn } from "node:child_process";
-import { readFile, stat, mkdtemp, rm, writeFile, link } from "node:fs/promises";
+import { readFile, stat, mkdtemp, rm, writeFile, link, realpath } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -350,4 +350,7 @@ export async function main(argv) {
   }
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) await main(process.argv.slice(2));
+// Node resolves module symlinks, while argv can retain an alias such as macOS
+// /tmp or an agent's installed-plugin link. Compare canonical paths on both sides.
+const entrypoint = process.argv[1] ? await realpath(resolve(process.argv[1])).catch(() => null) : null;
+if (entrypoint && entrypoint === await realpath(fileURLToPath(import.meta.url))) await main(process.argv.slice(2));
