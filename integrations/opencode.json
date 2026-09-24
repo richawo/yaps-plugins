@@ -1,0 +1,45 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "servers": {
+      "yaps": {
+        "type": "local",
+        "command": [
+          "npx",
+          "--yes",
+          "--package",
+          "https://codeload.github.com/richawo/yaps-plugins/tar.gz/c96839613550a79bc7b805285b700b8c681fffd4",
+          "yaps-plugin-media"
+        ],
+        "environment": {
+          "YAPS_PLUGIN_ID": "yaps-all",
+          "YAPS_PLUGIN_VERSION": "1.1.0",
+          "YAPS_PLUGIN_HOST": "opencode",
+          "YAPS_PLUGIN_TRANSPORT": "mcp"
+        }
+      },
+      "yaps-memory": {
+        "type": "local",
+        "command": [
+          "npx",
+          "--yes",
+          "--package",
+          "https://codeload.github.com/richawo/yaps-plugins/tar.gz/c96839613550a79bc7b805285b700b8c681fffd4",
+          "yaps-plugin-memory"
+        ],
+        "environment": {
+          "YAPS_PLUGIN_ID": "yaps-all",
+          "YAPS_PLUGIN_VERSION": "1.1.0",
+          "YAPS_PLUGIN_HOST": "opencode",
+          "YAPS_PLUGIN_TRANSPORT": "mcp",
+          "YAPS_MCP_CLIENT_ID": "local-mcp",
+          "YAPS_MCP_AUTO_AUTHORIZE_READ": "0"
+        }
+      }
+    },
+    "timeout": {
+      "startup": 120000,
+      "execution": 1800000
+    }
+  }
+}

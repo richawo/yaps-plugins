@@ -1,9 +1,10 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "yaps",
-  "version": "1.0.0",
-  "description": "Yaps skills for voice, media, translation, and memory. Install Yaps and sign in to start.",
+  "version": "1.1.0",
+  "description": "Yaps skills and tools for voice, media, translation, and memory. Install Yaps and sign in to start.",
   "homepage": "https://yaps.ai",
   "repository": "https://github.com/richawo/yaps-plugins",
-  "license": "MIT"
+  "license": "MIT",
+  "keywords": ["transcription", "captions", "audio", "video", "translation", "memory", "local-ai"]
 }

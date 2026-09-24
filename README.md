@@ -23,10 +23,10 @@ Replace `yaps-transcription` with another skill below. Install `@yaps/yaps` for 
 To add the full catalog as one OpenClaw plugin bundle from the Yaps marketplace:
 
 ```sh
-openclaw plugins install yaps-all --marketplace richawo/yaps-plugins --force
+openclaw plugins install yaps-all --marketplace richawo/yaps-plugins --force --accept-capabilities
 ```
 
-The bundle contains the same 14 standalone skills. Review the repository before using `--force`, which confirms a third-party marketplace source.
+The bundle contains the same 14 standalone skills plus MCP tools. Review the repository before using `--force`, which confirms a third-party marketplace source. `--accept-capabilities` accepts the declared skills and tools.
 
 ### Hermes Agent
 
@@ -45,6 +45,10 @@ Replace `yaps-transcription` with any skill in the catalog below. Use `yaps`
 for the general skill. Hermes keeps its normal install confirmation and
 security scan. See [Hermes skills](https://hermes-agent.nousresearch.com/docs/user-guide/features/skills)
 for updating or removing a skill.
+
+For registered tools as well as skills, follow the [native MCP setup](integrations/README.md).
+Ready-to-merge configurations cover Hermes and OpenCode. OpenClaw's `yaps-all`
+bundle includes the MCP configuration automatically.
 
 ### OpenCode, Goose, Pi, and more agents
 
