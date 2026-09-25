@@ -1,6 +1,6 @@
 {
   "name": "yaps-video-clipping",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Remove long pauses from a talking-head video with Yaps Auto Cut. Review the cut plan, adjust the pacing, and export a separate MP4. Install Yaps and sign in.",
   "author": {
     "name": "Yaps AI",

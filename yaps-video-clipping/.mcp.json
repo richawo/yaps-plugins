@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "yaps": {
+      "command": "npx",
+      "args": [
+        "--yes",
+        "--package",
+        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/59e51d380e5acdc1c1f13bc6200c3fbc4d3c6cef",
+        "yaps-plugin-media"
+      ],
+      "env": {
+        "YAPS_PLUGIN_ID": "yaps-video-clipping",
+        "YAPS_PLUGIN_VERSION": "1.1.0",
+        "YAPS_PLUGIN_HOST": "claude-code",
+        "YAPS_PLUGIN_TRANSPORT": "mcp",
+        "YAPS_TOOL_PROFILE": "cut"
+      }
+    }
+  }
+}

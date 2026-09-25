@@ -1,26 +1,20 @@
 ---
 name: yaps-background-removal
-description: "Remove an image background with Yaps. Save a transparent PNG, solid background, or outlined sticker. New users: install Yaps and sign in."
+description: Remove an image background with Yaps and export a transparent PNG or a cutout on a solid colour. Use for subject cutouts, product photos, and transparent images. Do not use for video backgrounds.
 ---
 
 # Yaps Background Removal
 
-Read [the runtime guide](references/runtime.md) before the first operation. It defines `<yaps>`, account readiness, local permissions, and file handling.
+Use the existing Yaps MCP tools. Do not invent CLI commands or replace this workflow with a hosted image service.
 
-Required Yaps version: 2.3.124 or newer. Check installed command help for later capabilities.
+Call `image_remove_background` with the exact local `image_path`. It accepts JPG, PNG, WebP, and BMP. Use `mode: transparent` for a transparent PNG, or `mode: color` with a `#RRGGBB` colour. Choose a new `.png` output path; preserve the original and existing outputs. If the tool reports low mask coverage, explain that it may not have found the intended subject and inspect the result before calling it successful.
 
-Feature readiness: Background Removal model, installed only after authorization when missing. Check media remove-background help for current platform support.
+Return the generated image and a link to the file. Do not imply support for video background removal or sticker outlines, which this tool does not expose.
 
-## Workflow
+## Reachability
 
-Select the exact JPG, PNG, WebP, or BMP source and a new PNG destination. Run `<yaps> media remove-background <input> --output <new.png> --pretty`. Transparent output is the default.
+Call `yaps_status` when a tool reports a problem. If it returns `local_yaps_unreachable`, `cli_missing`, or equivalent, the current session cannot see the Yaps engine. Do not claim Yaps is uninstalled. Offer [Download Yaps](https://yaps.ai/download), ask the user to open Yaps, and retry from a local session on the same computer. Only use `yaps_enable_feature` to install a model after the user requests it.
 
-For a solid background use `--mode color --color #RRGGBB`. For a die-cut sticker use `--mode sticker --color #ffffff`; here colour means the outline, not the background. Accept only a literal # followed by exactly six hex digits.
+## Connection
 
-Verify the file, dimensions, device, and mask coverage reported by Yaps. Coverage below 0.005 indicates no clear subject and must not be described as a clean successful cutout. Where preview is available, inspect alpha edges, hair, holes, fine detail, and any unwanted background islands. Preserve the original and previous exports.
-
-## Boundaries
-
-- Do not replace the source or silently change the requested output mode.
-- An empty mask or unreadable output is not success.
-- Use Yaps's processing, not an unrequested hosted image API.
+Run this workflow only through the plugin's declared MCP tools. If the connection is unavailable, explain setup and stop instead of running shell commands. Install Yaps on the same computer, open it, and sign in. New users need a Yaps account. Gated features require an active free trial or Yaps Pro. Model downloads need user approval.

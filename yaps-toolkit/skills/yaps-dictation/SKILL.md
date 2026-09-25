@@ -1,26 +1,29 @@
 ---
 name: yaps-dictation
-description: "Type with your voice using Yaps on desktop. Get set up, fix a problem, or recover a recent dictation. New users: install Yaps and sign in."
+description: Check Yaps voice dictation readiness or recover a recent dictation through the existing local Yaps MCP tools. Use for voice typing, speech input, hands-free writing, microphone shortcut setup, or recovering lost dictation text. Do not use for transcribing an existing audio or video file.
 ---
 
 # Yaps Dictation
 
-Read [the runtime guide](references/runtime.md) before the first operation. It defines `<yaps>`, account readiness, local permissions, and file handling.
+Use the existing Yaps MCP tools. Do not invent shell commands, PATH edits, or a second CLI.
 
-Required Yaps version: 2.3.124 or newer. Check installed command help for later capabilities.
+## Tools
 
-Feature readiness: Dictation engine, microphone permission, and platform text-insertion permissions. Current shortcuts are configured in Yaps Settings, not assumed from defaults.
+- `yaps_status` : call first when any other Yaps tool reports a problem.
+- `dictation_status` : readiness of system-wide voice typing (app, account, installed engines). Live capture uses the Yaps global shortcut under **Yaps → Settings → Shortcuts**; this tool only reports readiness.
+- `dictation_history_recover` : list recent local dictations so one can be restored into chat.
+- `yaps_enable_feature` : only after the user explicitly asks to install a dictation engine.
 
-## Workflow
+## Reachability
 
-Use the shared account/readiness checks and inspect `features list`. If no dictation engine is ready, explain the available modes and current download sizes before installing an authorized model. Direct the user to Yaps Settings > Shortcuts for the configured dictation key; do not assume Fn.
-
-Microphone and accessibility permissions must be completed in the OS/Yaps flow. A feature flag is not proof that capture or paste works. During developer QA, first run existing synthetic fixture tests where available. Those can verify decoding and cleanup without requiring the user to speak; they do not prove microphone capture or insertion. For a complete voice-typing acceptance test, use a short dictation into the intended composer and the actual inserted text as evidence. Ask the user only for a remaining physical interaction that the available tools cannot perform. Distinguish capture failure, transcription failure, and insertion failure when diagnosing. Change shortcuts or engines only when the requested fix requires it.
-
-For explicit recovery, use `<yaps> history-list --limit 10 --pretty`, restrict attention to dictation entries, and show only enough timestamp/text context to identify the requested item. Resolve ambiguity before saving a recovered transcript. Never browse history merely to prove setup works.
+This plugin is local-only and requires the installed Yaps desktop app. If tools return `local_yaps_unreachable`, `cli_missing`, or equivalent, the current Claude Code session cannot see the Yaps engine on this computer. Do not claim Yaps is uninstalled. Offer [Download Yaps](https://yaps.ai/download), ask the user to open the app on this machine, and retry from a local Claude Code session.
 
 ## Boundaries
 
-- This skill cannot control a remote microphone or capture speech from a cloud VM.
-- No background recording, broad history collection, or assumed OS permission.
-- A successful settings check alone is not successful voice typing.
+- Do not intercept Claude Code's native microphone control.
+- Do not start recording invisibly.
+- Do not transcribe an existing media file here; use the yaps-transcription skill.
+
+## Connection
+
+Run this workflow only through the plugin's declared MCP tools. If the connection is unavailable, explain setup and stop instead of running shell commands. Install Yaps on the same computer, open it, and sign in. New users need a Yaps account. Gated features require an active free trial or Yaps Pro. Model downloads need user approval.

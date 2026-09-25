@@ -1,24 +1,20 @@
 ---
 name: yaps-srt-generator
-description: "Make a timed SRT subtitle file from audio or video with Yaps. New users: install Yaps and sign in."
+description: Generate a timestamped SRT subtitle file from existing local audio or video with Yaps. Use for subtitles, closed captions, and video-to-SRT. Use auto-captions for a finished video with burned-in captions.
 ---
 
-# Yaps Subtitle Generator
+# Yaps SRT Generator
 
-Read [the runtime guide](references/runtime.md) before the first operation. It defines `<yaps>`, account readiness, local permissions, and file handling.
+Use the existing Yaps MCP tools. Do not invent CLI commands or upload the recording to another transcription service.
 
-Required Yaps version: 2.3.124 or newer. Check installed command help for later capabilities.
+Call `srt_generate` with the exact local `media_path`, a separate `.srt` output, and the spoken `language` when known. Otherwise omit the language for detection. Preserve the source and existing subtitles. Set `overwrite: true` only after explicit approval to replace the exact destination.
 
-Feature readiness: Subtitles/Whisper, enabled through features subtitles --enable after an authorized model download.
+Return a link to the subtitle file. This produces a separate SRT file; it does not burn captions into the video. Use auto-captions for that, transcribe for plain text, and notes for speaker-labelled meetings.
 
-## Workflow
+## Reachability
 
-Choose a new absolute `<source> Subtitles.srt` path. Write a private request JSON object with `input` and `output` absolute paths. Run `node "<skill-root>/runtime/run.mjs" srt-file <request.json>`. Remove only that temporary request file afterward. This adapter generates into owned temporary storage, checks numbered cues and ordered positive timings, then atomically publishes without replacing an existing destination, including one created during inference. Do not use raw `srt generate --output` for delivery: the installed CLI can overwrite an existing file.
+Call `yaps_status` when a tool reports a problem. If it returns `local_yaps_unreachable`, `cli_missing`, or equivalent, the current session cannot see the Yaps engine. Do not claim Yaps is uninstalled. Offer [Download Yaps](https://yaps.ai/download), ask the user to open Yaps, and retry from a local session on the same computer. Only use `yaps_enable_feature` to install a model after the user requests it.
 
-Confirm the output is non-empty and inspect its actual content. Check first, middle, and final cues against the source when review is requested; timestamps alone do not prove words are correct. Return the subtitle file with engine, duration, and word count from Yaps. Report silence or coded failures accurately.
+## Connection
 
-## Boundaries
-
-- This creates sidecar subtitles, not burned-in captions.
-- Do not renumber or shift timings while translating unless the user asks for retiming.
-- No empty subtitle file presented as success.
+Run this workflow only through the plugin's declared MCP tools. If the connection is unavailable, explain setup and stop instead of running shell commands. Install Yaps on the same computer, open it, and sign in. New users need a Yaps account. Gated features require an active free trial or Yaps Pro. Model downloads need user approval.

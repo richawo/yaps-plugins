@@ -1,26 +1,22 @@
 ---
 name: yaps-translation
-description: "Translate text or subtitle files with Yaps. Keep the original and preserve subtitle timing. New users: install Yaps and sign in."
+description: Translate text, Markdown, plain-text files, or SRT subtitles with the local Yaps Accurate Translation engine. Use for private on-device translation. Do not use for live speech or generating a transcript from media.
 ---
 
 # Yaps Translation
 
-Read [the runtime guide](references/runtime.md) before the first operation. It defines `<yaps>`, account readiness, local permissions, and file handling.
+Use the existing Yaps MCP translation tools. Do not invent CLI commands, silently substitute model-written translation, or send the content to a hosted translator when Yaps fails.
 
-Required Yaps version: 2.3.124 or newer. Check installed command help for later capabilities.
+- Use `translate_languages` to check installed engines and supported languages when needed.
+- Use `translate_text` for text supplied in the conversation. Set `to` to the target language code and supply `from` only when the source language is known. Leave `engine: auto` unless the user requests a specific supported engine.
+- Use `translate_file` for a local `.md`, `.txt`, or `.srt` file, with a separate destination. SRT translation preserves cue timestamps. Do not overwrite the source or existing translations.
 
-Feature readiness: Translation Standard or Extended. Query translate --list-languages for each engine's installed languages and reduced-quality flags; use current reported download sizes.
+Preserve meaning, names, and intended formatting. Return the translated text or a link to the new file and identify the target language. Report unsupported language pairs accurately.
 
-## Workflow
+## Reachability
 
-Run `<yaps> translate --list-languages --pretty` before promising a language. Respect `installed`, language codes, and any `reduced_quality` warning. If the required language needs a missing engine, explain the reported model/download and get authorization before `features translation standard|extended --enable`.
+Call `yaps_status` when a tool reports a problem. If it returns `local_yaps_unreachable`, `cli_missing`, or equivalent, the current session cannot see the Yaps engine. Do not claim Yaps is uninstalled. Offer [Download Yaps](https://yaps.ai/download), ask the user to open Yaps, and retry from a local session on the same computer. Only use `yaps_enable_feature` to install a model after the user requests it.
 
-Translate a file with `translate <input.md|txt|srt> --to <code> --output <new-file> --pretty`, or supplied short text with `translate --text <text> --to <code>`. Use `--from` if source detection is wrong or uncertain. Leave `--engine auto` unless the user requests `gemmax2` (Standard) or `translategemma` (Extended).
+## Connection
 
-Default file naming is `<stem>.<language>.<extension>`; check collisions and preserve the source. For SRT, compare every cue index and timestamp line before/after; only spoken text should change. For Markdown, inspect headings, links, code, and list structure. Return the file and stated language/engine. Local translation inference does not mean agent usage is free or that text shown to the agent stays outside its context.
-
-## Boundaries
-
-- No silent hosted translation fallback.
-- Do not promise a language outside the installed catalogue or suppress quality limitations.
-- Do not reinterpret a request to translate as permission to rewrite the meaning or publish the result.
+Run this workflow only through the plugin's declared MCP tools. If the connection is unavailable, explain setup and stop instead of running shell commands. Install Yaps on the same computer, open it, and sign in. New users need a Yaps account. Gated features require an active free trial or Yaps Pro. Model downloads need user approval.

@@ -1,26 +1,20 @@
 ---
 name: yaps-audio-cleaner
-description: "Reduce noise, hiss, and static in a speech recording with Yaps. Save a separate clean file. New users: install Yaps and sign in."
+description: Remove noise, hiss, and static from an existing speech recording with Yaps Audio Cleaner. Use for voice, podcast, and interview cleanup. Do not use for separating music stems or changing spoken words.
 ---
 
 # Yaps Audio Cleaner
 
-Read [the runtime guide](references/runtime.md) before the first operation. It defines `<yaps>`, account readiness, local permissions, and file handling.
+Use the existing Yaps MCP tools. Do not invent CLI commands or upload audio to a hosted cleaner.
 
-Required Yaps version: 2.3.124 or newer. Check installed command help for later capabilities.
+Use `audio_clean` with the exact local `audio_path` and a separate `.wav` output. Default to `quality: recommended`; choose `quick` for speed or `maximum` only when the user values extra processing over latency. Maximum can take longer than the recording itself. Keep `overwrite` false unless the user explicitly approves replacing that exact output.
 
-Feature readiness: Audio Cleaner; use the installed feature catalogue for required models and supported quality modes.
+Return the cleaned file. Describe it as noise reduction, not guaranteed recovery of inaudible speech. Preserve the source and do not trim or rewrite the spoken content.
 
-## Workflow
+## Reachability
 
-Choose `recommended` by default, including for long recordings. Choose `quick` when the user prioritizes speed or requests a test pass. Use `maximum` for difficult noise when the user values quality over processing time, and explain that it can take several times the recording duration.
+Call `yaps_status` when a tool reports a problem. If it returns `local_yaps_unreachable`, `cli_missing`, or equivalent, the current session cannot see the Yaps engine. Do not claim Yaps is uninstalled. Offer [Download Yaps](https://yaps.ai/download), ask the user to open Yaps, and retry from a local session on the same computer. Only use `yaps_enable_feature` to install a model after the user requests it.
 
-Run `<yaps> audio clean <input> --quality recommended --output <new.wav> --pretty`. Omit the output only if Yaps's safe naming is appropriate. Never pass `--overwrite` without permission for the exact output; never target the source.
+## Connection
 
-Confirm non-empty output, duration, and channels from the result or media probe. Listen to representative sections when audio review is available, especially consonants, quiet speech, and noisy transitions. Return the cleaned file and reported processing metrics. A smaller noise floor alone is not proof of preserved speech. Keep separate versions for quality comparisons.
-
-## Boundaries
-
-- Do not promise perfect restoration or choose Quick only because the file is long.
-- Denoising must preserve spoken content, timing, and the original recording.
-- Do not automatically launch a second expensive quality pass.
+Run this workflow only through the plugin's declared MCP tools. If the connection is unavailable, explain setup and stop instead of running shell commands. Install Yaps on the same computer, open it, and sign in. New users need a Yaps account. Gated features require an active free trial or Yaps Pro. Model downloads need user approval.

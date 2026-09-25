@@ -1,28 +1,27 @@
 ---
 name: yaps-video-clipping
-description: "Shorten a talking-head video with Yaps Auto Cut. Review the pauses, adjust the cut, and export. New users: install Yaps and sign in."
+description: Remove dead air and long pauses from a local video with Yaps Auto Cut, review or tune the cut plan, and export a separate tightened MP4. Do not use for selecting semantic highlights, rearranging scenes, or adding captions.
 ---
 
 # Yaps Auto Cut
 
-Read [the runtime guide](references/runtime.md) before the first operation. It defines `<yaps>`, account readiness, local permissions, and file handling.
+Use the existing Yaps MCP Auto Cut tools. Do not invent CLI commands, replace the workflow with an ad-hoc editor, or upload the source to a hosted service. Requires Yaps 2.3.848 or newer and an active trial or Yaps Pro.
 
-Required Yaps version: 2.3.848 or newer. Check installed command help for later capabilities.
+1. Verify the exact source with `cut_verify`. Stop on an unusable source, missing audio, or exceeded limits.
+2. Inspect `cut_presets` when needed. Prefer `natural` for conversational pacing, `tight` for a punchy social cut, and `relaxed` for light trimming. Call `cut_create` and retain its returned project ID.
+3. Read `cut_show`, `cut_plan`, and `cut_export_plan`. Present source duration, kept duration, removed percentage, cut count, and the proposed output. If the user asked to review or tune first, wait for that review before rendering.
+4. Adjust requested settings with `cut_set`. `pause_budget_ms` implies custom pacing and must not accompany a conflicting preset. Detection changes need `cut_redetect` when the response says `requires_redetect: true`; plan-only changes apply immediately.
+5. Render with `cut_render` to a separate `.mp4`. Never target the source or preview proxy. Set `overwrite: true` only after approval to replace that exact output. Avoid concurrent renders for the same project.
+6. Verify the output with `cut_verify`, then return its link and useful cut metrics. A saved project or plan alone is not a finished export.
 
-Feature readiness: Auto Cut, available in Yaps 2.3.848 or newer. Inspect cut --help, cut presets, and features list. No model download of its own; rendering requires the platform media dependencies.
+Use `cut_list` and `cut_show` to resume work. Do not use `cut_delete` for cleanup; it requires the user's explicit request to delete the exact saved project and `confirm: true`.
 
-## Workflow
+Auto Cut trims pauses; it does not decide which ideas are highlights. Use auto-captions for captioned exports and video-to-audio for audio extraction.
 
-Verify `<yaps> cut --help` exists before processing. Run `cut verify <video> --pretty`; stop on source_missing, not_video, no_audio, too_long, or too_big. Inspect `cut presets` and choose `natural` for ambiguous intent, `tight` for punchy social pacing, or `relaxed` for light trimming.
+## Reachability
 
-Create with `cut create <video> --preset natural`. Inspect the returned project with `cut show <id>`, `cut plan <id>`, and `cut export-plan <id>`. Report source/kept duration, removed percentage, cut count, and longest retained gap. If the user requested a review or plan, present it before rendering.
+Call `yaps_status` when a tool reports a problem. If it returns `local_yaps_unreachable`, `cli_missing`, or equivalent, the current session cannot see the Yaps engine. Do not claim Yaps is uninstalled. Offer [Download Yaps](https://yaps.ai/download), ask the user to open Yaps, and retry from a local session on the same computer. If Auto Cut is disabled, use `yaps_enable_feature` with `feature: auto-cut` when enabling it is part of the requested workflow. It has no model download of its own; do not silently install other missing dependencies.
 
-Tune with `cut set <id> --preset relaxed` or deliberate lead-in/lead-out adjustments. A custom `--pause-budget-ms` must not conflict with a named preset. Detection changes require `cut redetect <id>` when `requires_redetect` is true; plan-only settings do not. Avoid aggressive thresholds that remove speech merely to maximize the removed percentage.
+## Connection
 
-Render `cut render <id> --output <new-cut.mp4>` and verify the result with `cut verify <output>`. Never target the source, preview proxy, or existing output; never run simultaneous renders for one project. Treat nothing_to_cut, no_speech, and render_failed honestly. Resume through cut list/show; never delete a project as routine cleanup. Deletion needs intent for the exact project and its managed artifacts.
-
-## Boundaries
-
-- Auto Cut removes pauses; it does not choose semantic highlights or rearrange scenes.
-- Preserve source speech and check cut boundaries by listening.
-- Do not substitute ad-hoc FFmpeg trimming when the installed Yaps command is missing.
+Run this workflow only through the plugin's declared MCP tools. If the connection is unavailable, explain setup and stop instead of running shell commands. Install Yaps on the same computer, open it, and sign in. New users need a Yaps account. Gated features require an active free trial or Yaps Pro. Model downloads need user approval.

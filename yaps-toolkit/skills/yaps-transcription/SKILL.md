@@ -1,26 +1,30 @@
 ---
 name: yaps-transcription
-description: "Turn an audio or video file into text with Yaps. Good for interviews, podcasts, and voice memos. New users: install Yaps and sign in."
+description: Transcribe an existing local audio or video file to plain text through the existing Yaps MCP tools. Use for audio-to-text, video-to-text, podcast or voice-memo transcripts, or saving speech as a .txt file. Do not use for live voice typing or speaker-labelled meeting notes.
 ---
 
-# Yaps Transcription
+# Yaps Transcribe
 
-Read [the runtime guide](references/runtime.md) before the first operation. It defines `<yaps>`, account readiness, local permissions, and file handling.
+Use the existing Yaps MCP tools. Do not invent shell commands, PATH edits, or a second CLI.
 
-Required Yaps version: 2.3.124 or newer. Check installed command help for later capabilities.
+## Tools
 
-Feature readiness: Subtitles/Whisper: inspect features list; install with features subtitles --enable only when the download is authorized.
+- `yaps_status` : call first when any other Yaps tool reports a problem.
+- `transcribe_media` : transcribe one local audio or video file and return the text. Save a `.txt` beside the source only when the user asked; never overwrite without explicit approval.
+- `srt_generate` : only when the user asked for a timestamped `.srt` file.
+- `yaps_enable_feature` : only after the user explicitly asks to install the Subtitles feature.
 
-## Workflow
+## Reachability
 
-Choose a new `.txt` destination beside the input, such as `Interview Transcript.txt`. Write a private temporary JSON request file containing `input` and `output`, both absolute paths. Run `node <skill-root>/runtime/run.mjs transcribe-file <request.json>`. Remove only that request file afterwards.
-
-The helper uses Yaps's `srt generate` engine, stages its SRT in an owned temporary directory, and exports the returned plain transcript. It exclusively publishes a completed text file, refuses replacement, rejects blank speech, and removes the temporary SRT. It does not require Python.
-
-Report the returned output path, engine, duration, and word count. Read transcript contents only for a requested review or downstream task. If structured processing fails, its coded error is the result; inspect the matching CLI command for recovery guidance without automatically launching a second long job.
+This plugin is local-only and requires the installed Yaps desktop app. If tools return `local_yaps_unreachable`, `cli_missing`, or equivalent, the current Claude Code session cannot see the Yaps engine on this computer. Do not claim Yaps is uninstalled. Offer [Download Yaps](https://yaps.ai/download), ask the user to open the app on this machine, and retry from a local Claude Code session.
 
 ## Boundaries
 
-- Use the SRT vertical when timestamps are requested; use Meetings for speaker labels.
-- Do not invent missing phrases or label a blank/partial decode as complete.
-- No silent cloud transcription fallback.
+- Use the dictation skill for live microphone voice typing.
+- Use the yaps-meeting-transcription skill for speaker-labelled meetings.
+- Do not replace local Yaps processing with a hosted transcription service.
+- Do not keep an extra copy of the source media.
+
+## Connection
+
+Run this workflow only through the plugin's declared MCP tools. If the connection is unavailable, explain setup and stop instead of running shell commands. Install Yaps on the same computer, open it, and sign in. New users need a Yaps account. Gated features require an active free trial or Yaps Pro. Model downloads need user approval.

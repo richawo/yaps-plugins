@@ -25,11 +25,11 @@ The plugin is free. Gated Yaps features require an active free trial or Yaps Pro
 
 Auto Cut removes pauses from an existing video. It does not generate new video, select semantic highlights, or rearrange scenes.
 
-These skills invoke the installed Yaps CLI through a bundled adapter. They process selected files on that computer and preserve originals. Requested results can enter Claude's context. A remote Claude session cannot reach another computer's Yaps installation through this plugin. Cowork compatibility has not been verified.
+These skills call only the plugin's declared local MCP servers. Those servers invoke the installed Yaps CLI internally. Users do not need to run terminal commands for their media tasks. They process selected files on that computer and preserve originals. Requested results can enter Claude's context. A remote Claude session cannot reach another computer's Yaps installation through this plugin. Cowork compatibility has not been verified.
 
 ## Account checks and network use
 
-The bundled JavaScript adapter discovers and starts the installed Yaps CLI. Only an explicit allowlist of operating-system paths, locale settings, and Yaps runtime paths is passed to child processes. Unrelated credentials, loader flags, and other hosts' MCP consent are excluded. Installation help directs the user to the download link in this README. That link is not an upload destination. The adapter has no HTTP client and reports sanitized account readiness.
+On first connection, npx downloads the Yaps MCP runtime from a pinned GitHub commit and its dependencies from npm. This installs the connector, not the desktop app or feature models. The declared local servers discover Yaps, check account readiness, and start the native CLI or vault connector for the requested operation. No remote MCP endpoint receives the user's files. The skills bundle contains no executable scripts, hooks, or shell fallback.
 
 The installed Yaps app may contact Yaps account services to refresh its own sign-in and plan access. Application updates, approved model downloads, and limited usage or diagnostic metadata can also use the network. These workflows do not upload recordings, transcripts, note bodies, or source files to a cloud AI service for processing. Results requested by Claude follow Anthropic's own data handling.
 
