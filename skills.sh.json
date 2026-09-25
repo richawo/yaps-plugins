@@ -1,0 +1,31 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Transcription and captions",
+      "description": "Turn recordings into text, meeting transcripts, subtitles, and styled captions.",
+      "skills": ["yaps-transcription", "yaps-meeting-transcription", "yaps-srt-generator", "yaps-auto-captions"]
+    },
+    {
+      "title": "Speech and translation",
+      "description": "Create spoken audio, translate text and subtitles, or set up voice typing.",
+      "skills": ["yaps-text-to-speech", "yaps-translation", "yaps-dictation"]
+    },
+    {
+      "title": "Audio and video",
+      "description": "Clean recordings, extract audio, and shorten pauses with Auto Cut.",
+      "skills": ["yaps-audio-cleaner", "yaps-video-to-audio", "yaps-video-clipping"]
+    },
+    {
+      "title": "Images",
+      "description": "Remove image backgrounds or create an image from a written prompt.",
+      "skills": ["yaps-background-removal", "yaps-image-generate"]
+    },
+    {
+      "title": "Memory and toolkit",
+      "description": "Use optional private Markdown memory or combine Yaps tools for a requested task.",
+      "skills": ["yaps-memory", "yaps"]
+    }
+  ]
+}
