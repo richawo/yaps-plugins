@@ -39,6 +39,12 @@ The installed Yaps app may contact Yaps account services to refresh its own sign
 
 Selected recordings and notes can contain personal information. Yaps reads them and saves requested outputs locally until the user removes them. Account and subscription records remain while the account is active; account-linked product events are retained for up to 90 days. Other operational records follow the retention limits and legal exceptions in the linked privacy policy.
 
+## Review notes
+
+The readable media bundle includes the MCP SDK and its Ajv schema validator. The raw.githubusercontent.com URL ending in `ajv/master/lib/refs/data.json#` is an embedded JSON Schema identifier, not a credential upload or a runtime download request. The bundle is intentionally unminified and exceeds the portal's per-file automatic inspection threshold. Its dependency versions and SHA-256 digests are recorded in `mcp/provenance.json`.
+
+Yaps website URLs in discovery errors are installation help. Native process discovery uses local environment paths and OS process queries; it does not send those paths or environment values to those URLs. The installed app owns its existing sign-in and account checks. The plugin does not ask users to share another service's API key. All workflow execution starts through the declared local MCP servers.
+
 If setup fails, open Yaps, check account access and feature readiness, then ask Claude to check Yaps status. A missing command requires a Yaps update. Do not work around a permission denial or overwrite an existing output.
 
 ## Support
