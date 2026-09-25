@@ -67,6 +67,17 @@ on the same computer. Gated features need an active free trial or Yaps Pro.
 The extension is free. Optional memory access needs **Local MCP** permission in
 Yaps. See the [setup guide](integrations/README.md) for connection checks.
 
+### Cline
+
+Follow the [Cline installation guide](llms-install.md) to connect Yaps media tools.
+It uses Cline's normal tool approvals and the Yaps account already signed in on
+your computer. Start with:
+
+> Check Yaps, then transcribe this recording and save the transcript beside it.
+
+The connection is free. Gated features require an active Yaps free trial or Yaps
+Pro. You can also install individual skills using the table below.
+
 ### OpenCode, Goose, Pi, and more agents
 
 The [`skills` CLI](https://skills.sh/docs/cli) installs the same complete bundles

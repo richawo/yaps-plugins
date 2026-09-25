@@ -19,6 +19,7 @@ reach a Yaps installation on another computer.
 | :--- | :--- |
 | OpenClaw | Install or update `yaps-all` from the Yaps marketplace. Version 1.1.0 adds MCP tools to the 14 skills. |
 | Gemini CLI | Install the native extension using the command below. It includes all 14 skills and both MCP connections. |
+| Cline | Follow [the installation guide](../llms-install.md) and merge [cline.json](cline.json) into Cline's MCP settings. This adds media tools; private memory remains optional. |
 | Hermes | Merge the `mcp_servers` entries from [hermes.json](hermes.json) into your Hermes `config.yaml`. JSON objects are valid YAML. Keep your other settings. |
 | OpenCode 2 | Merge `mcp.servers` from [opencode.json](opencode.json) into your project's `opencode.json` or `opencode.jsonc`. Include the startup timeout for a first-time download. Run `opencode mcp list` to check the connection. |
 | OpenCode 1 | Use [opencode-v1.json](opencode-v1.json). Version 1 puts server names directly under `mcp`; version 2 uses `mcp.servers`. Keep your other settings. |
