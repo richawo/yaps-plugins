@@ -67,6 +67,22 @@ on the same computer. Gated features need an active free trial or Yaps Pro.
 The extension is free. Optional memory access needs **Local MCP** permission in
 Yaps. See the [setup guide](integrations/README.md) for connection checks.
 
+### Antigravity
+
+Use the [native Antigravity plugin](antigravity/yaps/README.md) for all 14 skills
+and both MCP server definitions:
+
+```sh
+git clone --depth 1 https://github.com/richawo/yaps-plugins.git yaps-plugins
+agy plugin install ./yaps-plugins/antigravity/yaps
+agy plugin list
+```
+
+Install Yaps on the same computer and sign in. The plugin is free; gated features
+need an active free trial or Yaps Pro. Private memory requires Local MCP
+permission in Yaps. This is a direct install, separate from Google's curated
+plugin catalog.
+
 ### Cline
 
 Follow the [Cline installation guide](llms-install.md) to connect Yaps media tools.
