@@ -3,6 +3,11 @@ import { YapsToolError } from "./yaps-runtime.mjs";
 // Standalone marketplace packages share this runtime. Each profile advertises
 // and accepts only its workflow, plus the setup tools that workflow needs.
 export const TOOL_PROFILES = {
+  "directory-toolkit": {
+    names: ["transcribe_media", "srt_generate", "audio_clean", "image_remove_background", "video_extract_audio"],
+    prefixes: ["dictation_", "meeting_", "captions_", "translate_", "cut_"],
+    features: ["dictation", "cleanup", "subtitles", "meeting", "auto-captions", "translation", "audio-cleaner", "background-removal", "auto-cut"],
+  },
   dictation: { prefixes: ["dictation_"], features: ["dictation", "cleanup"] },
   transcription: { names: ["transcribe_media"], features: ["subtitles"] },
   meeting: { prefixes: ["meeting_"], features: ["meeting"] },

@@ -42,3 +42,21 @@ test("unknown profiles fail closed and the existing bundle retains all tools", (
   assert.throws(() => buildToolRegistry(modules, "typo"), /Unknown Yaps tool profile/);
   assert.equal(buildToolRegistry(modules).tools.length, 48);
 });
+
+test("directory toolkit excludes generation tools and rejects generation model installs", async () => {
+  const registry = buildToolRegistry(modules, "directory-toolkit");
+  const names = registry.tools.map(tool => tool.name);
+  const expectedNames = ["yaps_status", "yaps_enable_feature", ...Object.entries(expected)
+    .filter(([profile]) => profile !== "speech").flatMap(([, tools]) => tools)];
+  assert.deepEqual(names.toSorted(), expectedNames.toSorted());
+  for (const name of ["image_generate", "text_to_speech", "tts_voices"]) {
+    assert.ok(!names.includes(name));
+    assert.ok(!registry.handlers.has(name));
+  }
+  for (const name of ["transcribe_media", "cut_render", "meeting_export", "image_remove_background"]) {
+    assert.ok(registry.handlers.has(name));
+  }
+  for (const feature of ["reading", "image-generation"]) {
+    await assert.rejects(registry.handlers.get("yaps_enable_feature")({ feature }), { code: "invalid_input" });
+  }
+});
