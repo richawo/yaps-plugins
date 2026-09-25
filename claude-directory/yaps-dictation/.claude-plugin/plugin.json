@@ -1,0 +1,20 @@
+{
+  "name": "yaps-dictation",
+  "version": "1.1.1",
+  "description": "Type with your voice using Yaps on desktop. Get set up, fix a problem, or recover a recent dictation. New users: install Yaps and sign in.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "dictation",
+    "voice-typing",
+    "speech-to-text",
+    "accessibility",
+    "desktop"
+  ]
+}

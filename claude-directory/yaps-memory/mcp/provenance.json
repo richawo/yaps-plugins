@@ -1,0 +1,19 @@
+{
+  "source": "https://github.com/richawo/yaps-plugins/tree/59e51d380e5acdc1c1f13bc6200c3fbc4d3c6cef/cursor/yaps",
+  "revision": "59e51d380e5acdc1c1f13bc6200c3fbc4d3c6cef",
+  "esbuild": "0.27.3",
+  "sha256": {
+    "media.mjs": "73c334f2d22187e6205499bbd7ef006c3269ca93ce9393f30e3df779b421e624",
+    "memory.mjs": "940a2e9983c7c8616b0e4019cb4dc4e301d6dcc6a3e84a271c85d8dccb061149"
+  },
+  "dependencies": {
+    "zod": "4.5.4",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "zod-to-json-schema": "3.25.2",
+    "ajv": "8.20.0",
+    "fast-deep-equal": "3.1.3",
+    "json-schema-traverse": "1.0.0",
+    "fast-uri": "3.1.7",
+    "ajv-formats": "3.0.1"
+  }
+}

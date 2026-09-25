@@ -1,0 +1,20 @@
+{
+  "name": "yaps-video-to-audio",
+  "version": "1.1.1",
+  "description": "Save the sound from a video as MP3, WAV, or M4A with Yaps. New users: install Yaps and sign in.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "extract-audio",
+    "video-to-audio",
+    "mp3",
+    "wav",
+    "m4a"
+  ]
+}

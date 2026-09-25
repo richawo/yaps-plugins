@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "yaps": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/mcp/media.mjs"
+      ],
+      "env": {
+        "YAPS_PLUGIN_ID": "yaps-dictation",
+        "YAPS_PLUGIN_VERSION": "1.1.1",
+        "YAPS_PLUGIN_HOST": "claude-code",
+        "YAPS_PLUGIN_TRANSPORT": "mcp",
+        "YAPS_TOOL_PROFILE": "dictation"
+      }
+    }
+  }
+}

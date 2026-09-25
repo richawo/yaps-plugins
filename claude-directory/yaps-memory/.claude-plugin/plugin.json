@@ -1,0 +1,20 @@
+{
+  "name": "yaps-memory",
+  "version": "1.1.1",
+  "description": "Find or save notes in your Yaps memory vault, including past dictations. New users: install Yaps and sign in.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "memory",
+    "notes",
+    "personal-knowledge",
+    "past-dictations",
+    "markdown"
+  ]
+}

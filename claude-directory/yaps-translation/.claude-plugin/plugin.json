@@ -1,0 +1,20 @@
+{
+  "name": "yaps-translation",
+  "version": "1.1.1",
+  "description": "Translate text or subtitle files with Yaps. Keep the original and preserve subtitle timing. New users: install Yaps and sign in.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "translation",
+    "subtitle-translation",
+    "srt",
+    "markdown",
+    "multilingual"
+  ]
+}

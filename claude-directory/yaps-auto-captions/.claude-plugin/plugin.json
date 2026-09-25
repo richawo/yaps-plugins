@@ -1,0 +1,20 @@
+{
+  "name": "yaps-auto-captions",
+  "version": "1.1.1",
+  "description": "Add captions to a video with Yaps. Review the words and timing, choose a style, then export. New users: install Yaps and sign in.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "captions",
+    "video-captions",
+    "burned-in-subtitles",
+    "short-form-video",
+    "editing"
+  ]
+}

@@ -53,36 +53,10 @@
       ]
     },
     {
-      "name": "yaps-memory",
-      "source": "./yaps-memory",
-      "description": "Find or save notes in your Yaps memory vault, including past dictations. New users: install Yaps and sign in.",
-      "category": "Productivity",
-      "tags": [
-        "memory",
-        "notes",
-        "personal-knowledge",
-        "past-dictations",
-        "markdown"
-      ]
-    },
-    {
-      "name": "yaps-dictation",
-      "source": "./yaps-dictation",
-      "description": "Type with your voice using Yaps on desktop. Get set up, fix a problem, or recover a recent dictation. New users: install Yaps and sign in.",
-      "category": "Productivity",
-      "tags": [
-        "dictation",
-        "voice-typing",
-        "speech-to-text",
-        "accessibility",
-        "desktop"
-      ]
-    },
-    {
       "name": "yaps-transcription",
-      "source": "./yaps-transcription",
+      "source": "./claude-directory/yaps-transcription",
       "description": "Turn an audio or video file into text with Yaps. Good for interviews, podcasts, and voice memos. New users: install Yaps and sign in.",
-      "category": "Productivity",
+      "category": "Media",
       "tags": [
         "transcription",
         "speech-to-text",
@@ -93,7 +67,7 @@
     },
     {
       "name": "yaps-meeting-transcription",
-      "source": "./yaps-meeting-transcription",
+      "source": "./claude-directory/yaps-meeting-transcription",
       "description": "Make a meeting transcript with speaker labels in Yaps. Correct it, export it, or ask questions. New users: install Yaps and sign in.",
       "category": "Productivity",
       "tags": [
@@ -106,7 +80,7 @@
     },
     {
       "name": "yaps-srt-generator",
-      "source": "./yaps-srt-generator",
+      "source": "./claude-directory/yaps-srt-generator",
       "description": "Make a timed SRT subtitle file from audio or video with Yaps. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
@@ -119,7 +93,7 @@
     },
     {
       "name": "yaps-auto-captions",
-      "source": "./yaps-auto-captions",
+      "source": "./claude-directory/yaps-auto-captions",
       "description": "Add captions to a video with Yaps. Review the words and timing, choose a style, then export. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
@@ -132,7 +106,7 @@
     },
     {
       "name": "yaps-audio-cleaner",
-      "source": "./yaps-audio-cleaner",
+      "source": "./claude-directory/yaps-audio-cleaner",
       "description": "Reduce noise, hiss, and static in a speech recording with Yaps. Save a separate clean file. New users: install Yaps and sign in.",
       "category": "Media",
       "tags": [
@@ -145,15 +119,67 @@
     },
     {
       "name": "yaps-background-removal",
-      "source": "./yaps-background-removal",
+      "source": "./claude-directory/yaps-background-removal",
       "description": "Remove an image background with Yaps. Save a transparent PNG, solid background, or outlined sticker. New users: install Yaps and sign in.",
-      "category": "Media",
+      "category": "Design",
       "tags": [
         "background-removal",
         "transparent-png",
         "remove-background",
         "stickers",
         "images"
+      ]
+    },
+    {
+      "name": "yaps-translation",
+      "source": "./claude-directory/yaps-translation",
+      "description": "Translate text or subtitle files with Yaps. Keep the original and preserve subtitle timing. New users: install Yaps and sign in.",
+      "category": "Productivity",
+      "tags": [
+        "translation",
+        "subtitle-translation",
+        "srt",
+        "markdown",
+        "multilingual"
+      ]
+    },
+    {
+      "name": "yaps-video-to-audio",
+      "source": "./claude-directory/yaps-video-to-audio",
+      "description": "Save the sound from a video as MP3, WAV, or M4A with Yaps. New users: install Yaps and sign in.",
+      "category": "Media",
+      "tags": [
+        "extract-audio",
+        "video-to-audio",
+        "mp3",
+        "wav",
+        "m4a"
+      ]
+    },
+    {
+      "name": "yaps-dictation",
+      "source": "./claude-directory/yaps-dictation",
+      "description": "Type with your voice using Yaps on desktop. Get set up, fix a problem, or recover a recent dictation. New users: install Yaps and sign in.",
+      "category": "Productivity",
+      "tags": [
+        "dictation",
+        "voice-typing",
+        "speech-to-text",
+        "accessibility",
+        "desktop"
+      ]
+    },
+    {
+      "name": "yaps-memory",
+      "source": "./claude-directory/yaps-memory",
+      "description": "Find or save notes in your Yaps memory vault, including past dictations. New users: install Yaps and sign in.",
+      "category": "Productivity",
+      "tags": [
+        "memory",
+        "notes",
+        "personal-knowledge",
+        "past-dictations",
+        "markdown"
       ]
     },
     {
@@ -180,32 +206,6 @@
         "voiceover",
         "narration",
         "audio"
-      ]
-    },
-    {
-      "name": "yaps-translation",
-      "source": "./yaps-translation",
-      "description": "Translate text or subtitle files with Yaps. Keep the original and preserve subtitle timing. New users: install Yaps and sign in.",
-      "category": "Productivity",
-      "tags": [
-        "translation",
-        "subtitle-translation",
-        "srt",
-        "markdown",
-        "multilingual"
-      ]
-    },
-    {
-      "name": "yaps-video-to-audio",
-      "source": "./yaps-video-to-audio",
-      "description": "Save the sound from a video as MP3, WAV, or M4A with Yaps. New users: install Yaps and sign in.",
-      "category": "Media",
-      "tags": [
-        "extract-audio",
-        "video-to-audio",
-        "mp3",
-        "wav",
-        "m4a"
       ]
     }
   ]

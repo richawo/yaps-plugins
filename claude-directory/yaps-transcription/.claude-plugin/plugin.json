@@ -1,0 +1,20 @@
+{
+  "name": "yaps-transcription",
+  "version": "1.1.1",
+  "description": "Turn an audio or video file into text with Yaps. Good for interviews, podcasts, and voice memos. New users: install Yaps and sign in.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "transcription",
+    "speech-to-text",
+    "audio-to-text",
+    "video-to-text",
+    "voice-memos"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "yaps-meeting-transcription",
+  "version": "1.1.1",
+  "description": "Make a meeting transcript with speaker labels in Yaps. Correct it, export it, or ask questions. New users: install Yaps and sign in.",
+  "author": {
+    "name": "Yaps AI",
+    "email": "support@yaps.ai",
+    "url": "https://www.yaps.ai"
+  },
+  "homepage": "https://www.yaps.ai",
+  "repository": "https://github.com/richawo/yaps-plugins",
+  "license": "MIT",
+  "keywords": [
+    "meeting-notes",
+    "meeting-transcription",
+    "speaker-labels",
+    "interviews",
+    "recaps"
+  ]
+}
