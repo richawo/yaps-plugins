@@ -19,8 +19,11 @@ Yaps app; the Setapp edition does not yet support this account connection.
 Use [integrations/cline.json](integrations/cline.json) from this repository.
 It contains one `mcpServers.yaps` entry with an immutable runtime pin.
 
-- **Cline CLI:** merge that entry into `~/.cline/mcp.json`. If Cline is running
-  with a custom configuration directory, use `mcp.json` in that directory.
+- **Cline CLI:** merge that entry into
+  `~/.cline/data/settings/cline_mcp_settings.json`. If Cline is running with
+  `--config <directory>`, use `<directory>/data/settings/cline_mcp_settings.json`.
+  Create the parent directories and file if needed. A file named `mcp.json`
+  is not loaded by Cline CLI 3.0.65.
 - **Cline in an editor:** open **MCP Servers**, choose **Configure**, then
   **Configure MCP Servers**. Merge the entry into the settings file Cline opens.
 
