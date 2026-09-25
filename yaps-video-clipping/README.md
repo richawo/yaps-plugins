@@ -29,7 +29,7 @@ These skills call only the plugin's declared local MCP servers. Those servers in
 
 ## Account checks and network use
 
-On first connection, npx downloads the Yaps MCP runtime from a pinned GitHub commit and its dependencies from npm. This installs the connector, not the desktop app or feature models. The declared local servers discover Yaps, check account readiness, and start the native CLI or vault connector for the requested operation. No remote MCP endpoint receives the user's files. The skills bundle contains no executable scripts, hooks, or shell fallback.
+The plugin includes its local MCP runtime and dependencies, built from a reviewed source revision. No runtime package download is needed. Readable code, source provenance, checksums, and dependency licenses are included under `mcp/`. The declared local servers discover Yaps, check account readiness, and start the native CLI or vault connector for the requested operation. No remote MCP endpoint receives the user's files. Skills contain instructions only. Executable code is confined to the declared MCP servers; there are no hooks or shell fallbacks.
 
 The installed Yaps app may contact Yaps account services to refresh its own sign-in and plan access. Application updates, approved model downloads, and limited usage or diagnostic metadata can also use the network. These workflows do not upload recordings, transcripts, note bodies, or source files to a cloud AI service for processing. Results requested by Claude follow Anthropic's own data handling.
 
