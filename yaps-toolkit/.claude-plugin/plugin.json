@@ -1,6 +1,6 @@
 {
   "name": "yaps-toolkit",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Transcribe recordings, create subtitles and captions, translate, clean audio, remove backgrounds, and trim video pauses with Yaps. Includes optional private memory. Install Yaps and sign in.",
   "author": {
     "name": "Yaps AI",
@@ -9,6 +9,10 @@
   },
   "homepage": "https://www.yaps.ai",
   "repository": "https://github.com/richawo/yaps-plugins",
+  "privacyPolicyUrl": "https://www.yaps.ai/privacy",
+  "supportUrl": "https://www.yaps.ai/contact",
+  "termsOfServiceUrl": "https://www.yaps.ai/terms",
+  "documentationUrl": "https://github.com/richawo/yaps-plugins/blob/main/yaps-toolkit/README.md",
   "license": "MIT",
   "keywords": [
     "transcription",
