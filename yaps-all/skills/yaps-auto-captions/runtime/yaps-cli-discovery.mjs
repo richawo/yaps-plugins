@@ -1050,13 +1050,13 @@ export function diagnoseConnection({ cli, connector, needsConnector = false }) {
     }
     return {
       code: "cli_missing",
-      message: "The Yaps CLI could not be found from this local session. Install or update Yaps from https://yaps.ai/download, open it once, then start a new agent task on this computer. The CLI is included with Yaps; no separate CLI or PATH setup is needed.",
+      message: "The Yaps CLI could not be found from this local session. Install or update Yaps using the official download link in the plugin README, open it once, then start a new agent task on this computer. The CLI is included with Yaps; no separate CLI or PATH setup is needed.",
     };
   }
   if (needsConnector && !connector?.path) {
     return {
       code: "vault_connector_unavailable",
-      message: "The Yaps CLI is installed and working, but the private-vault connector is unavailable. Update or reinstall Yaps from https://yaps.ai/download, open it once, then start a new agent task on this computer. Do not reinstall the plugin, install a separate CLI, or edit PATH.",
+      message: "The Yaps CLI is installed and working, but the private-vault connector is unavailable. Update or reinstall Yaps using the official download link in the plugin README, open it once, then start a new agent task on this computer. Do not reinstall the plugin, install a separate CLI, or edit PATH.",
     };
   }
   return { code: "ready", message: "Yaps is ready." };

@@ -29,7 +29,7 @@ These skills invoke the installed Yaps CLI through a bundled adapter. They proce
 
 ## Account checks and network use
 
-The bundled JavaScript adapter discovers and starts the installed Yaps CLI. Only an explicit allowlist of operating-system paths, locale settings, and Yaps runtime paths is passed to child processes. Unrelated credentials, loader flags, and other hosts' MCP consent are excluded. The yaps.ai/download addresses in discovery errors are instructions for the user, not HTTP requests or upload destinations. The adapter has no HTTP client and reports sanitized account readiness.
+The bundled JavaScript adapter discovers and starts the installed Yaps CLI. Only an explicit allowlist of operating-system paths, locale settings, and Yaps runtime paths is passed to child processes. Unrelated credentials, loader flags, and other hosts' MCP consent are excluded. Installation help directs the user to the download link in this README. That link is not an upload destination. The adapter has no HTTP client and reports sanitized account readiness.
 
 The installed Yaps app may contact Yaps account services to refresh its own sign-in and plan access. Application updates, approved model downloads, and limited usage or diagnostic metadata can also use the network. These workflows do not upload recordings, transcripts, note bodies, or source files to a cloud AI service for processing. Results requested by Claude follow Anthropic's own data handling.
 
