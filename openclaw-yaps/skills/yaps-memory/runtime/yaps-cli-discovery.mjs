@@ -4,6 +4,50 @@ import { basename, delimiter, join, posix, win32 } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 
+// Read only named non-secret settings by default. Callers can supply their own
+// explicit environment; discovery never needs an agent provider credential.
+export function defaultYapsEnvironment() {
+  return Object.fromEntries(Object.entries({
+    "PATH": process.env["PATH"],
+    "Path": process.env["Path"],
+    "PATHEXT": process.env["PATHEXT"],
+    "HOME": process.env["HOME"],
+    "USERPROFILE": process.env["USERPROFILE"],
+    "HOMEDRIVE": process.env["HOMEDRIVE"],
+    "HOMEPATH": process.env["HOMEPATH"],
+    "APPDATA": process.env["APPDATA"],
+    "LOCALAPPDATA": process.env["LOCALAPPDATA"],
+    "ProgramFiles": process.env["ProgramFiles"],
+    "ProgramFiles(x86)": process.env["ProgramFiles(x86)"],
+    "ProgramW6432": process.env["ProgramW6432"],
+    "SystemRoot": process.env["SystemRoot"],
+    "SYSTEMROOT": process.env["SYSTEMROOT"],
+    "WINDIR": process.env["WINDIR"],
+    "COMSPEC": process.env["COMSPEC"],
+    "ComSpec": process.env["ComSpec"],
+    "TMPDIR": process.env["TMPDIR"],
+    "TMP": process.env["TMP"],
+    "TEMP": process.env["TEMP"],
+    "LANG": process.env["LANG"],
+    "LANGUAGE": process.env["LANGUAGE"],
+    "LC_ALL": process.env["LC_ALL"],
+    "LC_CTYPE": process.env["LC_CTYPE"],
+    "TZ": process.env["TZ"],
+    "XDG_CONFIG_HOME": process.env["XDG_CONFIG_HOME"],
+    "XDG_DATA_HOME": process.env["XDG_DATA_HOME"],
+    "XDG_CACHE_HOME": process.env["XDG_CACHE_HOME"],
+    "XDG_RUNTIME_DIR": process.env["XDG_RUNTIME_DIR"],
+    "DISPLAY": process.env["DISPLAY"],
+    "WAYLAND_DISPLAY": process.env["WAYLAND_DISPLAY"],
+    "DBUS_SESSION_BUS_ADDRESS": process.env["DBUS_SESSION_BUS_ADDRESS"],
+    "YAPS_CLI_BINARY": process.env["YAPS_CLI_BINARY"],
+    "YAPS_INSTALL_DIR": process.env["YAPS_INSTALL_DIR"],
+    "YAPS_MCP_BINARY": process.env["YAPS_MCP_BINARY"],
+    "YAPS_SETTINGS_PATH": process.env["YAPS_SETTINGS_PATH"],
+    "YAPS_CLI_PROGRESS": process.env["YAPS_CLI_PROGRESS"],
+  }).filter(([, value]) => typeof value === "string"));
+}
+
 export const DEFAULT_PROBE_TIMEOUT_MS = 5_000;
 export const DEFAULT_AUTH_TIMEOUT_MS = 2_000;
 export const DEFAULT_AUTH_RECOVERY_TIMEOUT_MS = 8_000;
@@ -145,7 +189,7 @@ export function runningAppCliCandidates({
 
 async function defaultListRunningYapsExecutables({
   platform = process.platform,
-  env = process.env,
+  env = defaultYapsEnvironment(),
 } = {}) {
   // Only enumerate processes on a real Windows host. Tests that pass
   // `platform: "win32"` on Linux/macOS stay inert unless they inject
@@ -168,7 +212,7 @@ async function defaultListRunningYapsExecutables({
 export function cliCandidates({
   override,
   platform = process.platform,
-  env = process.env,
+  env = defaultYapsEnvironment(),
   home = env.HOME || env.USERPROFILE || homedir(),
   runningExecutables = [],
 } = {}) {
@@ -196,7 +240,7 @@ export function isYapsCliCommand(command, { platform = process.platform } = {}) 
 
 export function connectorCandidates({
   platform = process.platform,
-  env = process.env,
+  env = defaultYapsEnvironment(),
   home = env.HOME || env.USERPROFILE || homedir(),
 } = {}) {
   const path = pathApi(platform);
@@ -246,7 +290,7 @@ function terminateChild(child) {
 function runJsonCommand(candidate, args, {
   timeoutMs,
   spawnImpl = spawn,
-  env = process.env,
+  env = defaultYapsEnvironment(),
 } = {}) {
   return new Promise((resolve) => {
     let settled = false;
@@ -305,7 +349,7 @@ function runJsonCommand(candidate, args, {
 function runTextCommand(candidate, args, {
   timeoutMs = DEFAULT_AUTH_TIMEOUT_MS,
   spawnImpl = spawn,
-  env = process.env,
+  env = defaultYapsEnvironment(),
 } = {}) {
   return new Promise((resolve) => {
     let settled = false;
@@ -383,7 +427,7 @@ function macApplicationForCli(cliPath, canonicalize) {
 
 function knownInstallationVariant(cli, {
   platform = process.platform,
-  env = process.env,
+  env = defaultYapsEnvironment(),
   home = env.HOME || env.USERPROFILE || homedir(),
   canonicalize = realpathSync,
 } = {}) {
@@ -404,7 +448,7 @@ function knownInstallationVariant(cli, {
  */
 export async function readInstalledYapsVersion(cli, {
   platform = process.platform,
-  env = process.env,
+  env = defaultYapsEnvironment(),
   canAccess = (candidate) => defaultCanAccess(candidate, platform),
   pathExists = defaultPathExists,
   canonicalize = realpathSync,
@@ -775,7 +819,7 @@ function installedAppLaunch(cli, {
 
 export function launchInstalledYaps(cli, {
   platform = process.platform,
-  env = process.env,
+  env = defaultYapsEnvironment(),
   home = env.HOME || env.USERPROFILE || homedir(),
   spawnImpl = spawn,
   canAccess = (candidate) => defaultCanAccess(candidate, platform),
@@ -821,7 +865,7 @@ export function launchInstalledYaps(cli, {
   });
 }
 
-export function applyResolvedSettings(args, settingsPath, { env = process.env, followDesktopAccount = false } = {}) {
+export function applyResolvedSettings(args, settingsPath, { env = defaultYapsEnvironment(), followDesktopAccount = false } = {}) {
   if (!settingsPath) return [...args];
   if (followDesktopAccount) {
     const withoutOldPath = [];
@@ -871,7 +915,7 @@ export function commandRequiresActiveAccount(args) {
 
 export async function resolveYapsSession(options = {}) {
   const platform = options.platform || process.platform;
-  const env = options.env || process.env;
+  const env = options.env || defaultYapsEnvironment();
   const commandArguments = options.commandArguments || [];
   const cli = options.cli || await resolveYapsCli(options);
   if (!cli.path) {

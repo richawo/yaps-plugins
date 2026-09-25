@@ -30,7 +30,46 @@ const CHILD_ENV_KEYS = [
   "YAPS_CLI_PROGRESS",
 ];
 
-export function nativeChildEnvironment(source = process.env) {
+export function nativeChildEnvironment(source) {
+  source ??= {
+    "PATH": process.env["PATH"],
+    "Path": process.env["Path"],
+    "PATHEXT": process.env["PATHEXT"],
+    "HOME": process.env["HOME"],
+    "USERPROFILE": process.env["USERPROFILE"],
+    "HOMEDRIVE": process.env["HOMEDRIVE"],
+    "HOMEPATH": process.env["HOMEPATH"],
+    "APPDATA": process.env["APPDATA"],
+    "LOCALAPPDATA": process.env["LOCALAPPDATA"],
+    "ProgramFiles": process.env["ProgramFiles"],
+    "ProgramFiles(x86)": process.env["ProgramFiles(x86)"],
+    "ProgramW6432": process.env["ProgramW6432"],
+    "SystemRoot": process.env["SystemRoot"],
+    "SYSTEMROOT": process.env["SYSTEMROOT"],
+    "WINDIR": process.env["WINDIR"],
+    "COMSPEC": process.env["COMSPEC"],
+    "ComSpec": process.env["ComSpec"],
+    "TMPDIR": process.env["TMPDIR"],
+    "TMP": process.env["TMP"],
+    "TEMP": process.env["TEMP"],
+    "LANG": process.env["LANG"],
+    "LANGUAGE": process.env["LANGUAGE"],
+    "LC_ALL": process.env["LC_ALL"],
+    "LC_CTYPE": process.env["LC_CTYPE"],
+    "TZ": process.env["TZ"],
+    "XDG_CONFIG_HOME": process.env["XDG_CONFIG_HOME"],
+    "XDG_DATA_HOME": process.env["XDG_DATA_HOME"],
+    "XDG_CACHE_HOME": process.env["XDG_CACHE_HOME"],
+    "XDG_RUNTIME_DIR": process.env["XDG_RUNTIME_DIR"],
+    "DISPLAY": process.env["DISPLAY"],
+    "WAYLAND_DISPLAY": process.env["WAYLAND_DISPLAY"],
+    "DBUS_SESSION_BUS_ADDRESS": process.env["DBUS_SESSION_BUS_ADDRESS"],
+    "YAPS_CLI_BINARY": process.env["YAPS_CLI_BINARY"],
+    "YAPS_INSTALL_DIR": process.env["YAPS_INSTALL_DIR"],
+    "YAPS_MCP_BINARY": process.env["YAPS_MCP_BINARY"],
+    "YAPS_SETTINGS_PATH": process.env["YAPS_SETTINGS_PATH"],
+    "YAPS_CLI_PROGRESS": process.env["YAPS_CLI_PROGRESS"],
+  };
   return Object.fromEntries(CHILD_ENV_KEYS.flatMap((key) =>
     typeof source[key] === "string" ? [[key, source[key]]] : []));
 }
@@ -44,7 +83,7 @@ export function validateArguments(args) {
   return [...args];
 }
 
-export async function prepareInvocation(args, discovery, env = process.env) {
+export async function prepareInvocation(args, discovery, env) {
   args = validateArguments(args);
   env = nativeChildEnvironment(env);
   const authStatus = discovery.isAuthStatusCommand(args);
@@ -86,7 +125,7 @@ export async function prepareInvocation(args, discovery, env = process.env) {
   };
 }
 
-export function runProcess(command, args, { env = process.env, capture = false, signal } = {}) {
+export function runProcess(command, args, { env, capture = false, signal } = {}) {
   return new Promise((accept, reject) => {
     if (signal?.aborted) return reject(new AdapterError("cancelled", "The Yaps operation was cancelled.", 130));
     const child = spawn(command, args, {
