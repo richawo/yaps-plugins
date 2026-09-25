@@ -1,6 +1,6 @@
 {
   "name": "@yaps/openclaw-yaps",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "Install all 14 Yaps skills for dictation, transcripts, voice, video, images, translation, and memory. Sign in to Yaps to use them.",
   "license": "MIT",
