@@ -796,6 +796,7 @@ export function launchInstalledYaps(cli, {
     };
     try {
       const child = spawnImpl(launch.command, launch.args, {
+        env,
         detached: launch.detached,
         stdio: "ignore",
         windowsHide: true,

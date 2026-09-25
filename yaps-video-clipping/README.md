@@ -27,6 +27,16 @@ Auto Cut removes pauses from an existing video. It does not generate new video, 
 
 These skills invoke the installed Yaps CLI through a bundled adapter. They process selected files on that computer and preserve originals. Requested results can enter Claude's context. A remote Claude session cannot reach another computer's Yaps installation through this plugin. Cowork compatibility has not been verified.
 
+## Account checks and network use
+
+The bundled JavaScript adapter discovers and starts the installed Yaps CLI. Only an explicit allowlist of operating-system paths, locale settings, and Yaps runtime paths is passed to child processes. Unrelated credentials, loader flags, and other hosts' MCP consent are excluded. The yaps.ai/download addresses in discovery errors are instructions for the user, not HTTP requests or upload destinations. The adapter has no HTTP client and reports sanitized account readiness.
+
+The installed Yaps app may contact Yaps account services to refresh its own sign-in and plan access. Application updates, approved model downloads, and limited usage or diagnostic metadata can also use the network. These workflows do not upload recordings, transcripts, note bodies, or source files to a cloud AI service for processing. Results requested by Claude follow Anthropic's own data handling.
+
+## What is stored
+
+Selected recordings and notes can contain personal information. Yaps reads them and saves requested outputs locally until the user removes them. Account and subscription records remain while the account is active; account-linked product events are retained for up to 90 days. Other operational records follow the retention limits and legal exceptions in the linked privacy policy.
+
 If setup fails, open Yaps, check account access and feature readiness, then ask Claude to check Yaps status. A missing command requires a Yaps update. Do not work around a permission denial or overwrite an existing output.
 
 [Privacy policy](https://www.yaps.ai/privacy) | [Terms](https://www.yaps.ai/terms) | [Product or security support](mailto:support@yaps.ai)

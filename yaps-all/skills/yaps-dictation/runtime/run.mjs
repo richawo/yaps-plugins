@@ -16,6 +16,25 @@ export class AdapterError extends Error {
   }
 }
 
+// Pass only settings needed by installed native helpers. Do not give a local
+// subprocess unrelated agent credentials, injection flags, or another host's
+// MCP identity/consent merely because they exist in the parent environment.
+const CHILD_ENV_KEYS = [
+  "PATH", "Path", "PATHEXT", "HOME", "USERPROFILE", "HOMEDRIVE", "HOMEPATH",
+  "APPDATA", "LOCALAPPDATA", "ProgramFiles", "ProgramFiles(x86)", "ProgramW6432",
+  "SystemRoot", "SYSTEMROOT", "WINDIR", "COMSPEC", "ComSpec",
+  "TMPDIR", "TMP", "TEMP", "LANG", "LANGUAGE", "LC_ALL", "LC_CTYPE", "TZ",
+  "XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_CACHE_HOME", "XDG_RUNTIME_DIR",
+  "DISPLAY", "WAYLAND_DISPLAY", "DBUS_SESSION_BUS_ADDRESS",
+  "YAPS_CLI_BINARY", "YAPS_INSTALL_DIR", "YAPS_MCP_BINARY", "YAPS_SETTINGS_PATH",
+  "YAPS_CLI_PROGRESS",
+];
+
+export function nativeChildEnvironment(source = process.env) {
+  return Object.fromEntries(CHILD_ENV_KEYS.flatMap((key) =>
+    typeof source[key] === "string" ? [[key, source[key]]] : []));
+}
+
 export function validateArguments(args) {
   if (!Array.isArray(args) || !args.length || args.length > 512
       || args.some((arg) => typeof arg !== "string" || arg.includes("\0"))
@@ -27,6 +46,7 @@ export function validateArguments(args) {
 
 export async function prepareInvocation(args, discovery, env = process.env) {
   args = validateArguments(args);
+  env = nativeChildEnvironment(env);
   const authStatus = discovery.isAuthStatusCommand(args);
   const gated = discovery.commandRequiresActiveAccount(args);
   const session = await discovery.resolveYapsSession({
@@ -62,9 +82,7 @@ export async function prepareInvocation(args, discovery, env = process.env) {
   return {
     command: session.path,
     args: discovery.applyResolvedSettings(args, session.settingsPath, { env }),
-    // Do not inherit an identity or automatic MCP consent from another host.
-    env: Object.fromEntries(Object.entries(env).filter(([key]) =>
-      !key.startsWith("YAPS_MCP_") && !key.startsWith("YAPS_PLUGIN_"))),
+    env,
   };
 }
 
@@ -72,7 +90,7 @@ export function runProcess(command, args, { env = process.env, capture = false, 
   return new Promise((accept, reject) => {
     if (signal?.aborted) return reject(new AdapterError("cancelled", "The Yaps operation was cancelled.", 130));
     const child = spawn(command, args, {
-      env, shell: false, windowsHide: true,
+      env: nativeChildEnvironment(env), shell: false, windowsHide: true,
       stdio: capture ? ["ignore", "pipe", "pipe"] : "inherit",
     });
     let bytes = 0;
