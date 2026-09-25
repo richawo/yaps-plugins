@@ -38,10 +38,12 @@ export async function prepareMemoryLaunch(options = {}) {
     env: {
       ...env,
       ...(cli.settingsPath && !env.YAPS_SETTINGS_PATH?.trim() ? { YAPS_SETTINGS_PATH: cli.settingsPath } : {}),
-      // Grok uses the desktop's generic local-MCP identity, rather than
-      // borrowing permissions granted to Cursor, Codex, or Claude.
-      YAPS_MCP_CLIENT_ID: env.YAPS_PLUGIN_HOST === "grok" ? "local-mcp" : "cursor",
-      // Both integrations require the user's existing Agent Access grant.
+      // Resolve the actual host's identity instead of inheriting another
+      // client's grant. Unknown hosts use the generic local-MCP identity.
+      YAPS_MCP_CLIENT_ID: ["claude-code", "claude_code"].includes(env.YAPS_PLUGIN_HOST)
+        ? "claude-code"
+        : (!env.YAPS_PLUGIN_HOST || env.YAPS_PLUGIN_HOST === "cursor") ? "cursor" : "local-mcp",
+      // Every integration requires the user's existing Agent Access grant.
       YAPS_MCP_AUTO_AUTHORIZE_READ: "0",
     },
   };

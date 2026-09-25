@@ -52,6 +52,18 @@ test("Memory respects invalid explicit connector overrides without falling back"
   }
 });
 
+test("Claude uses its own existing vault grant and other hosts cannot borrow it", async () => {
+  for (const [host, client] of [["claude-code", "claude-code"], ["claude_code", "claude-code"], ["hermes", "local-mcp"], ["unknown", "local-mcp"]]) {
+    const launch = await prepareMemoryLaunch({
+      platform: "win32",
+      env: { YAPS_PLUGIN_HOST: host, YAPS_MCP_CLIENT_ID: "codex", YAPS_MCP_AUTO_AUTHORIZE_READ: "1" },
+      resolveSession: async () => cli, canonicalize: path => path, canAccess: () => true,
+    });
+    assert.equal(launch.env.YAPS_MCP_CLIENT_ID, client);
+    assert.equal(launch.env.YAPS_MCP_AUTO_AUTHORIZE_READ, "0");
+  }
+});
+
 test("Memory stops on stale discovery and inactive accounts before starting a connector", async () => {
   await assert.rejects(prepareMemoryLaunch({
     env: {}, resolveSession: async () => ({ path: null, rejected: [{ reason: "stale_cli" }] }),
