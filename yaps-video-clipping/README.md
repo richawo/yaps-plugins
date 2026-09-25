@@ -39,4 +39,14 @@ Selected recordings and notes can contain personal information. Yaps reads them 
 
 If setup fails, open Yaps, check account access and feature readiness, then ask Claude to check Yaps status. A missing command requires a Yaps update. Do not work around a permission denial or overwrite an existing output.
 
-[Privacy policy](https://www.yaps.ai/privacy) | [Terms](https://www.yaps.ai/terms) | [Product or security support](mailto:support@yaps.ai)
+## Support
+
+[Contact Yaps support](https://www.yaps.ai/contact) for product or security questions, or email support@yaps.ai.
+
+## Privacy policy
+
+[Read the Yaps privacy policy](https://www.yaps.ai/privacy).
+
+## Terms of service
+
+[Read the Yaps terms](https://www.yaps.ai/terms).
