@@ -22,6 +22,8 @@ It contains one `mcpServers.yaps` entry with an immutable runtime pin.
 - **Cline CLI:** merge that entry into
   `~/.cline/data/settings/cline_mcp_settings.json`. If Cline is running with
   `--config <directory>`, use `<directory>/data/settings/cline_mcp_settings.json`.
+  If it also uses `--data-dir <directory>`, that takes precedence: use
+  `<directory>/settings/cline_mcp_settings.json` instead.
   Create the parent directories and file if needed. A file named `mcp.json`
   is not loaded by Cline CLI 3.0.65.
 - **Cline in an editor:** open **MCP Servers**, choose **Configure**, then
