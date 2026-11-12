@@ -128,8 +128,24 @@ test("Codex upload archive is skills-only and retains the local CLI runner", {
     );
     assert.equal(manifestResult.status, 0, manifestResult.stderr);
     const manifest = JSON.parse(manifestResult.stdout);
-    assert.equal(manifest.version, "0.2.15");
+    const sourceManifest = await readJson(".codex-plugin/plugin.json");
+    assert.equal(manifest.version, sourceManifest.version);
     assert.equal("mcpServers" in manifest, false);
+
+    const portableResult = spawnSync(
+      "unzip",
+      ["-p", archive, "yaps-memory/plugin.json"],
+      { encoding: "utf8" },
+    );
+    assert.equal(portableResult.status, 0, portableResult.stderr);
+    const portableManifest = JSON.parse(portableResult.stdout);
+    assert.equal(portableManifest.name, manifest.name);
+    assert.equal(portableManifest.version, manifest.version);
+    assert.equal("mcpServers" in portableManifest, false);
+    assert.equal(
+      portableManifest.extensions["com.openai"].interface.supportURL,
+      sourceManifest.interface.supportURL,
+    );
 
     const extracted = path.join(temporary, "extracted");
     const unpacked = spawnSync("unzip", ["-q", archive, "-d", extracted], { encoding: "utf8" });
@@ -158,12 +174,12 @@ const args = process.argv.slice(2);
 if (args[0] === "status") {
   process.stdout.write(JSON.stringify({settings_path:"/default/settings.json",settings_exists:true,auth_store_path:"/default/auth.json",models_dir:"/default/models"}));
 } else if (args.includes("auth") && args.includes("status")) {
-  appendFileSync(process.env.YAPS_TEST_AUTH_INVOCATION, "auth-status\\n");
+  appendFileSync(${JSON.stringify(authInvocation)}, "auth-status\\n");
   process.stdout.write(JSON.stringify(args.includes("--settings-path")
     ? {authenticated:true,status:"active"}
-    : {authenticated:false,status:"settings_path_mismatch",recommended_settings_path:process.env.YAPS_TEST_SETTINGS}));
+    : {authenticated:false,status:"settings_path_mismatch",recommended_settings_path:${JSON.stringify(settingsPath)}}));
 } else {
-  writeFileSync(process.env.YAPS_TEST_INVOCATION, JSON.stringify(args));
+  writeFileSync(${JSON.stringify(invocation)}, JSON.stringify(args));
   process.stdout.write(JSON.stringify({ok:true}));
 }
 `, "utf8");
@@ -186,9 +202,6 @@ if (args[0] === "status") {
           CODEX_ELECTRON_RESOURCES_PATH: codexResources,
           YAPS_CLI_BINARY: fakeCli,
           YAPS_SETTINGS_PATH: "",
-          YAPS_TEST_SETTINGS: settingsPath,
-          YAPS_TEST_INVOCATION: invocation,
-          YAPS_TEST_AUTH_INVOCATION: authInvocation,
         },
       },
     );

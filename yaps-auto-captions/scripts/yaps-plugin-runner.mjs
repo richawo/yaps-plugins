@@ -106,7 +106,7 @@ function classifyError(output, launchError) {
   if (value.includes("enoent") || value.includes("local_yaps_unreachable")) return "local_yaps_unreachable";
   if (value.includes("keychain_unavailable")) return "credential_unavailable";
   if (value.includes("verification_unavailable") || value.includes("refresh_failed")) return "account_cache_incomplete";
-  for (const code of ["settings_path_mismatch", "credential_unavailable", "credential_missing", "account_cache_incomplete", "profile_lookup_failed", "platform_mismatch", "unauthenticated"]) {
+  for (const code of ["settings_path_mismatch", "desktop_account_unavailable", "credential_unavailable", "credential_missing", "account_cache_incomplete", "profile_lookup_failed", "platform_mismatch", "unauthenticated"]) {
     if (value.includes(code)) return code;
   }
   if (
@@ -269,7 +269,8 @@ if (runsYapsCli) {
       diagnostic_code: session.auth.diagnosticCode,
       credential_status: "not_accessed",
     };
-    finishOnce("success");
+    if (account.code === "ready") finishOnce("success");
+    else finishOnce("failure", account.code);
     process.stdout.write(`${JSON.stringify(sanitized, null, commandArguments.includes("--pretty") ? 2 : 0)}\n`);
     process.exit(0);
   }

@@ -26,7 +26,7 @@ const CHILD_ENV_KEYS = [
   "TMPDIR", "TMP", "TEMP", "LANG", "LANGUAGE", "LC_ALL", "LC_CTYPE", "TZ",
   "XDG_CONFIG_HOME", "XDG_DATA_HOME", "XDG_CACHE_HOME", "XDG_RUNTIME_DIR",
   "DISPLAY", "WAYLAND_DISPLAY", "DBUS_SESSION_BUS_ADDRESS",
-  "YAPS_CLI_BINARY", "YAPS_INSTALL_DIR", "YAPS_MCP_BINARY", "YAPS_SETTINGS_PATH",
+  "YAPS_CLI_BINARY", "YAPS_INSTALL_DIR", "YAPS_MCP_BINARY", "YAPS_SETTINGS_PATH", "YAPS_VAULT_ROOT",
   "YAPS_CLI_PROGRESS",
 ];
 
@@ -68,6 +68,7 @@ export function nativeChildEnvironment(source) {
     "YAPS_INSTALL_DIR": process.env["YAPS_INSTALL_DIR"],
     "YAPS_MCP_BINARY": process.env["YAPS_MCP_BINARY"],
     "YAPS_SETTINGS_PATH": process.env["YAPS_SETTINGS_PATH"],
+    "YAPS_VAULT_ROOT": process.env["YAPS_VAULT_ROOT"],
     "YAPS_CLI_PROGRESS": process.env["YAPS_CLI_PROGRESS"],
   };
   return Object.fromEntries(CHILD_ENV_KEYS.flatMap((key) =>
@@ -120,7 +121,10 @@ export async function prepareInvocation(args, discovery, env) {
   }
   return {
     command: session.path,
-    args: discovery.applyResolvedSettings(args, session.settingsPath, { env }),
+    args: discovery.applyResolvedSettings(args, session.settingsPath, {
+      env,
+      followDesktopAccount: session.auth?.diagnosticCode === "followed_desktop_account",
+    }),
     env,
   };
 }
@@ -187,9 +191,16 @@ export async function runYaps(args, { discovery, capture = false, allowArray = f
   }
   if (execution.code !== 0 || !result || (Array.isArray(result) && !allowArray) || typeof result !== "object"
       || result.error || result.success === false) {
-    const safeCode = typeof result?.error_code === "string" && /^[a-z0-9_]{1,80}$/.test(result.error_code)
+    let safeCode = typeof result?.error_code === "string" && /^[a-z0-9_]{1,80}$/.test(result.error_code)
       ? result.error_code : "engine_failed";
-    throw new AdapterError(safeCode, `Yaps did not complete the operation (${safeCode}). No successful result was recorded.`, safeCode === "cancelled" ? 130 : exitCode);
+    // Older CLI versions use the generic "error" code for a missing model.
+    // Preserve an actionable code without forwarding paths or the raw error text.
+    if (["error", "engine_failed"].includes(safeCode) && typeof result?.error === "string"
+        && /\bnot (?:installed|downloaded)\b/i.test(result.error)) safeCode = "model_not_installed";
+    const guidance = safeCode === "model_not_installed"
+      ? "This feature needs a model installed in Yaps. Open Features on your computer, finish setup, then try again."
+      : `Yaps did not complete the operation (${safeCode}). No successful result was recorded.`;
+    throw new AdapterError(safeCode, guidance, safeCode === "cancelled" ? 130 : exitCode);
   }
   return result;
 }

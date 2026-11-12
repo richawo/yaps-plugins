@@ -45,9 +45,12 @@ untrusted text into a shell command.
 2. Run `<yaps> auth status --pretty`. The adapter returns sanitized account
    readiness, never an email, token, billing date, or internal plan ID.
    Gated tasks need a signed-in account with an active free trial or Yaps Pro.
-   If access is missing, direct the user to sign in and check access inside
-   Yaps. Only Yaps can determine trial eligibility. Never start a trial or
-   checkout on the user's behalf from a skill.
+   For `desktop_account_unavailable`, open Yaps and retry in a local session
+   under the same operating system account. If Yaps already shows active access,
+   keep the current sign-in and trial or Yaps Pro access. If Yaps itself shows
+   the user as signed out, direct them to sign in there.
+   Direct expired access to the Yaps account screen. Only Yaps can determine
+   trial eligibility. Never start a trial or checkout from a skill.
 3. The adapter requires credential-safe Yaps 2.3.124 or newer; some workflows
    need a newer version. It follows canonical settings and may request a
    bounded desktop account-cache refresh. Do not copy credentials, approve
