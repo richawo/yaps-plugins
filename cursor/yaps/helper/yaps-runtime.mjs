@@ -186,7 +186,9 @@ export function runCli(session, args, {
   label = "command",
   spawnProcess = spawn,
 } = {}) {
-  const fullArgs = applyResolvedSettings(["--pretty", ...args], session.settingsPath);
+  const fullArgs = applyResolvedSettings(["--pretty", ...args], session.settingsPath, {
+    followDesktopAccount: session.auth?.diagnosticCode === "followed_desktop_account",
+  });
   return new Promise((resolvePromise, reject) => {
     let child;
     try {

@@ -27,6 +27,27 @@ test("Memory resolves a macOS CLI symlink before finding its native connector", 
   assert.equal(launch.command, native);
 });
 
+test("Memory launches with the settings used by the followed desktop account", async () => {
+  const explicitSettings = "C:\\other\\settings.json";
+  const options = {
+    platform: "win32",
+    env: { YAPS_SETTINGS_PATH: explicitSettings },
+    canonicalize: path => path,
+    canAccess: () => true,
+  };
+  const explicit = await prepareMemoryLaunch({ ...options, resolveSession: async () => cli });
+  assert.equal(explicit.env.YAPS_SETTINGS_PATH, explicitSettings);
+
+  const followed = await prepareMemoryLaunch({
+    ...options,
+    resolveSession: async () => ({
+      ...cli,
+      auth: { ...cli.auth, diagnosticCode: "followed_desktop_account" },
+    }),
+  });
+  assert.equal(followed.env.YAPS_SETTINGS_PATH, cli.settingsPath);
+});
+
 test("Grok Memory cannot inherit Cursor or first-party auto-authorization", async () => {
   for (const suppliedClient of ["cursor", "codex", "claude-code", "grok"]) {
     const launch = await prepareMemoryLaunch({

@@ -689,7 +689,13 @@ test("auth status parsing exposes no account identifiers or credentials", async 
     const result = await readYapsAuthStatus(cli, { timeoutMs: 5_000 });
     assert.deepEqual(result, {
       ok: true,
-      auth: { authenticated: true, status: "active", diagnosticCode: null, recommendedSettingsPath: null },
+      auth: {
+        authenticated: true,
+        status: "active",
+        diagnosticCode: null,
+        recommendedSettingsPath: null,
+        followedSettingsPath: null,
+      },
     });
     assert.doesNotMatch(JSON.stringify(result), /private@example|secret/);
   } finally {
@@ -810,8 +816,9 @@ test("all shipped plugin copies are generated from the shared runtime", () => {
     assert.equal(candidate.path, "/usr/bin/yaps_mcp");
   }
   for (const entry of readdirSync(pluginsRoot, { withFileTypes: true })) {
-    if (!entry.isDirectory() || !entry.name.startsWith("yaps-")) continue;
-    assert.equal(readFileSync(join(pluginsRoot, entry.name, "scripts", "yaps-cli-discovery.mjs"), "utf8"), shared, `${entry.name} discovery drifted`);
-    assert.equal(readFileSync(join(pluginsRoot, entry.name, "scripts", "yaps-plugin-runner.mjs"), "utf8"), referenceRunner, `${entry.name} runner drifted`);
+    const plugin = join(pluginsRoot, entry.name);
+    if (!entry.isDirectory() || !existsSync(join(plugin, ".codex-plugin", "plugin.json"))) continue;
+    assert.equal(readFileSync(join(plugin, "scripts", "yaps-cli-discovery.mjs"), "utf8"), shared, `${entry.name} discovery drifted`);
+    assert.equal(readFileSync(join(plugin, "scripts", "yaps-plugin-runner.mjs"), "utf8"), referenceRunner, `${entry.name} runner drifted`);
   }
 });

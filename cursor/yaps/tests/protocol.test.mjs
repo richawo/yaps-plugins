@@ -1,14 +1,34 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { spawn } from "node:child_process";
 import { chmod, mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { tmpdir } from "node:os";
 import { fileURLToPath } from "node:url";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
+import { runCli } from "../helper/yaps-runtime.mjs";
 
 const pluginRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const skip = process.platform !== "darwin" ? "fixture uses macOS app metadata; Windows candidate tests run separately" : false;
+
+test("a media command uses the settings recovered from the running desktop", async () => {
+  const settingsPath = "C:\\canonical\\settings.json";
+  const session = {
+    path: "C:\\Yaps\\yaps_cli.exe",
+    settingsPath,
+    auth: { diagnosticCode: "followed_desktop_account" },
+  };
+  const spawnProcess = (_command, args, options) => spawn(process.execPath, [
+    "-e", "console.log(JSON.stringify({ args: process.argv.slice(1) }))", "--", ...args,
+  ], options);
+  const result = await runCli(
+    session,
+    ["--settings-path", "C:\\stale\\settings.json", "cut", "presets"],
+    { spawnProcess },
+  );
+  assert.deepEqual(result.args, ["--settings-path", settingsPath, "--pretty", "cut", "presets"]);
+});
 
 test("both packaged launchers speak MCP; Auto Cut executes and Memory retains native policy errors", { skip, timeout: 15000 }, async () => {
   const root = await mkdtemp(join(tmpdir(), "yaps-plugin-protocol-"));

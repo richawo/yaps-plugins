@@ -37,7 +37,10 @@ export async function prepareMemoryLaunch(options = {}) {
     command: connector.path,
     env: {
       ...env,
-      ...(cli.settingsPath && !env.YAPS_SETTINGS_PATH?.trim() ? { YAPS_SETTINGS_PATH: cli.settingsPath } : {}),
+      ...(cli.settingsPath && (!env.YAPS_SETTINGS_PATH?.trim()
+        || cli.auth?.diagnosticCode === "followed_desktop_account")
+        ? { YAPS_SETTINGS_PATH: cli.settingsPath }
+        : {}),
       // Resolve the actual host's identity instead of inheriting another
       // client's grant. Unknown hosts use the generic local-MCP identity.
       YAPS_MCP_CLIENT_ID: ["claude-code", "claude_code"].includes(env.YAPS_PLUGIN_HOST)
