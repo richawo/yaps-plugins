@@ -5,12 +5,12 @@
       "args": [
         "--yes",
         "--package",
-        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/c96839613550a79bc7b805285b700b8c681fffd4",
+        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/827cbbadbe27c0f3b00e5a091b36c139a56f4e55",
         "yaps-plugin-media"
       ],
       "env": {
         "YAPS_PLUGIN_ID": "yaps-all",
-        "YAPS_PLUGIN_VERSION": "1.1.0",
+        "YAPS_PLUGIN_VERSION": "1.1.1",
         "YAPS_PLUGIN_HOST": "hermes",
         "YAPS_PLUGIN_TRANSPORT": "mcp"
       }
@@ -20,12 +20,12 @@
       "args": [
         "--yes",
         "--package",
-        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/c96839613550a79bc7b805285b700b8c681fffd4",
+        "https://codeload.github.com/richawo/yaps-plugins/tar.gz/827cbbadbe27c0f3b00e5a091b36c139a56f4e55",
         "yaps-plugin-memory"
       ],
       "env": {
         "YAPS_PLUGIN_ID": "yaps-all",
-        "YAPS_PLUGIN_VERSION": "1.1.0",
+        "YAPS_PLUGIN_VERSION": "1.1.1",
         "YAPS_PLUGIN_HOST": "hermes",
         "YAPS_PLUGIN_TRANSPORT": "mcp",
         "YAPS_MCP_CLIENT_ID": "local-mcp",

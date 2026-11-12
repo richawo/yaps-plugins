@@ -1,6 +1,6 @@
 {
   "name": "yaps-translation",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Translate text or subtitle files with Yaps. Keep the original and preserve subtitle timing. New users: install Yaps and sign in.",
   "author": {
     "name": "Yaps AI",

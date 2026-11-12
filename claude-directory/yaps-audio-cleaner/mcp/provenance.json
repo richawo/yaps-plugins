@@ -1,10 +1,10 @@
 {
-  "source": "https://github.com/richawo/yaps-plugins/tree/59e51d380e5acdc1c1f13bc6200c3fbc4d3c6cef/cursor/yaps",
-  "revision": "59e51d380e5acdc1c1f13bc6200c3fbc4d3c6cef",
+  "source": "https://github.com/richawo/yaps-plugins/tree/827cbbadbe27c0f3b00e5a091b36c139a56f4e55/cursor/yaps",
+  "revision": "827cbbadbe27c0f3b00e5a091b36c139a56f4e55",
   "esbuild": "0.27.3",
   "sha256": {
-    "media.mjs": "73c334f2d22187e6205499bbd7ef006c3269ca93ce9393f30e3df779b421e624",
-    "memory.mjs": "940a2e9983c7c8616b0e4019cb4dc4e301d6dcc6a3e84a271c85d8dccb061149"
+    "media.mjs": "531a61de95d4023777faac7a999cc9931386b69e0f58d4d439c02c2eb1bed158",
+    "memory.mjs": "69f7774041428eb72265d671fd427ebfa3f1c945ba6ad86639b4a4861328f7df"
   },
   "dependencies": {
     "zod": "4.5.4",
