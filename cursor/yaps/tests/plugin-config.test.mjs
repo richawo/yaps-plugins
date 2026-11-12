@@ -37,7 +37,7 @@ test("Cursor plugin.json is structurally valid", () => {
   const manifest = readJson(".cursor-plugin/plugin.json");
   assert.equal(manifest.name, "yaps");
   assert.match(manifest.name, kebabName);
-  assert.equal(manifest.version, "0.2.0");
+  assert.match(manifest.version, /^\d+\.\d+\.\d+$/);
   assert.equal(typeof manifest.description, "string");
   assert.ok(manifest.description.length > 0);
   assert.equal(manifest.author?.name, "Yaps AI");
@@ -77,12 +77,12 @@ test("directory MCP configs install a pinned runtime without relying on a local 
   assert.equal(memory.env.YAPS_MCP_CLIENT_ID, "cursor");
   assert.equal(memory.env.YAPS_MCP_AUTO_AUTHORIZE_READ, "0");
   assert.equal(memory.env.YAPS_PLUGIN_ID, "yaps");
-  assert.equal(memory.env.YAPS_PLUGIN_VERSION, "0.2.0");
+  assert.equal(memory.env.YAPS_PLUGIN_VERSION, readJson(".cursor-plugin/plugin.json").version);
   const server = config.mcpServers?.yaps;
   assert.ok(server, "missing mcpServers.yaps");
   assert.equal(server.env.YAPS_PLUGIN_HOST, "cursor");
   assert.equal(server.env.YAPS_PLUGIN_ID, "yaps");
-  assert.equal(server.env.YAPS_PLUGIN_VERSION, "0.2.0");
+  assert.equal(server.env.YAPS_PLUGIN_VERSION, readJson(".cursor-plugin/plugin.json").version);
   assert.equal(server.env.YAPS_PLUGIN_TRANSPORT, "mcp");
   assert.equal(Object.hasOwn(server.env, "YAPS_CLI_BINARY"), false);
 

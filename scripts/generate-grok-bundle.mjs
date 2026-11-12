@@ -13,13 +13,12 @@ import { fileURLToPath } from "node:url";
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const output = resolve(process.argv[2] || join(repo, "grok/yaps"));
-const version = "1.0.0";
+const version = "1.0.1";
 
-// Both servers run from one immutable public source commit of this repository.
-// Its helper is byte-identical to yaps-cursor-runtime@0.3.0, and its Memory
-// launcher gives Grok the generic local-mcp Agent Access identity (the 0.3.1
-// change that is not on npm yet). Bump only to a pushed, reachable commit.
-const RUNTIME_COMMIT = "c96839613550a79bc7b805285b700b8c681fffd4";
+// Both servers use the verified Windows account runtime pinned to public source.
+// The Memory server keeps Grok on the generic local-mcp Agent Access identity.
+// Bump only to a pushed, reachable commit.
+const RUNTIME_COMMIT = "827cbbadbe27c0f3b00e5a091b36c139a56f4e55";
 const runtime = `https://codeload.github.com/richawo/yaps-plugins/tar.gz/${RUNTIME_COMMIT}`;
 
 const description =

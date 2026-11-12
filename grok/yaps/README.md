@@ -37,7 +37,7 @@ The plugin has two local stdio MCP servers and no hooks, commands, or agents:
 - `yaps`: transcription, meetings, captions, subtitles, translation, speech, audio cleanup, background removal, Auto Cut, video to audio, and dictation tools.
 - `yaps-memory`: the private-vault connector shipped inside the Yaps app.
 
-Both start with `npx` from one pinned public commit of this repository (`c96839613550a79bc7b805285b700b8c681fffd4`). npm fetches that source and its JavaScript dependencies (`@modelcontextprotocol/sdk`) and runs no install scripts. The servers call the Yaps CLI and vault connector that are already installed with the desktop app. They download no native binaries, fetch no remote scripts, and expose no generic shell tool.
+Both start with `npx` from one pinned public commit of this repository (`827cbbadbe27c0f3b00e5a091b36c139a56f4e55`). npm fetches that source and its JavaScript dependencies (`@modelcontextprotocol/sdk`) and runs no install scripts. The servers call the Yaps CLI and vault connector that are already installed with the desktop app. They download no native binaries, fetch no remote scripts, and expose no generic shell tool.
 
 The plugin asks for no credentials. It reuses the signed-in desktop account. Tool results, including transcripts or notes you ask for, go back to Grok and follow Grok's data handling, so request only what you are happy to share with it. The Yaps desktop app itself can contact `yaps-api.richardawoyemi.workers.dev` for account refresh, model downloads, and diagnostics under the [Yaps privacy policy](https://yaps.ai/privacy). The plugin adds no telemetry of its own.
 
